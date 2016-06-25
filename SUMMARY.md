@@ -6,5 +6,4 @@
 * [Architecture](architecture/index.md)
 * [IoT](IoT/index.md)
 * [Network](network/index.md)
-* Network
 
