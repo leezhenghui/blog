@@ -6,6 +6,5 @@ ZH's Pocket is devoted to highlighting whatever catches my attention, I am inter
 
 If you are interested in the topics I shared here, or you have any comments, suggestion or correction on my articles, please contact me at appropriate address below. Get in touch if you have project you'd like me to consider.
 
-* Email  :   leezhenghui@gmail.com
-* Google+:   leezhenghui@gmail.com
-* Wechat :   leezhenghui
+*    Email:   leezhenghui@gmail.com
+* Linkedin:   leezhenghui@gmail.com
