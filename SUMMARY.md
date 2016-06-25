@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
-* [Performance Tuning](perf/README.md)
-* [Android](android/README.md)
+* [Introduction](index.md)
+* [Performance Tuning](perf/index.md)
+* [Android](android/index.md)
 
