@@ -114,7 +114,12 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
     
     
 ## Wrap up
-     
-     
+
+IO Pattern:         Blocking and Sync ---> non-blocking Sync --> non-blocking async
+    OS(kernel):                            non-blocking socket           AIO
+                                              multipulex(epoll)
+Programming Model:                             Java NIO      --(event-loop)---->   Netty
+                                                 
+
      
      
