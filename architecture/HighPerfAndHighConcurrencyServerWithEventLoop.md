@@ -101,6 +101,8 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
               os(epoll) ---> (sync-demultipluxer(selector))
     From 3.x to 4.x, Netty get back to singlethread strategy for the thread-mode, because a good framework should know who important it is to reduce the complexicity for the end user. If each channel(connection) still can switch among different threads, that somewhat take programmer back to the bare reactor pattern, that is a regression from end user experience perspective.
     
+    Explain about event-loop in netty , channelpipeline in netty with diagram
+    
  ## Node.js:
  
  Diagram about how nodejs works
