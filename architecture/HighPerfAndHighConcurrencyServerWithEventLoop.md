@@ -45,7 +45,8 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
    ## Operating System(OS)
      In Linux, the real AIO actually is supported only on Disk IO, Poxis AIO actually introduced thread model, not a real AIO supported from kernel level. For Network IO, we only have non-blocking IO. 
      How can we achieve I/O multiplexing without thread-per-connection? You can simply do busy-wait polling for each connection with non-blocking socket operations, but this is too wasteful. What we need to know is which socket becomes ready. So the OS kernel provides a separate channel between your application and the kernel, and this channel notifies when some of your sockets become ready. This is how select()/poll() works, based on the readiness model. (http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
-     In Linux, for network, we only have multiplux way, 
+     In Linux, for network, we only have multiplux way,  to implement non-blocking and sync IO, OS need provide two things:
+     non-blocking socket, with this non-blocking socket, the caller thread can continue do some other things, in order to map the socket response to approparite socket client, a selector is needed here to do the mapping, once there is "readiness" event ready, and caller thread to pick that event up and do the corresponding actions on correct socket. This is multipluxer
      
      Explain what is multiplux(diagram)
      
