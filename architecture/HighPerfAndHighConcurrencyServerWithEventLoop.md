@@ -22,7 +22,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
     
     This model actually is mapped to the IO pattern -- Blocking Pattern
     
-## Recall C10K problem Reactor Pattern and Proactor Pattern
+## Recap C10K problem Reactor Pattern and Proactor Pattern
      15 Years ago, xxx arise C10K problem which was a big chellenge... 
      Explain reactor apttern and proactor pattern:
      
@@ -102,7 +102,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
  
  
  ## Is event-loop mode the ONLY approach to resolve the problem? 
- Of course not, the event loop mode actually is on the way of use less thread to service more connection. In an other hand, erlang and go are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
+ Of course not, the event loop mode actually is on the way of use less thread to service more connection. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
     
      
      
