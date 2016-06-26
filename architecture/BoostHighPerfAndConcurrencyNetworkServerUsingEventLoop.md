@@ -45,7 +45,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
  
  ### IO Patterns
        Thread-Based Pattern
-       Reactor Pattern
+       Reactor Pattern, both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
        Proactor Pattern
        
       
