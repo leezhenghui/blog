@@ -107,6 +107,9 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
  event_loop, the result will be callback to caller, it ussually come togegher with a well thread-mode implementation
  
  what is event loop(https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html)
+
+## Tick
+explain what is tick
  
  ## C programming language:
  Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
