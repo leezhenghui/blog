@@ -26,12 +26,14 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
      
      Those two pattern actually mapped to the two IO pattern:
      
-     Non-blocking IO
-     
-     Async IO
-     
-     Async IO is ideal, but it really rely on the Operating System support. 
-     
+    non-blocking sync IO: two things are quit important for this pattern:
+        non-blocking and multiplexing
+        
+        explain what is multiplexing(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
+    
+    non-blocking async IO
+    
+    
      In Linux, the real AIO actually is supported only on Disk IO, Poxis AIO actually introduced thread model, not a real AIO supported from kernel level. For Network IO, we only have non-blocking IO. 
      
      In Linux, for network, we only have multiplux way, 
