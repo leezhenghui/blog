@@ -2,7 +2,24 @@
 
 Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
 
-
+(ref: book: unix network programming chapter 6)Before describing select and poll, we need to step back and look at the bigger picture,
+examining the basic differences in the five I/O models that are available to us under Unix:
+blocking I/O
+nonblocking I/O
+I/O multiplexing (select and poll)
+signal driven
+(SIGIO)
+Table of I/O
+Contents
+•
+UNIX® Network Programming Volume 1, Third Edition: The Sockets Networking
+API
+asynchronous I/O (the POSIX aio_functions)
+By W. Richard Stevens , Bill Fenner , Andrew M. Rudoff
+You may want to skim this section on your first reading and then refer back to it as you
+encounter the different I/O models described in more detail in later chapters.
+Publisher: Addison Wesley
+As we show in all the examples in this section, ....
 
 ## IO Patterns
       Before we just into the docment, let's clarify some IO pattern concepts. Thoese are really important for us to understand the whole articles.
