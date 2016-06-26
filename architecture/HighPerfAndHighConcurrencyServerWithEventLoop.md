@@ -70,7 +70,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
  
  Libevent
  Libev
- Libuv
+ Libuv(https://nikhilm.github.io/uvbook/basics.html#event-loops)
  
  ## Java programming language:
  Netty:
