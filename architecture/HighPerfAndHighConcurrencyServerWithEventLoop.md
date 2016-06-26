@@ -65,6 +65,8 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
  
  https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html
  
+ event_loop, the result will be callback to caller
+ 
  ## C programming language:
  Nginx: event mode
  
