@@ -57,7 +57,34 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
      Give a chart about how epoll improve the perf so much
      (file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
      
-     Epoll is so important, explain a little bit more about the two work mode: LT和ET的区别(http://m.blog.csdn.net/article/details?id=39895449)
+     Epoll is so important, explain a little bit more about the two work mode: LT和ET的区别(http://m.blog.csdn.net/article/details?id=39895449, http://www.ccvita.com/515.html)
+     
+ ## From Reactor Pattern to Proactor pattern 
+ Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode  
+ Alought OS kernel did not provide us a easy to do this, smarter programmer never give up the effort to figure out a way  move to Proactor pattern on Reactor pattern, the answer is yes, we can 封装 a thread-mode to adopt the reactor pattern to proactor pattern
+ 
+ https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html
+ 
+ ## C programming language:
+ Nginx: event mode
+ 
+ Libevent
+ Libev
+ Libuv
+ 
+ ## Java programming langugae:
+ Netty:
+ 
+    Event-Loop(Thread mode) + ChannelPipleline(Extensible event handling framework)
+    
+    A diagram:
+    
+ ## Node.js:
+ 
+ 
+ ## Is event-loop mode the only approach to resolve the problem? 
+ Of course not, the event loop mode actually is on the way of use less thread to service more connection. In an other hand, erlang and go are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
+    
      
      
      
