@@ -16,7 +16,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
       
       E.g: Netty is a async IO framework, from the Netty API, it is a non-blocking ASync IO, but if we look into the implmentation, it actually based on Java NIO, the Java NIO on linux actually is based on epoll, that is a sync-multiplexing technology, it is not a AIO from kernel perspective. anyway, when we talk about IO pattern, we need to know what layer we are talking about, In a reality, some thread-model can convert a non-block sync IO to a non-blocking async IO...
       
-## Thread-Based Model
+## Thread-Based Model(a.k.a thread-per-connection)
     the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.
     Diagram of :Apache solution for high perfmance -- request per thread
     
@@ -25,6 +25,10 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
 ## Recall C10K problem Reactor Pattern and Proactor Pattern
      15 Years ago, xxx arise C10K problem which was a big chellenge... 
      Explain reactor apttern and proactor pattern:
+     
+     reactor pattern diagram (http://gngrwzrd.com/libgwrl/pod.html#reactor_pattern)
+     
+     proactor pattern diagram(https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/)
      
      Those two pattern actually mapped to the two IO pattern:
      
@@ -37,7 +41,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
     
     
      In Linux, the real AIO actually is supported only on Disk IO, Poxis AIO actually introduced thread model, not a real AIO supported from kernel level. For Network IO, we only have non-blocking IO. 
-     
+     How can we achieve I/O multiplexing without thread-per-connection? You can simply do busy-wait polling for each connection with non-blocking socket operations, but this is too wasteful. What we need to know is which socket becomes ready. So the OS kernel provides a separate channel between your application and the kernel, and this channel notifies when some of your sockets become ready. This is how select()/poll() works, based on the readiness model. (http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
      In Linux, for network, we only have multiplux way, 
      
      Explain what is multiplux(diagram)
@@ -52,16 +56,18 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
      
      Epoll was introduced by a paper, explain a little bit about that paper
      
-     Give a timeline of select --> poll --> paper -->epoll
+     Give a timeline of select --> poll --> paper -->epoll(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
      
      Give a chart about how epoll improve the perf so much
      (file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
      
      Epoll is so important, explain a little bit more about the two work mode: LT和ET的区别(http://m.blog.csdn.net/article/details?id=39895449, http://www.ccvita.com/515.html)
      
+     Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
+     
  ## From Reactor Pattern to Proactor pattern 
  Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode  
- Alought OS kernel did not provide us a easy to do this, smarter programmer never give up the effort to figure out a way  move to Proactor pattern on Reactor pattern, the answer is yes, we can 封装 a thread-mode to adopt the reactor pattern to proactor pattern, the answer is event-mode
+ Alought OS kernel did not provide us a easy to do this, smarter programmer never give up the effort to figure out a way  move to Proactor pattern on Reactor pattern, the answer is yes, we can 封装 a thread-mode to adopt the reactor pattern to proactor pattern, the answer is event-loop mode
  
  
  
@@ -70,7 +76,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
  what is event loop(https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html)
  
  ## C programming language:
- Nginx: event mode
+ Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
  
  Libevent
  Libev
