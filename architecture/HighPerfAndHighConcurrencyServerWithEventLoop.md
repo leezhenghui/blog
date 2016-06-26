@@ -22,8 +22,9 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
     
     This model actually is mapped to the IO pattern -- Blocking Pattern
     
-## Recap C10K problem Reactor Pattern and Proactor Pattern
-     15 Years ago, xxx arise C10K problem which was a big chellenge... 
+## Recap C10K problem 
+     15 Years ago, xxx arise C10K problem which was a big chellenge... the solution:
+     Reactor Pattern and Proactor Pattern
      Explain reactor apttern and proactor pattern:
      
      reactor pattern diagram (http://gngrwzrd.com/libgwrl/pod.html#reactor_pattern)
@@ -39,7 +40,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
     
     non-blocking async IO
     
-    
+   ## Operating System
      In Linux, the real AIO actually is supported only on Disk IO, Poxis AIO actually introduced thread model, not a real AIO supported from kernel level. For Network IO, we only have non-blocking IO. 
      How can we achieve I/O multiplexing without thread-per-connection? You can simply do busy-wait polling for each connection with non-blocking socket operations, but this is too wasteful. What we need to know is which socket becomes ready. So the OS kernel provides a separate channel between your application and the kernel, and this channel notifies when some of your sockets become ready. This is how select()/poll() works, based on the readiness model. (http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
      In Linux, for network, we only have multiplux way, 
