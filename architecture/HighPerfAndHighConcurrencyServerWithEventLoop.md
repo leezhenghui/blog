@@ -38,6 +38,11 @@ There is a very good article talking about POXIS AIO API, but If you were readin
       
       E.g: Netty is a async IO framework, from the Netty API, it is a non-blocking ASync IO, but if we look into the implmentation, it actually based on Java NIO, the Java NIO on linux actually is based on epoll, that is a sync-multiplexing technology, it is not a AIO from kernel perspective. anyway, when we talk about IO pattern, we need to know what layer we are talking about, In a reality, some thread-model can convert a non-block sync IO to a non-blocking async IO...
  ### Blocking, non-blocking, Sync and Async
+ 
+ ### IO Patterns
+       Thread-Based Pattern
+       Reactor Pattern
+       Proactor Pattern
        
       
 ## Thread-Based Model(a.k.a thread-per-connection)
