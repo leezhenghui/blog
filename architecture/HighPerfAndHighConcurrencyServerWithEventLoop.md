@@ -31,7 +31,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
     non-blocking sync IO: two things are quit important for this pattern:
         non-blocking and multiplexing
         
-        explain what is multiplexing(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
+        explain what is sync-multiplexing(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
     
     non-blocking async IO
     
