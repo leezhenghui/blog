@@ -72,7 +72,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
  Libev
  Libuv
  
- ## Java programming langugae:
+ ## Java programming language:
  Netty:
  
     Event-Loop(Thread mode) + ChannelPipleline(Extensible event handling framework)
