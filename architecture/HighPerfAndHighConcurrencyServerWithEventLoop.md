@@ -3,6 +3,8 @@
 Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
 
 ## IO Patterns
+      Before we just into the docment, let's clarify some IO pattern concepts. Thoese are really important for us to understand the whole articles.
+      
       Blocking 
       non-blocking
       Sync
