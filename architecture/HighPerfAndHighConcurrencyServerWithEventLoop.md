@@ -23,7 +23,8 @@ As we show in all the examples in this section, ....
 
 There is a very good article talking about POXIS AIO API, but If you were reading http://www.ibm.com/developerworks/linux/library/l-async/ , you may feel confusing.. Many years ago, when I first time read that doc, I also feel confusing, but I realized at that time Tim's asyn does not same as the book above.....
 
-## IO Patterns
+## Concepts 
+### IO Patterns
       Before we just into the docment, let's clarify some IO pattern concepts. Thoese are really important for us to understand the whole articles.
       
       Blocking 
@@ -36,6 +37,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
       Those patterns are common pattern and adopt to different level, so if we talking about these concept, please make sure we are talking on the same layer of things, e.g: are you talking about OS kernel, or some API or lib provided by a language.
       
       E.g: Netty is a async IO framework, from the Netty API, it is a non-blocking ASync IO, but if we look into the implmentation, it actually based on Java NIO, the Java NIO on linux actually is based on epoll, that is a sync-multiplexing technology, it is not a AIO from kernel perspective. anyway, when we talk about IO pattern, we need to know what layer we are talking about, In a reality, some thread-model can convert a non-block sync IO to a non-blocking async IO...
+ ### Sync and Async
       
 ## Thread-Based Model(a.k.a thread-per-connection)
     the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.
