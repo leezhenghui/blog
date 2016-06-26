@@ -21,6 +21,8 @@ encounter the different I/O models described in more detail in later chapters.
 Publisher: Addison Wesley
 As we show in all the examples in this section, ....
 
+If you were reading http://www.ibm.com/developerworks/linux/library/l-async/ , you may feel confusing.. Many years ago, when I first time read that doc, I also feel confusing, but I realized at that time Tim's asyn does not same as the book above.....
+
 ## IO Patterns
       Before we just into the docment, let's clarify some IO pattern concepts. Thoese are really important for us to understand the whole articles.
       
