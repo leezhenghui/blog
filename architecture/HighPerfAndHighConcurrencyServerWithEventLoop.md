@@ -119,7 +119,7 @@ IO Pattern:         Blocking and Sync ---> non-blocking Sync --> non-blocking as
     OS(kernel):                            non-blocking socket           AIO
                                               multipulex(epoll)
 Programming Model:                             Java NIO      --(event-loop)---->   Netty
-                                                 
-
+                                                 C-------------event-module--------> Nginx
+                                                 JS             (libuv)         ---> node.js
      
      
