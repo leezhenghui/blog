@@ -79,7 +79,7 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
  Please keep in mind, the event-loop mode we mentioned in this article is specific to IO event-loop, not a general event loop, as event loop mode actually is also used widely in the GUI world, e.g: user click mouse on a button, and move a window from one area to an other...
  
  
- event_loop, the result will be callback to caller
+ event_loop, the result will be callback to caller, it ussually come togegher with a well thread-mode implementation
  
  what is event loop(https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html)
  
