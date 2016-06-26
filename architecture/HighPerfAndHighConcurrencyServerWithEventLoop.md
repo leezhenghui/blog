@@ -2,6 +2,8 @@
 
 Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
 
+
+
 ## IO Patterns
       Before we just into the docment, let's clarify some IO pattern concepts. Thoese are really important for us to understand the whole articles.
       
@@ -109,6 +111,13 @@ Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-dem
  Diagram about how nodejs works
  (http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
  
+ (alternative begin: https://vimeo.com/96425312 Us JavaScript programmers like to use words like, "event-loop", "non-blocking", "callback", "asynchronous", "single-threaded" and "concurrency".
+
+We say things like "don't block the event loop", "make sure your code runs at 60 frames-per-second", "well of course, it won't work, that function is an asynchronous callback!"
+
+If you're anything like me, you nod and agree, as if it's all obvious, even though you don't actually know what the words mean; and yet, finding good explanations of how JavaScript actually _works_ isn't all that easy, so let's learn!
+
+With some handy visualisations, and fun hacks, let's get an intuitive understanding of what happens when JavaScript runs. Beginner or veteran, I'm sure you'll learn something!)
  
  ## Is event-loop mode the ONLY approach to resolve the problem? 
  Of course not, the event loop mode actually is on the way of use less thread to service more connection. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
