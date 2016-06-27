@@ -49,6 +49,8 @@ We use UDP for example, the process calls recvfrom and the system call does not 
 ~~~
 TODO, diagram
 ~~~
+
+is extremely inefficient because
 ### I/O Multiplexing
 
 ~~~
