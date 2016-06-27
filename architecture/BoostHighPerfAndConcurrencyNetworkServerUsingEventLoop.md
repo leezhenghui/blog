@@ -44,9 +44,9 @@ There is a very good article talking about POXIS AIO API, but If you were readin
        Async
  
  ### Programming Models(is is good to mentioned here, maybe better to introduced this in the place which use it, e.g: problem section to explain thread-based pattern, C10K solution to describe the others two pattern)
-       Thread-Based Pattern
-       Reactor Pattern, both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
-       Proactor Pattern
+#### Thread-Based Pattern
+#### Reactor Pattern, both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
+### Proactor Pattern
        
       
 ## Thread-Based Model(a.k.a thread-per-connection)
