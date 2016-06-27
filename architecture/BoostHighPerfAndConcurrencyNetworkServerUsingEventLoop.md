@@ -2,6 +2,9 @@
 
 Today in internet world, a common technology challenge we are facing in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop programming model seems usually take a key role in this area. Why? I would like to jot down this writing which came cross with my earlier experiences/research as future reference for me and any one who come across to this post. 
 
+```
+TO-DELETE:
+
 Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
 http://www.wangafu.net/~nickm/libevent-book/Ref0_meta.html
 (ref: book: unix network programming chapter 6)Before describing select and poll, we need to step back and look at the bigger picture,
@@ -25,7 +28,7 @@ Publisher: Addison Wesley
 As we show in all the examples in this section, ....
 
 There is a very good article talking about POXIS AIO API, but If you were reading http://www.ibm.com/developerworks/linux/library/l-async/ , you may feel confusing.. Many years ago, when I first time read that doc, I also feel confusing, but I realized at that time Tim's asyn does not same as the book above.....
-
+```
 ## Concepts 
 ### Classic I/O Models in *nix operating system
       Before we just into the docment, let's clarify some I/O pattern concepts. Thoese are really important for us to understand the whole articles.
