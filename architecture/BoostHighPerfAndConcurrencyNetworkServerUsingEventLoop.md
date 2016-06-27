@@ -130,7 +130,7 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
  
  event_loop, the result will be callback to caller, it usually come togegher with a well thread-model implementation
  
- what is event loop(https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html)
+ what is event loop(https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html, http://blog.jobbole.com/50138/)
 
 ### Tick
 explain what is tick in event loop programming model
