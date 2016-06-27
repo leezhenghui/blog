@@ -148,7 +148,7 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
  http://nginx-book.readthedocs.io/en/latest/chapter_06.html#event-40
  https://www.nginx.com/blog/thread-pools-boost-performance-9x/ (event loop and thread based event loop)
   http://slidedeck.io/donatasm/hacking-an-nginx-module (master and worker has their individual event loop)
-  http://www.aosabook.org/en/nginx.html (nginx uses multiplexing and event notifications heavily,)
+  http://www.aosabook.org/en/nginx.html (nginx uses multiplexing and event notifications heavily,Aimed at solving the C10K problem of 10,000 simultaneous connections, nginx was written with a different architecture in mind—one which is much more suitable for nonlinear scalability in both the number of simultaneous connections and requests per second. nginx is event-based, so it does not follow Apache's style of spawning new processes or threads for each web page request. The end result is that even as load increases, memory and CPU usage remain manageable. nginx can now deliver tens of thousands of concurrent connections on a server with typical hardware.)
   https://dzone.com/articles/inside-nginx-how-we-designed
  Libevent
  https://zhuanlan.zhihu.com/p/20315482
