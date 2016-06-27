@@ -182,6 +182,9 @@ Programming Model:                             Java NIO      --(event-loop)---->
                                                  
                                                  
              IO Pattern           BLocking and Sync -->(kernel) -->   NIO      Async IO
+             
+## References
+
                               
      
      
