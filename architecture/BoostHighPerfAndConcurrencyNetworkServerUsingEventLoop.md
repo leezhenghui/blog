@@ -66,7 +66,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
      
      proactor pattern diagram(https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/)
      
-     Those two pattern actually mapped to the two IO pattern:
+     Those two pattern actually mapped to the two I/O pattern:
      
     non-blocking sync IO: two things are quit important for this pattern:
         non-blocking and multiplexing
