@@ -1,7 +1,7 @@
 # Boost high performance&concurrency network server using event-loop model
 
 Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
-
+http://www.wangafu.net/~nickm/libevent-book/Ref0_meta.html
 (ref: book: unix network programming chapter 6)Before describing select and poll, we need to step back and look at the bigger picture,
 examining the basic differences in the five I/O models that are available to us under Unix:
 blocking I/O
