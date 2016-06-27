@@ -78,6 +78,8 @@ There is a very good article talking about POXIS AIO API, but If you were readin
     Let's explorer the situations from kernel and programming language..
     
    ## Linux Kernel Support
+   ### noblocking
+   http://www.wangafu.net/~nickm/libevent-book/01_intro.html
    ### AIO
      In Linux, the real AIO actually is supported only on Disk IO, (
      http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
