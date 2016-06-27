@@ -151,6 +151,8 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
   http://www.aosabook.org/en/nginx.html (nginx uses multiplexing and event notifications heavily,Aimed at solving the C10K problem of 10,000 simultaneous connections, nginx was written with a different architecture in mind—one which is much more suitable for nonlinear scalability in both the number of simultaneous connections and requests per second. nginx is event-based, so it does not follow Apache's style of spawning new processes or threads for each web page request. The end result is that even as load increases, memory and CPU usage remain manageable. nginx can now deliver tens of thousands of concurrent connections on a server with typical hardware.)
   https://dzone.com/articles/inside-nginx-how-we-designed
   http://www.xxbar.net/thread-854661-1-1.html(nginx use linux kernel aio for file access if compile with a specific tag)
+  http://www.infoq.com/cn/articles/thread-pools-boost-performance-9x
+  一些操作系统为读写文件提供了异步接口，NGINX可以使用这样的接口（见AIO指令）。FreeBSD就是个很好的例子。不幸的是，我们不能在Linux上得到相同的福利。虽然Linux为读取文件提供了一种异步接口，但是存在明显的缺点。其中之一是要求文件访问和缓冲要对齐，但NGINX很好地处理了这个问题。但是，另一个缺点更糟糕。异步接口要求文件描述符中要设置O_DIRECT标记，就是说任何对文件的访问都将绕过内存中的缓存，这增加了磁盘的负载。在很多场景中，这都绝对不是最佳选择。
  Libevent
  https://zhuanlan.zhihu.com/p/20315482
  Libev
