@@ -79,6 +79,10 @@ There is a very good article talking about POXIS AIO API, but If you were readin
      In Linux, the real AIO actually is supported only on Disk IO, (
      http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
      http://www.bullopensource.org/posix/ (not good at performance, it actually add a thread-mode in user-space, underearth, it still call the blocking system api)
+     http://man7.org/linux/man-pages/man7/aio.7.html(The current Linux POSIX AIO implementation is provided in user space
+       by glibc.  This has a number of limitations, most notably that
+       maintaining multiple threads to perform I/O operations is expensive
+       and scales poorly)
      http://stackoverflow.com/questions/8768083/difference-between-posix-aio-and-libaio-on-linux
      https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/ 
      The situation for the AIO mode however is bit different at least in the Linux
