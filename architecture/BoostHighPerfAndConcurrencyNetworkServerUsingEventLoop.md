@@ -49,7 +49,7 @@ A less efficient variant of synchronous blocking is synchronous non-blocking I/O
 ~~~
 TODO, diagram
 ~~~
-
+The implication of non-blocking is that an I/O command may not be satisfied immediately, requiring that the application make numerous calls to await completion. This can be extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is performed in the kernel. As also shown in Figure 3, this method can introduce latency in the I/O because any gap between the data becoming available in the kernel and the user calling read to return it can reduce the overall data throughput.
 is extremely inefficient because
 ### I/O Multiplexing
 
