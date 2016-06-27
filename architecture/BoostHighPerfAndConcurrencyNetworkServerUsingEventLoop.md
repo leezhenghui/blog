@@ -72,8 +72,10 @@ TODO, diagram
 ~~~
 We just explorer the 5 typical I/O models with examples from operating system level, 
 which explain the asynchronous and synchronous behaviors from the perspective of 
-user space and kernel space. Actually, the two terms can also be adopted to higher level programming languages. Just keep in mind, for asynchronous I/O model, after we make the call on the I/O facility, the process will not in pending status, once the response arrive, the datagram will be transferred by underlying system component on background, 
-and a compeletion event which carrying response/error should be notified to process.
+user space and kernel space. Actually, the two terms can also be adopted 
+to higher level programming languages. Just keep in mind, for asynchronous I/O model, 
+after we make the call on the I/O facility, the process will not in pending status, 
+once the response arrive, the data gram will be transferred by underlying system component on background and a completion event which carrying response/error should be notified to process.
 ~~~
 
 >  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see reference [[1]](http://www.ibm.com/developerworks/linux/library/l-async/)), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
