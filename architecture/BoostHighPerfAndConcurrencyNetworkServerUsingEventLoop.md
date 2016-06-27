@@ -24,7 +24,7 @@ As we show in all the examples in this section, ....
 There is a very good article talking about POXIS AIO API, but If you were reading http://www.ibm.com/developerworks/linux/library/l-async/ , you may feel confusing.. Many years ago, when I first time read that doc, I also feel confusing, but I realized at that time Tim's asyn does not same as the book above.....
 
 ## Concepts 
-### Classic IO Models in *nix operating system
+### Classic I/O Models in *nix operating system
       Before we just into the docment, let's clarify some IO pattern concepts. Thoese are really important for us to understand the whole articles.
       
       Blocking 
@@ -133,7 +133,7 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
 ### Tick
 explain what is tick in event loop programming model
  
- ## Event-loop based IO framework across different programming languages
+ ## Event-loop based I/O framework across different programming languages
  ### C programming language:
  Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
  
