@@ -29,8 +29,9 @@ As we show in all the examples in this section, ....
 
 There is a very good article talking about POXIS AIO API, but If you were reading http://www.ibm.com/developerworks/linux/library/l-async/ , you may feel confusing.. Many years ago, when I first time read that doc, I also feel confusing, but I realized at that time Tim's asyn does not same as the book above.....
 ```
-## Concepts 
-### Classic I/O Models in *nix operating system
+
+## Classic I/O Models Under Unix-like OS
+        Before we jump into event-loop programming model, we need to step back and take a look at the bigger picture, explorering the differences among the 5 classic I/O models that are available for us under unix-like operating system. 
       Before we just into the docment, let's clarify some I/O pattern concepts. Thoese are really important for us to understand the whole articles.
       
       Blocking 
