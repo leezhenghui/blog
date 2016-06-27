@@ -134,6 +134,7 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
 
 ### Tick
 explain what is tick in event loop programming model
+http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop-tick
  
  ## Event-loop based I/O framework across different programming languages
  ### C programming language:
