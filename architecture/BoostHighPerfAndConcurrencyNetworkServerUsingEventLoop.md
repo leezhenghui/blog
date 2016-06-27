@@ -139,7 +139,7 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
  ## Event-loop based I/O framework across different programming languages
  ### C programming language:
  Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
- 
+ event module: http://www.cnblogs.com/fll369/archive/2012/11/29/2794939.html
  Libevent
  Libev
  Libuv(https://nikhilm.github.io/uvbook/basics.html#event-loops)
