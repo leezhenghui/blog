@@ -174,6 +174,7 @@ With some handy visualisations, and fun hacks, let's get an intuitive understand
  
  ## Is event-loop model the ONLY approach to resolve the problem? 
  Of course not, the event loop mode actually is on the way of use less thread to service more connection. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
+ http://demo.netfoucs.com/jiao_fuyou/article/details/36010691
     
     
 ## Wrap up
