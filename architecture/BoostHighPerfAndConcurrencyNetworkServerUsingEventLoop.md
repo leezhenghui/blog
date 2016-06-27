@@ -70,12 +70,13 @@ TODO, diagram
 ~~~
 
 ~~~
-We have explorered the 5 typical I/O models with examples from operating system level, 
-which explain the asynchronous and synchronous behaviors from the perspective of 
-user space and kernel space. Actually, the two terms can also be adopted 
-to higher level programming languages. Just keep in mind, for asynchronous I/O model, 
-after we make the call on the I/O facility, the process will not in pending status, 
-once the response arrive, the data gram will be transferred by underlying system component
+We have explorered  5 typical I/O models under unix-like OS with examples 
+from operating system level, which explain the asynchronous and synchronous 
+behaviors from the perspective of user space and kernel space. Actually, 
+the two terms can also be adopted to higher level programming languages. 
+Just keep in mind, for asynchronous I/O model, after we make the call on 
+the I/O facility, the process will not in pending status, once the response 
+arrive, the data gram will be transferred by underlying system component 
 on background and a completion event which carrying response/error should be notified to process.
 ~~~
 
