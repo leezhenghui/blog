@@ -148,7 +148,7 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
  http://nginx-book.readthedocs.io/en/latest/chapter_06.html#event-40
  https://www.nginx.com/blog/thread-pools-boost-performance-9x/ (event loop and thread based event loop)
   http://slidedeck.io/donatasm/hacking-an-nginx-module (master and worker has their individual event loop)
-  http://www.aosabook.org/en/nginx.html
+  http://www.aosabook.org/en/nginx.html (nginx uses multiplexing and event notifications heavily,)
   https://dzone.com/articles/inside-nginx-how-we-designed
  Libevent
  https://zhuanlan.zhihu.com/p/20315482
