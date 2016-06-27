@@ -137,6 +137,7 @@ explain what is tick
  ## C programming language:
  Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
  https://www.nginx.com/blog/thread-pools-boost-performance-9x/
+  http://slidedeck.io/donatasm/hacking-an-nginx-module
  Libevent
  Libev
  Libuv(https://nikhilm.github.io/uvbook/basics.html#event-loops)
