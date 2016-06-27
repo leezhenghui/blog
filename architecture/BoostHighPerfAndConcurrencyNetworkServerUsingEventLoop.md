@@ -76,7 +76,12 @@ There is a very good article talking about POXIS AIO API, but If you were readin
     non-blocking async IO
     
    ## Operating System(OS)
-     In Linux, the real AIO actually is supported only on Disk IO, (https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/ The situation for the AIO mode however is bit different at least in the Linux
+     In Linux, the real AIO actually is supported only on Disk IO, (
+     http://lse.sourceforge.net/io/aio.html,
+     http://www.bullopensource.org/posix/
+     http://stackoverflow.com/questions/8768083/difference-between-posix-aio-and-libaio-on-linux
+     https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/ 
+     The situation for the AIO mode however is bit different at least in the Linux
 case. The aio support for sockets in Linux seems to be shady at best with some
 suggesting it is actually using readiness events at kernel level while providing
 an asynchronous abstraction on completion events at application level. However
