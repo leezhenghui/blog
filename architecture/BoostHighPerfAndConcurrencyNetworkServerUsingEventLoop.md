@@ -60,7 +60,7 @@ What is Multiplex?
 ~~~
 TODO, diagram
 ~~~
-### Signal Driven I/O
+### Signal driven I/O
 
 ~~~
 TODO, diagram
