@@ -35,10 +35,14 @@ There is a very good article talking about POXIS AIO API, but If you were readin
 Before we jump into event-loop programming model, we need to step back and take a look at the bigger picture, explorering the differences among the 5 classic I/O models that are available for us under unix-like operating system. 
 
 ### Synchronous Blocking I/O
+One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks until the system call is complete (data transferred or error)
+
 ### Synchronous Non-blocking I/O
 ### Synchronous I/O Multiplexing
 ### Synchronous Signal Driven I/O
 ### Asynchronous I/O
+
+>  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see reference [1]), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be better.
 
 ```
 TO-DELETE
@@ -220,7 +224,7 @@ Programming Model:                             Java NIO      --(event-loop)---->
              IO Pattern           BLocking and Sync -->(kernel) -->   NIO      Async IO
              
 ## References
-
+[1] http://www.ibm.com/developerworks/linux/library/l-async/
                               
      
      
