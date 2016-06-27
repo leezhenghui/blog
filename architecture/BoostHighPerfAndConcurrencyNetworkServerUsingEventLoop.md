@@ -36,7 +36,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
 Before we jump into event-loop programming model, we need to step back and take a look at the bigger picture, explorering the differences among the 5 classic I/O models that are available for us under unix-like operating system. 
 
 ### Blocking I/O
-One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (data transferred or error)
+One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error occurs)
 
 ~~~
 TODO, diagram
