@@ -6,6 +6,7 @@ http://www.wangafu.net/~nickm/libevent-book/Ref0_meta.html
 examining the basic differences in the five I/O models that are available to us under Unix:
 blocking I/O
 nonblocking I/O
+(busy poll , the bad sample , http://www.wangafu.net/~nickm/libevent-book/01_intro.html)
 I/O multiplexing (select and poll)
 signal driven
 (SIGIO)
