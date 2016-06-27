@@ -75,6 +75,8 @@ There is a very good article talking about POXIS AIO API, but If you were readin
     
     non-blocking async IO
     
+    Let's explorer the situations from kernel and programming language..
+    
    ## Linux Kernel Support
    ### AIO
      In Linux, the real AIO actually is supported only on Disk IO, (
