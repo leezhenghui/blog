@@ -25,7 +25,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
 
 ## Concepts 
 ### Classic I/O Models in *nix operating system
-      Before we just into the docment, let's clarify some IO pattern concepts. Thoese are really important for us to understand the whole articles.
+      Before we just into the docment, let's clarify some I/O pattern concepts. Thoese are really important for us to understand the whole articles.
       
       Blocking 
       non-blocking
