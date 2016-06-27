@@ -70,7 +70,7 @@ TODO, diagram
 ~~~
 
 ~~~
-We just explorer the 5 typical I/O models with examples from operating system level, 
+We have explorered the 5 typical I/O models with examples from operating system level, 
 which explain the asynchronous and synchronous behaviors from the perspective of 
 user space and kernel space. Actually, the two terms can also be adopted 
 to higher level programming languages. Just keep in mind, for asynchronous I/O model, 
