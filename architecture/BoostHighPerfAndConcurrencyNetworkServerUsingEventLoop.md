@@ -1,4 +1,4 @@
-# Boost high performance&concurrency network server using event loop model
+# Boost high performance&concurrency network server using event-loop model
 
 Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
 
