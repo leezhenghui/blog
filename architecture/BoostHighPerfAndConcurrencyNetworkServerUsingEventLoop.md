@@ -1,6 +1,7 @@
 # Boost high performance&concurrency network server using event-loop model
 
-Suppose that you have played with high performance network server, if you dig into the design/implementation details, you will find many of them are following event-loop programming model. Why? 
+Today in internet world, a common technology challenge we are facing in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Dig into the excellent network server designs/implementations, the event-loop programming model seems usually take a key role in this area, especially, in Unix-like operation system. Why? I would like to jot down some my earlier investigation/research 
+
 Note: structure reference: https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
 http://www.wangafu.net/~nickm/libevent-book/Ref0_meta.html
 (ref: book: unix network programming chapter 6)Before describing select and poll, we need to step back and look at the bigger picture,
