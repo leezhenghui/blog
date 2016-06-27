@@ -114,6 +114,7 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
      Epoll was introduced by a paper, explain a little bit about that paper(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
      http://blog.csdn.net/zys85/article/details/3710579
      http://it.taocms.org/12/6246.htm
+     http://slidedeck.io/donatasm/hacking-an-nginx-module
      Give a timeline of select --> poll --> paper -->epoll(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html, file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
      
      Give a chart about how epoll improve the perf so much
@@ -145,6 +146,10 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
  Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
  event module: http://www.cnblogs.com/fll369/archive/2012/11/29/2794939.html
  http://nginx-book.readthedocs.io/en/latest/chapter_06.html#event-40
+ https://www.nginx.com/blog/thread-pools-boost-performance-9x/ (event loop and thread based event loop)
+  http://slidedeck.io/donatasm/hacking-an-nginx-module (master and worker has their individual event loop)
+  http://www.aosabook.org/en/nginx.html
+  https://dzone.com/articles/inside-nginx-how-we-designed
  Libevent
  https://zhuanlan.zhihu.com/p/20315482
  Libev
