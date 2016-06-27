@@ -37,6 +37,10 @@ Before we jump into event-loop programming model, we need to step back and take 
 ### Blocking I/O
 One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks until the system call is complete (data transferred or error)
 
+~~~
+TODO, diagram
+~~~
+
 ### Non-blocking I/O
 ### I/O Multiplexing
 ### Signal Driven I/O
