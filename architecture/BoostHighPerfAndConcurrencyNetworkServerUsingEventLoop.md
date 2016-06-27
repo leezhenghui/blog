@@ -33,7 +33,12 @@ There is a very good article talking about POXIS AIO API, but If you were readin
 ## Classic I/O Models Under Unix-like OS
 
 Before we jump into event-loop programming model, we need to step back and take a look at the bigger picture, explorering the differences among the 5 classic I/O models that are available for us under unix-like operating system. 
-        
+
+### Blocking I/O
+### Nonblocking I/O
+### I/O Multiplexing
+### Signal Driven I/O
+### Asynchronous I/O
 
 ```
 TO-DELETE
