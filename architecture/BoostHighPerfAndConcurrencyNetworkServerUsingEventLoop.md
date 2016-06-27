@@ -192,7 +192,7 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
  Please keep in mind, the event-loop mode we mentioned in this article is specific to IO event-loop, not a general event loop, as event loop mode actually is also used widely in the GUI world, e.g: user click mouse on a button, and move a window from one area to an other...
  
  
- event_loop, the result will be callback to caller, it usually come togegher with a well thread-model implementation
+ event_loop, the result will be callback to caller, it usually come together with a well thread-model implementation
  
  what is event loop(https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html, http://blog.jobbole.com/50138/)
 
