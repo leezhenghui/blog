@@ -48,7 +48,7 @@ TODO, diagram
 ### Signal Driven I/O
 ### Asynchronous I/O
 
->  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see reference [[1]](http://www.ibm.com/developerworks/linux/library/l-async/)), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be better.
+>  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see reference [[1]](http://www.ibm.com/developerworks/linux/library/l-async/)), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
 
 ```
 TO-DELETE
