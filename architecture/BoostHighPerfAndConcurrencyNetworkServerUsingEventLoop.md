@@ -77,7 +77,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
     
    ## Operating System(OS)
      In Linux, the real AIO actually is supported only on Disk IO, (
-     http://lse.sourceforge.net/io/aio.html,
+     http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
      http://www.bullopensource.org/posix/
      http://stackoverflow.com/questions/8768083/difference-between-posix-aio-and-libaio-on-linux
      https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/ 
