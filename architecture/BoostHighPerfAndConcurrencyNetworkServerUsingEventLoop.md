@@ -146,6 +146,7 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
  event module: http://www.cnblogs.com/fll369/archive/2012/11/29/2794939.html
  http://nginx-book.readthedocs.io/en/latest/chapter_06.html#event-40
  Libevent
+ https://zhuanlan.zhihu.com/p/20315482
  Libev
  Libuv(https://nikhilm.github.io/uvbook/basics.html#event-loops)
  
