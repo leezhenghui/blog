@@ -38,10 +38,13 @@ Before we jump into event-loop programming model, we need to step back and take 
 ### Blocking I/O
 One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks until the system call is complete (data transferred or error)
 
-
 ~~~
 TODO, diagram
 ~~~
+
+We use UDP for example, the process calls recvfrom and the system call does not return until the datagram arrives and is transferred from kernel buffer into our application buffer, or an error occurs. We say that our process is blocked the entire time from when it calls recvfrom until it returns. When recvfrom returns successfully, our application continue processing the datagram.
+
+Now, blocking IO is not necessarily evil. If there’s nothing else you wanted your program to do in the meantime, blocking IO will work fine for you. But suppose that you need to write a program to handle multiple connections at once.
 
 ### Non-blocking I/O
 
