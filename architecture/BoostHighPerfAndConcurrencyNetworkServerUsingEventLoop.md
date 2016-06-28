@@ -74,6 +74,9 @@ TODO, diagram
 TODO, diagram
 ~~~
 
+### Blocking vs. Non-blocking
+
+### Async vs. Sync
 ~~~
 We have explorered  5 typical I/O models under unix-like OS with examples 
 from operating system level, which explain the asynchronous and synchronous 
