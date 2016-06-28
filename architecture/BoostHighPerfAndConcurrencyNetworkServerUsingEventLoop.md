@@ -60,6 +60,8 @@ In this model, a device is opened as non-blocking. This means that instead of co
 
 What is Multiplex? 
 
+I/O Multiplexing
+
 ~~~
 TODO, diagram
 ~~~
