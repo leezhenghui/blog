@@ -136,7 +136,8 @@ TO-DELETE
 ## Recap C10K problem
 
 With the warm-up of above concepts, we finally get to the problem. 15 Years ago, xxx arise C10K problem which was a big chellenge( This situation is often called the c10k problem. With select() or poll(), your network server will hardly perform any useful things but wasting precious CPU cycles under such high load. C10K was raised at time based on that time condition/situation(both hardware and interenet environment)..Today, C10K problem itself is not a problem anymore, people are resolving the challenge of C10M, but the insights/solution for C10K still play a key role in this area. 
- http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
+
+http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
  file:///home/lizh/materials/studyplan/Nginx/%E6%9E%B6%E6%9E%84%E5%B8%88%E5%AE%9E%E8%B7%B5%E6%97%A5%EF%BD%9C%E4%BB%8EC10K%E5%88%B0C10M%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E5%AE%9E%E8%B7%B5%C2%A0%20_%20%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8.html)... the solution:
      Reactor Pattern and Proactor Pattern
      Explain reactor apttern and proactor pattern:
