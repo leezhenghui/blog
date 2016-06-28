@@ -30,10 +30,11 @@ As we show in all the examples in this section, ....
 There is a very good article talking about POXIS AIO API, but If you were reading http://www.ibm.com/developerworks/linux/library/l-async/ , you may feel confusing.. Many years ago, when I first time read that doc, I also feel confusing, but I realized at that time Tim's asyn does not same as the book above.....
 ~~~
 
+Before jumping into event-loop programming model, let's step back and take a look at the bigger picture, exploring the differences among these typical and classic I/O models under unix-like operating system as well as the appropriate programming models which fit in these I/O models.
 
-## Typical input and output(I/O) models under unix-like OS
+## I/O models under unix-like OS
 
-Before jumping into event-loop programming model, let's step back and take a look at the bigger picture, exploring the differences among the 5 typical and classic I/O models under unix-like operating system as well as the appropriate programming models which fit in these I/O models.
+
 
 ### Blocking I/O
 One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
