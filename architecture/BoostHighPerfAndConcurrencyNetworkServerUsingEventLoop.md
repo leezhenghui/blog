@@ -86,7 +86,7 @@ Sync: xxxx
 
 In the book of Unix network programming, it is talking about the I/O from operating system perspecitve. so we see the sample/explanation usually from a system call, and the anaylysis put more attention on the check of how the response datagram get back from kernel space to user space. From kernel support perspecitve, it depends that fact of whether the data is carried by from kernel space to user space under background.
 We can also extend those idea/concept to a higher software layer,and check the I/O facility we used in that layer by the similar way, i.e how the facility consumer get the response or reported by the error.
-e.g: Java NIO is sync, but NIO2 async API perform async behavior
+e.g: in Java world, java NIO is sync with multipluxing, java NIO2 async API actually perform async style interactions
 ~~~
 We have explorered  5 typical I/O models under unix-like OS with examples 
 from operating system level, which explain the asynchronous and synchronous 
