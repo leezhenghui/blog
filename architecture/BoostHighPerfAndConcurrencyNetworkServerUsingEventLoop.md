@@ -268,7 +268,7 @@ With some handy visualisations, and fun hacks, let's get an intuitive understand
  ## Event-loop weak point
 For the thread model, e.g: node.js, in the main loop, if cpu-intensive job performance, all of server will lost response. proposal is separate the cpu-intensive work to spwan process.
 Nginx realize this problem, in 1.7, it introduce multple thread model in their even model
-Netty's event-loop can add customized strategy
+Netty's event-loop can add customized strategy ??
  ## Is event-loop model the ONLY approach to resolve the problem? 
  Of course not, the event loop mode actually is on the way of use less thread to service more connection. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
  http://demo.netfoucs.com/jiao_fuyou/article/details/36010691
