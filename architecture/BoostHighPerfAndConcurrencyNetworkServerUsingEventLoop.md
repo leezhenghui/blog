@@ -135,7 +135,7 @@ TO-DELETE
     
 ## Recap C10K problem
 
-Finally get to the problem -- C10K. 15 Years ago, xxx arise C10K problem which was a big chellenge( This situation is often called the c10k problem. With select() or poll(), your network server will hardly perform any useful things but wasting precious CPU cycles under such high load. 
+Finally, we get to the problem -- C10K. 15 Years ago, xxx arise C10K problem which was a big chellenge( This situation is often called the c10k problem. With select() or poll(), your network server will hardly perform any useful things but wasting precious CPU cycles under such high load. 
 
 C10K was raised based on condition/situation(both hardware and whole interenet ecosystem) at that time..Today, C10K problem itself is not a problem anymore, people even trying to resolve the challenge of C10M, but the insights/solution for C10K as the foundation of so many perfect softwares still enlighten us and point us to a way forward. 
 
