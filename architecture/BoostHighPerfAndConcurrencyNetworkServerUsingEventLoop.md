@@ -34,7 +34,9 @@ Before jumping into event-loop programming model, let's step back and take a loo
 
 ## I/O models under unix-like OS
 
-
+~~~
+  TODO, there are 5 I/O models comes from unix network programming
+~~~
 
 ### Blocking I/O
 One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
