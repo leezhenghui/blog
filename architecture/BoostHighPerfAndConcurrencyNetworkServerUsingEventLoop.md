@@ -79,6 +79,10 @@ TODO, diagram
 ### Blocking vs. Non-blocking
 
 ### Async vs. Sync
+Both terms we used in this docutment are following POXIS standard definition. 
+
+Async: xxxxx
+Sync: xxxx
 
 From kernel support perspecitve, it depends that fact of whether the data is carried by from kernel space to user space under background.
 We can also expands this to programming model, means, we need to check, if the I/O facility can return back response/error to consumer side without consumer to trigger a "ask for" action, that is async, otherwise, sync
