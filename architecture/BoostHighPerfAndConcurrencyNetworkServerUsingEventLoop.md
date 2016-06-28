@@ -79,6 +79,10 @@ TODO, diagram
 ### Blocking vs. Non-blocking
 
 ### Async vs. Sync
+
+From kernel support perspecitve, it depends that fact of whether the data is carried by from kernel space to user space under background.
+We can also expands this to programming model, means, we need to check, if the I/O facility can return back response/error to consumer side without consumer to trigger a "ask for" action, that is async, otherwise, sync
+e.g: Java NIO is sync, but NIO2 async API perform async behavior
 ~~~
 We have explorered  5 typical I/O models under unix-like OS with examples 
 from operating system level, which explain the asynchronous and synchronous 
