@@ -141,8 +141,10 @@ SIGUSR1 Handler End
 SIGUSR1 Handler Enter
 SIGUSR1 Handler End
 SIGUSR1 was raised 2 times
-
 ```
+
+Above is proof of "If the same signal is delivered more than once while it is being
+handled, the handler is only executed once more after it completes the original execution."
 
 ### Asynchronous I/O
 
