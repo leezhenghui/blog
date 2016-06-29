@@ -134,7 +134,7 @@ Run the command below
 for i in {1..1000}; do kill -s USR1 28333; done
 ```
 
-``` stdout
+``` console
 SIGUSR1 was raised 1 times
 SIGUSR1 Handler Enter
 SIGUSR1 Handler End
