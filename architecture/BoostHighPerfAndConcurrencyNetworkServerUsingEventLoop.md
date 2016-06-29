@@ -129,6 +129,21 @@ int main ()
 
 ```
 
+Run the command below
+``` bash
+for i in {1..1000}; do kill -s USR1 28333; done
+```
+
+``` stdout
+SIGUSR1 was raised 1 times
+SIGUSR1 Handler Enter
+SIGUSR1 Handler End
+SIGUSR1 Handler Enter
+SIGUSR1 Handler End
+SIGUSR1 was raised 3 times
+
+```
+
 ### Asynchronous I/O
 
 ~~~
