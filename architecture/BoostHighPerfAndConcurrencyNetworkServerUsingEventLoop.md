@@ -185,6 +185,11 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
    ## Linux Kernel Support
    ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
+   book: TCPIP socket In C practical guide for programmer
+   write a sample here:
+   ```
+       TODO, sample code
+   ```
    ### AIO
      In Linux, the real AIO actually is supported only on Disk IO, (
      http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
