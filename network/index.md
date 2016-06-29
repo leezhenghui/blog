@@ -5,5 +5,5 @@
 
 ## NAT Traversal
 
-## NAT Traversal via UDP protocol With Practice
+## Practical NAT Traversal with UDP protocol
 
