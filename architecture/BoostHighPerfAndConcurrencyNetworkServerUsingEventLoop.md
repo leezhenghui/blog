@@ -119,8 +119,12 @@ int main ()
   sa.sa_handler = &handler;
   sigaction (SIGUSR1, &sa, NULL);
   
-  sleep(90);
-  printf (“SIGUSR1 was raised %d times\n”, sigusr1_count);
+  while(true) 
+  {
+    printf (“SIGUSR1 was raised %d times\n”, sigusr1_count);
+    sleep(10);
+  }
+  
  
   return 0;
 }
