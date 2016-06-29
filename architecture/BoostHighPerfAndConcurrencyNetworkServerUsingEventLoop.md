@@ -230,8 +230,9 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
      
      Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
      
-   The synchornized-demultiplexing evolution:
-   
+   The synchornized-demultiplexing evolution timeline:
+      poll --> select --> paper --> epoll --> ?(aio combined epoll)
+      最后这项需要调研一下
      
  ## Event Loop Programming Model(The Bridge of From Reactor Pattern to Proactor pattern) 
  Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode  
