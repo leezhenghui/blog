@@ -230,6 +230,9 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
      
      Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
      
+   The synchornized-demultiplexing evolution:
+   
+     
  ## Event Loop Programming Model(The Bridge of From Reactor Pattern to Proactor pattern) 
  Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode  
  Alought OS kernel did not provide us a easy to do this, smarter programmer never give up the effort to figure out a way  move to Proactor pattern on Reactor pattern, the answer is yes, we can 封装 a thread-mode to adopt the reactor pattern to proactor pattern, the answer is event-loop mode
