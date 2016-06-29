@@ -121,7 +121,7 @@ int main ()
   
   while(true) 
   {
-    printf (“SIGUSR1 was raised %d times\n”, sigusr1_count);
+    printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
     sleep(10);
   }
 
