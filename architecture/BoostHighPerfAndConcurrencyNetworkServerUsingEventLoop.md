@@ -369,6 +369,7 @@ void SIGIOHandler(int signalType)
     /* Nothing left to receive */
 }
    ```
+   TODO, if we turn on two port in one thread, and the signal handler is busy with port-1 message handling, can it receive message from port-2 via the signal handler way?
    ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
    book: TCPIP socket In C practical guide for programmer
