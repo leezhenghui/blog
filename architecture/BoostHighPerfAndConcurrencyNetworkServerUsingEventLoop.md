@@ -106,6 +106,10 @@ sig_atomic_t sigusr1_count = 0;
 void handler (int signal_number)
 {
   ++sigusr1_count;
+ /*
+  * sleep for 60 seconds 
+  */
+  sleep(60);
 }
 
 int main ()
@@ -118,10 +122,7 @@ int main ()
   /* ... */
   */
   printf (“SIGUSR1 was raised %d times\n”, sigusr1_count);
-  /*
-   * sleep for 60 seconds 
-   */
-  sleep(60);
+ 
   return 0;
 }
 ```
