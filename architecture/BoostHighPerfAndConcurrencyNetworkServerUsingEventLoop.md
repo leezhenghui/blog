@@ -138,7 +138,8 @@ for i in {1..100}; do kill -s USR1 28333; done
 SIGUSR1 was raised 0 times
 SIGUSR1 Handler Enter
 SIGUSR1 Handler End
-SIGUSR1 Handler Enter
+SIGUSR1 Handler Ent
+er
 SIGUSR1 Handler End
 SIGUSR1 was raised 2 times
 ```
@@ -191,7 +192,8 @@ arrive, the data gram will be transferred by underlying system component
 on background and a completion event which carrying response/error should be notified to process.
 ~~~
 
->  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see reference [[1]](http://www.ibm.com/developerworks/linux/library/l-async/)), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
+>  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see refe
+>  rence [[1]](http://www.ibm.com/developerworks/linux/library/l-async/)), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
 
 ```
 TO-DELETE
