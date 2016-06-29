@@ -54,6 +54,9 @@ process to sleep, but return an error instead.
 ~~~
 TODO, diagram
 ~~~
+The difficulty with nonblocking socket calls is that there is no way of knowing when one would
+succeed, except by periodically trying it until it does (a process known as “polling”)
+
 In this model, a device is opened as non-blocking. This means that instead of completing an I/O immediately, a read may return an error code indicating that the command could not be immediately satisfied (EAGAIN or EWOULDBLOCK), as shown in Figure 3.The implication of non-blocking is that an I/O command may not be satisfied immediately, requiring that the application make numerous calls to await completion. This can be extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is performed in the kernel. As also shown in Figure 3, this method can introduce latency in the I/O because any gap between the data becoming available in the kernel and the user calling read to return it can reduce the overall data throughput.
 
 ### I/O multiplexing
