@@ -93,6 +93,37 @@ So, if we have concurrency connections, after we register the signal handler, we
 (wikipedia https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29)
 Available in BSD and POSIX Unix. I/O is issued asynchronously, and when it is completed a signal (interrupt) is generated. As in low-level kernel programming, the facilities available for safe use within the signal handler are limited, and the main flow of the process could have been interrupted at nearly any point, resulting in inconsistent data structures as seen by the signal handler. The signal handler is usually not able to issue further asynchronous I/O by itself.
 
+### signal
+``` c
+#include
+#include
+#include
+#include
+#include
+<signal.h>
+<stdio.h>
+<string.h>
+<sys/types.h>
+<unistd.h>
+sig_atomic_t sigusr1_count = 0;
+void handler (int signal_number)
+{
+++sigusr1_count;
+}
+int main ()
+{
+struct sigaction sa;
+memset (&sa, 0, sizeof (sa));
+sa.sa_handler = &handler;
+sigaction (SIGUSR1, &sa, NULL);
+/* Do some lengthy stuff here.
+/* ... */
+*/
+printf (“SIGUSR1 was raised %d times\n”, sigusr1_count);
+return 0;
+}
+```
+
 ### Asynchronous I/O
 
 ~~~
