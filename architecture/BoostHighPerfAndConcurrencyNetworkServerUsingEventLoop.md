@@ -123,6 +123,10 @@ int main ()
   /* ... */
   */
   printf (“SIGUSR1 was raised %d times\n”, sigusr1_count);
+  /*
+   * sleep for 60 seconds 
+   */
+  sleep(60);
   return 0;
 }
 ```
