@@ -231,7 +231,7 @@ Windows seems to support this first class again via “I/O Completion Ports”.)
      Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
      
    The synchornized-demultiplexing evolution timeline:
-      poll --> select --> paper --> epoll --> ?(aio combined epoll)
+      select --> poll --> paper --> epoll --> ?(aio combined epoll)
       最后这项需要调研一下
      
  ## Event Loop Programming Model(The Bridge of From Reactor Pattern to Proactor pattern) 
