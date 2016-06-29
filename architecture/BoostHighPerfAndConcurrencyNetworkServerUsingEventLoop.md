@@ -88,7 +88,7 @@ It is important to realize that signals are not queued—a signal is
 either pending or it is not. If the same signal is delivered more than once while it is being
 handled, the handler is only executed once more after it completes the original execution.
 
-So, if we have concurrency connections, after we register the signal handler, we only can receive the previous notification, some subseqencing notifications will be ignored!
+
 
 (wikipedia https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29)
 Available in BSD and POSIX Unix. I/O is issued asynchronously, and when it is completed a signal (interrupt) is generated. As in low-level kernel programming, the facilities available for safe use within the signal handler are limited, and the main flow of the process could have been interrupted at nearly any point, resulting in inconsistent data structures as seen by the signal handler. The signal handler is usually not able to issue further asynchronous I/O by itself.
@@ -145,6 +145,8 @@ SIGUSR1 was raised 2 times
 
 Above is proof of "If the same signal is delivered more than once while it is being
 handled, the handler is only executed once more after it completes the original execution."
+
+So, if we have concurrency connections, after we register the signal handler, we only can receive the previous notification, some subseqencing notifications will be ignored!
 
 ### Asynchronous I/O
 
