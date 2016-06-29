@@ -73,6 +73,12 @@ TODO, diagram
 ~~~
 TODO, diagram
 ~~~
+
+(TCP Socket In C Pratical Guide for programers)
+It is important to realize that signals are not queued—a signal is
+either pending or it is not. If the same signal is delivered more than once while it is being
+handled, the handler is only executed once more after it completes the original execution.
+
 ### Asynchronous I/O
 
 ~~~
