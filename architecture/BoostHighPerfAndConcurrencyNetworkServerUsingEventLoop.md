@@ -95,16 +95,11 @@ Available in BSD and POSIX Unix. I/O is issued asynchronously, and when it is co
 
 ### signal
 ``` c
-#include
-#include
-#include
-#include
-#include
-<signal.h>
-<stdio.h>
-<string.h>
-<sys/types.h>
-<unistd.h>
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 sig_atomic_t sigusr1_count = 0;
 
