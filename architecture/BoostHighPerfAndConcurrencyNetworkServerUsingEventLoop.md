@@ -105,11 +105,10 @@ sig_atomic_t sigusr1_count = 0;
 
 void handler (int signal_number)
 {
+  printf ("SIGUSR1 Handler Enter\n");
   ++sigusr1_count;
- /*
-  * sleep for 60 seconds 
-  */
-  sleep(60);
+  sleep(10);
+  printf ("SIGUSR1 Handler End\n");
 }
 
 int main ()
@@ -118,15 +117,16 @@ int main ()
   memset (&sa, 0, sizeof (sa));
   sa.sa_handler = &handler;
   sigaction (SIGUSR1, &sa, NULL);
-  
-  while(true) 
+
+  while(1 > 0)
   {
     printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
-    sleep(10);
+    sleep(3);
   }
 
   return 0;
 }
+
 ```
 
 ### Asynchronous I/O
