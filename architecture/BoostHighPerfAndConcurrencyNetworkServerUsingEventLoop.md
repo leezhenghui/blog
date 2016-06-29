@@ -142,6 +142,21 @@ SIGUSR1 Handler Enter
 SIGUSR1 Handler End
 SIGUSR1 was raised 2 times
 ```
+> In above sample, I use a sleep in the signal handler to make the sample easy to simulate the situation of a signal is executing. However, in a real-life application, this is not a suggested way, as we need to make the singal handler perform as minimal as possible.
+> 
+> The reason is that signals are asynchronous, the main program may be in a very fragile state
+when a signal is processed and thus while a signal handler function executes.
+Therefore, you should avoid performing any I/O operations or calling most library
+and system functions from signal handlers.
+A signal handler should perform the minimum work necessary to respond to the
+signal, and then return control to the main program (or terminate the program). In
+most cases, this consists simply of recording the fact that a signal occurred.The main
+program then checks periodically whether a signal has occurred and reacts accordingly.
+It is possible for a signal handler to be interrupted by the delivery of another signal.
+While this may sound like a rare occurrence, if it does occur, it will be very difficult to
+diagnose and debug the problem. (This is an example of a race condition, discussed in
+Chapter 4, “Threads,” Section 4.4, “Synchronization and Critical Sections.”) Therefore,
+you should be very careful about what your program does in a signal handler.
 
 Above is proof of "If the same signal is delivered more than once while it is being
 handled, the handler is only executed once more after it completes the original execution."
