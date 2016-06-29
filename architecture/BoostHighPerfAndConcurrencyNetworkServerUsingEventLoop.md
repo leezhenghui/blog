@@ -79,6 +79,8 @@ It is important to realize that signals are not queued—a signal is
 either pending or it is not. If the same signal is delivered more than once while it is being
 handled, the handler is only executed once more after it completes the original execution.
 
+So, if we have concurrency connections, after we register the signal handler, we only can receive the previous notification, some subseqencing notifications will be ignored!
+
 ### Asynchronous I/O
 
 ~~~
