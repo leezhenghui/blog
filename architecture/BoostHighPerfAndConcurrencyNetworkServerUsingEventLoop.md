@@ -39,10 +39,7 @@ Before jumping into event-loop programming model, let's step back and take a loo
 ~~~
 
 ### Blocking I/O
-The default behavior of a socket call is to block until the requested action is completed. For
-example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one
-message from the echo server is received. Of course, a process with a blocked function is
-suspended by the operating system.
+The default behavior of a socket call in C standard library is to block until the requested action is completed. For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system.
 One of the most common models is the synchronous blocking I/O model. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
 
 ~~~
