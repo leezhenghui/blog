@@ -54,6 +54,8 @@ process to sleep, but return an error instead.
 ~~~
 TODO, diagram
 ~~~
+
+(TCP Socket In C Pratical Guide for programers)
 The difficulty with nonblocking socket calls is that there is no way of knowing when one would
 succeed, except by periodically trying it until it does (a process known as “polling”)
 
