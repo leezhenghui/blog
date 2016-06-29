@@ -131,7 +131,7 @@ int main ()
 
 Run the command below
 ``` bash
-for i in {1..1000}; do kill -s USR1 28333; done
+for i in {1..100}; do kill -s USR1 28333; done
 ```
 
 ``` console
