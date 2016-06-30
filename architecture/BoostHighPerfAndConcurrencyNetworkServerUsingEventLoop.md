@@ -583,6 +583,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [12] https://seanlin0800.gitbooks.io/async-performance/content/source/ch1/event_loop.html
 
 [13] https://nikhilm.github.io/uvbook/basics.html#event-loops
+
+[14] http://man7.org/linux/man-pages/man7/aio.7.html
                               
      
      
