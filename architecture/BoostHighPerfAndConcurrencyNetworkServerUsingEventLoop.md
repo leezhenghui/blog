@@ -145,7 +145,7 @@ SIGUSR1 Handler End
 SIGUSR1 was raised 2 times
 ```
 > In above sample, I use a sleep in the signal handler to make the sample easy to simulate the situation of a signal is executing. However, in a real-life application, this is not a suggested way, as we need to make the singal handler perform as minimal as possible.
-> can Real-time signals avoid this???(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
+> can Real-time signals workaround this???(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
 > 
 > The reason is that signals are asynchronous, the main program may be in a very fragile state
 when a signal is processed and thus while a signal handler function executes.
