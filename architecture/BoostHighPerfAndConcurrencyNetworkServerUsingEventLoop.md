@@ -654,6 +654,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [27] file:///home/lizh/materials/studyplan/Nginx/%E6%9E%B6%E6%9E%84%E5%B8%88%E5%AE%9E%E8%B7%B5%E6%97%A5%EF%BD%9C%E4%BB%8EC10K%E5%88%B0C10M%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8E%A2%E7%B4%A2%E4%B8%8E%E5%AE%9E%E8%B7%B5%C2%A0%20_%20%E4%B8%83%E7%89%9B%E4%BA%91%E5%AD%98%E5%82%A8.html
 
 [28] http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show
+
+[29] http://cs-pub.bu.edu/fac/richwest/cs591_w1/notes/wk3_pt2.PDF
                               
      
      
