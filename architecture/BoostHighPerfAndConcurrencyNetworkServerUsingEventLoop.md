@@ -585,15 +585,16 @@ http://davmac.org/davpage/linux/async-io.html#signals
 
 ```c
 int sigio_add_fd(int fd) {
-static const int signum=SIGRTMIN+1;
-static pid_t mypid=0;
-if (!mypid) mypid=getpid();
-fcntl(fd,F_SETOWN,mypid);
-fcntl(fd,F_SETSIG,signum);
-fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)|O_NONBLOCK|O_ASYNC);
+  static const int signum=SIGRTMIN+1;
+  static pid_t mypid=0;
+  if (!mypid) mypid=getpid();
+  fcntl(fd,F_SETOWN,mypid);
+  fcntl(fd,F_SETSIG,signum);
+  fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)|O_NONBLOCK|O_ASYNC);
 }
+
 int sigio_rm_fd(struct sigio* s,int fd) {
-fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)&(~O_ASYNC));
+  fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)&(~O_ASYNC));
 }
 ```
 
