@@ -305,6 +305,7 @@ from pure theory perspective, using SIGIO signal nofication to is more efficient
 
 Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll() and perhaps even epoll(), which will soon be discussed. 
 
+http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show and http://www.visolve.com/uploads/resources/squidrtsignal.pdf
 
 ### Proactor Pattern
        
