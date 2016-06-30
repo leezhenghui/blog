@@ -765,4 +765,6 @@ Programming Model:                             Java NIO      --(event-loop)---->
 
 [39] http://bulk.fefe.de/scalable-networking.pdf
 
+[40] http://www.freebsd.org/cgi/man.cgi?query=socket&apropos=0&sektion=7&manpath=SuSE+Linux%2Fi386+11.0&format=ascii
+
      
