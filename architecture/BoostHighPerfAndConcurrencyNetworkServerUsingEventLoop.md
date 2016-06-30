@@ -590,7 +590,7 @@ Programming Model:                             Java NIO      --(event-loop)---->
 
 [16] file:///home/lizh/materials/studyplan/Netty/Netty%E7%B3%BB%E5%88%97%E4%B9%8BNetty%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.html
 
-
+[17] http://www.wangafu.net/~nickm/libevent-book/01_intro.html
                               
      
      
