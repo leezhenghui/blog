@@ -597,6 +597,20 @@ fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)&(~O_ASYNC));
 }
 ```
 
+```c
+Scalable Network Programming
+Linux 2.4: SIGIO
+for (;;) {
+timeout.tv_sec=0;
+timeout.tv_nsec=10000;
+switch (r=sigtimedwait(&s.ss,&info,&timeout)) {
+case -1: if (errno!=EAGAIN) error("sigtimedwait");
+case SIGIO: puts("SIGIO queue overflow!"); return 1;
+}
+if (r==signum) handle_io(info.si_fd,info.si_band);
+}
+```
+
 ### AIO
 ####Kernel AIO
 http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
