@@ -668,4 +668,6 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [31] http://w0z1y.blog.163.com/blog/static/116392700201201814549536/
 
 [32] http://linux.die.net/man/7/signal
+
+[33] http://www.linuxjournal.com/article/6483?page=0,1
      
