@@ -425,6 +425,8 @@ To use AIO with signal notifications reliably then, you need to check each and e
 http://davmac.org/davpage/linux/async-io.html
 
 It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation
+>However, it is a general weakness of the technique. In general, non-blocking I/O and the event notification mechanisms here will work with sockets and pipes, TTYs, and certain other types of device.
+
    ### AIO
      In Linux, the real AIO actually is supported only on Disk IO, (
      http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
