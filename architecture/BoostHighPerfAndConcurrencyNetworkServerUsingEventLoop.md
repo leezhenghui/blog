@@ -599,6 +599,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [20] http://www.makelinux.net/ldd3/chp-6-sect-4
 
 [21] https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29
+
+[22] http://lse.sourceforge.net/io/aio.html
                               
      
      
