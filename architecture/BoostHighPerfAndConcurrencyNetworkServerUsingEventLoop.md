@@ -603,6 +603,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [22] http://lse.sourceforge.net/io/aio.html
 
 [23] http://www.bullopensource.org/posix/
+
+[24] http://www.ruanyifeng.com/blog/2014/10/event-loop.html
                               
      
      
