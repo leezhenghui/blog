@@ -313,6 +313,12 @@ http://davmac.org/davpage/linux/async-io.html#signals
 Event notification with poll
 the realtime signal came earlier than epoll, epoll is a more modern api for the polling
 
+advanced linux programming
+A signal handler should perform the minimum work necessary to respond to the
+signal, and then return control to the main program (or terminate the program). In
+most cases, this consists simply of recording the fact that a signal occurred.The main
+program then checks periodically whether a signal has occurred and reacts accordingly.
+
 ### Proactor Pattern
        
       
