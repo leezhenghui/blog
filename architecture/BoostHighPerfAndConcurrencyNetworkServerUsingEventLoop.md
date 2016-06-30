@@ -442,7 +442,7 @@ It is possible to open a file (or device) in "non-blocking" mode by using the O_
       select --> poll --> paper --> epoll --> ?(aio combined epoll)
       最后这项需要调研一下
      
-#### SIGIO (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
+#### Standard Signal - "SIGIO" noitfication (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
    ```c
 #include <stdio.h>      /* for printf() and fprintf() */
 #include <sys/socket.h> /* for socket(), bind, and connect() */
