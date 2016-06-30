@@ -475,6 +475,8 @@ It is possible to open a file (or device) in "non-blocking" mode by using the O_
 >However, it is a general weakness of the technique. In general, non-blocking I/O and the event notification mechanisms here will work with sockets and pipes, TTYs, and certain other types of device.
 
    ### AIO
+      http://blog.csdn.net/fz_ywj/article/details/9124897
+      异步处理线程同步地处理每一个请求，处理完成后在对应的aiocb中填充结果，然后触发可能的信号通知或回调函数（回调函数是需要创建新线程来调用的）；
      In Linux, the real AIO actually is supported only on Disk IO, (
      http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
      http://www.bullopensource.org/posix/ (not good at performance, it actually add a thread-mode in user-space, underearth, it still call the blocking system api)
