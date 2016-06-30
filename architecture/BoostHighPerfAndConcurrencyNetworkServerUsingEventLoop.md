@@ -248,7 +248,7 @@ TO-DELETE
  
  ## Programming Models(is is good to mentioned here, maybe better to introduced this in the place which use it, e.g: problem section to explain thread-based pattern, C10K solution to describe the others two pattern)
 ### Thread-Based Pattern
-### Reactor Pattern(nonblocking + multiplux), both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
+### Reactor Pattern(nonblocking in conjunction with multiplux), both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
 
 nonblocking + multplex well fit in this pattern, because:
 (http://davmac.org/davpage/linux/async-io.html)
