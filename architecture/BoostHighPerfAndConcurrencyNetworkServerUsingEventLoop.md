@@ -592,7 +592,7 @@ http://davmac.org/davpage/linux/async-io.html (why poxis aio is not suited to us
 ####Poll(level-triggered):
      http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
      http://bulk.fefe.de/scalable-networking.pdf
-####Epoll(eage-trigerred):
+####Epoll(edge-trigerred):
      http://www.kegel.com/c10k.html
      On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
 
