@@ -400,7 +400,7 @@ program then checks periodically whether a signal has occurred and reacts accord
 
     
 ## Linux Kernel Support
-### signal
+### signal(edge-triggered)
 #### SIGIO (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
    ```c
 #include <stdio.h>      /* for printf() and fprintf() */
