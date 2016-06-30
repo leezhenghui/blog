@@ -185,7 +185,6 @@ int main ()
 ```
 run the command below:
 ``` bash
-
 for i in {1..10}; do kill -44 `pgrep rt_signal_test`; done
 ```
 
