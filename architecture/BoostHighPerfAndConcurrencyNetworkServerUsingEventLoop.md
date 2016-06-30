@@ -246,8 +246,6 @@ TO-DELETE
        Sync
        Async
  
-
-    
 ## Recap C10K problem
 
 Finally, we get to the problem -- C10K. 15 Years ago, xxx arise C10K problem which was a big chellenge( This situation is often called the c10k problem. With select() or poll(), your network server will hardly perform any useful things but wasting precious CPU cycles under such high load. 
