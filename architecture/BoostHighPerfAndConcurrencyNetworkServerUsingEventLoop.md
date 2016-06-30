@@ -123,7 +123,6 @@ int main ()
     printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
     sleep(3);
   }
-
   return 0;
 }
 
