@@ -595,6 +595,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [18] http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
 
 [19] https://github.com/angrave/SystemProgramming/wiki/Signals,-Part-2:-Pending-Signals-and-Signal-Masks
+
+[20] http://www.makelinux.net/ldd3/chp-6-sect-4
                               
      
      
