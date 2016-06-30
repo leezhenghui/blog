@@ -295,7 +295,7 @@ from pure theory perspective, using SIGIO signal nofication to is more efficient
 1. Signal handler can't do heavy logic
 2. Signal can not be queeued. Only handle one more pending, others will be discarded.
   ``` C
-    move the c signal handler sample to here
+    move the c signal handler sample from I/O model section to here
   ```
 3. http://davmac.org/davpage/linux/async-io.html
 
