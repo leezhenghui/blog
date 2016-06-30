@@ -138,8 +138,7 @@ for i in {1..100}; do kill -s USR1 28333; done
 SIGUSR1 was raised 0 times
 SIGUSR1 Handler Enter
 SIGUSR1 Handler End
-SIGUSR1 Handler Ent
-er
+SIGUSR1 Handler Enter
 SIGUSR1 Handler End
 SIGUSR1 was raised 2 times
 ```
