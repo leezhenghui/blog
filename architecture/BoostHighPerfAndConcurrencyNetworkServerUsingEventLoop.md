@@ -556,6 +556,9 @@ It is possible to open a file (or device) in "non-blocking" mode by using the O_
 >A more subtle problem with non-blocking I/O is that it generally doesn't work with regular files (this is true on linux, even when files are opened with O_DIRECT; possibly not on other operating systems). That is, opening a regular file in non-blocking mode has no effect for regular files: a read will always actually read some of the file, even if the program blocks in order to do so. In some cases this may not be important, seeing as file I/O is generally fast enough so as to not cause long blocking periods (so long as the file is local and not on a network, or a slow medium). However, it is a general weakness of the technique. In general, non-blocking I/O and the event notification mechanisms here will work with sockets and pipes, TTYs, and certain other types of device.
 
 ### AIO
+####Kernel AIO
+http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
+####POSIX AIO
       http://blog.csdn.net/fz_ywj/article/details/9124897
       异步处理线程同步地处理每一个请求，处理完成后在对应的aiocb中填充结果，然后触发可能的信号通知或回调函数（回调函数是需要创建新线程来调用的）；
      In Linux, the real AIO actually is supported only on Disk IO, (
