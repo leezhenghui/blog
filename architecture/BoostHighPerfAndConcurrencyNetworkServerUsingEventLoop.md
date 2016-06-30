@@ -78,7 +78,8 @@ While this method is reliable and relatively efficient, it depends heavily on th
 The select loop does not reach the ultimate system efficiency possible with, say, the completion queues method, because the semantics of the select call, allowing as it does for per-call tuning of the acceptable event set, consumes some amount of time per invocation traversing the selection array. This creates little overhead for user applications that might have open one file descriptor for the windowing system and a few for open files, but becomes more of a problem as the number of potential event sources grows, and can hinder development of many-client server applications, as in the C10k problem; other asynchronous methods may be noticeably more efficient in such cases. Some Unixes provide system-specific calls with better scaling; for example, epoll in Linux (that fills the return selection array with only those event sources on which an event has occurred), kqueue in FreeBSD, and event ports (and /dev/poll) in Solaris.
 SVR3 Unix provided the poll system call. Arguably better-named than select, for the purposes of this discussion it is essentially the same thing. SVR4 Unixes (and thus POSIX) offer both calls.
 
-> Multiplex model actually provide a efficent solution to select the readiness file descriptors, compare to pure nonblocking model
+> Multiplex model actually provide a efficent solution to select the readiness file descriptors, compare to pure nonblocking model, and then avoid waste processor cycles on the polling of each file descriptor status
+
 ### Signal driven I/O
 
 ~~~
