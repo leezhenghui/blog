@@ -587,6 +587,10 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [14] http://man7.org/linux/man-pages/man7/aio.7.html
 
 [15] https://www.fsl.cs.sunysb.edu/~vass/linux-aio.txt
+
+[16] file:///home/lizh/materials/studyplan/Netty/Netty%E7%B3%BB%E5%88%97%E4%B9%8BNetty%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.html
+
+
                               
      
      
