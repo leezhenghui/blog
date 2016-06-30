@@ -586,10 +586,10 @@ http://davmac.org/davpage/linux/async-io.html (why poxis aio is not suited to us
      
      select, poll, epoll(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
      
-####Select:
+####Select(level-triggered):
      http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
      http://bulk.fefe.de/scalable-networking.pdf
-####Poll:
+####Poll(level-triggered):
      http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
      http://bulk.fefe.de/scalable-networking.pdf
 ####Epoll:
