@@ -760,4 +760,6 @@ Programming Model:                             Java NIO      --(event-loop)---->
 
 [38] http://www.kegel.com/c10k.html
 
+[39] http://bulk.fefe.de/scalable-networking.pdf
+
      
