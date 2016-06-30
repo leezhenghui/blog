@@ -396,8 +396,8 @@ program then checks periodically whether a signal has occurred and reacts accord
     
     This model actually is mapped to the IO pattern -- Blocking Pattern
     
-   ## Linux Kernel Support
-   ### signal
+## Linux Kernel Support
+### signal
    ```c
 #include <stdio.h>      /* for printf() and fprintf() */
 #include <sys/socket.h> /* for socket(), bind, and connect() */
