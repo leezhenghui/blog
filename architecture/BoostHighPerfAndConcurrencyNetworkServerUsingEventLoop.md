@@ -530,7 +530,7 @@ http://davmac.org/davpage/linux/async-io.html#signals
 Of the notification methods, sending a signal would seem at the outset to be the only appropriate choice when large amounts of concurrent I/O are taking place. Although realtime signals could be used, there is a potential for signal buffer overflow which means signals could be lost; furthermore there is no notification at all of such overflow (one would think raising SIGIO in this case would be a good idea, but no, POSIX doesn't specify it, and Glibc doesn't do it). What Glibc does do is set an error on the AIO control block so that if you happen to check, you will see an error. Of course, you never will check because you'll never receive any notification of completion.
 To use AIO with signal notifications reliably then, you need to check each and every AIO control block that is associated with a particular signal whenever that signal is received. For realtime signals it means that the signal queue should be drained before this is performed, to avoid redundant checking. It would be possible to use a range of signals and distribute the control blocks to them, which would limit the amount of control blocks to check per signal received; however, it's clear that ultimately this technique is not suitable for large amounts of highly concurrent I/O.
    
-   ### noblocking
+### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
    book: TCPIP socket In C practical guide for programmer
    write a sample here:
@@ -542,7 +542,7 @@ http://davmac.org/davpage/linux/async-io.html
 It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation
 >However, it is a general weakness of the technique. In general, non-blocking I/O and the event notification mechanisms here will work with sockets and pipes, TTYs, and certain other types of device.
 
-   ### AIO
+### AIO
       http://blog.csdn.net/fz_ywj/article/details/9124897
       异步处理线程同步地处理每一个请求，处理完成后在对应的aiocb中填充结果，然后触发可能的信号通知或回调函数（回调函数是需要创建新线程来调用的）；
      In Linux, the real AIO actually is supported only on Disk IO, (
@@ -574,7 +574,11 @@ http://davmac.org/davpage/linux/async-io.html (why poxis aio is not suited to us
      
      Poll:
      
-     Epoll: 
+     Epoll:
+     
+     On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
+
+
      http://davmac.org/davpage/linux/async-io.html#signals
      Epoll is fairly efficient compared to the poll/select variants, but it still won't work with regular files.
      
