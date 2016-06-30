@@ -585,6 +585,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [13] https://nikhilm.github.io/uvbook/basics.html#event-loops
 
 [14] http://man7.org/linux/man-pages/man7/aio.7.html
+
+[15] https://www.fsl.cs.sunysb.edu/~vass/linux-aio.txt
                               
      
      
