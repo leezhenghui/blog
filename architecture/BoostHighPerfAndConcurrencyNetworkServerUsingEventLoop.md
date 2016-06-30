@@ -147,6 +147,48 @@ SIGUSR1 Handler Enter
 SIGUSR1 Handler End
 SIGUSR1 was raised 2 times
 ```
+Real-Time signal testing:
+
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+sig_atomic_t sigusr1_count = 0;
+
+void handler (int signal_number)
+{
+  printf ("SIGRTMIN+10 Handler Enter\n");
+  ++sigusr1_count;
+  sleep(10);
+  printf ("SIGRTMIN+10 Handler Exit\n");
+}
+
+int main ()
+{
+  struct sigaction sa; 
+  memset (&sa, 0, sizeof (sa));
+  sa.sa_handler = &handler;
+  sigaction (SIGRTMIN+10, &sa, NULL);
+
+  while(1 > 0)  
+  {
+    printf ("SIGRTMIN+10 was raised %d times\n", sigusr1_count);
+    sleep(3);
+  }
+
+  return 0;
+}
+
+```
+run the command below:
+``` bash
+
+for i in {1..10}; do kill -44 `pgrep signal_test; done
+```
+
 > In above sample, I use a sleep in the signal handler to make the sample easy to simulate the situation of a signal is executing. However, in a real-life application, this is not a suggested way, as we need to make the singal handler perform as minimal as possible.
 > can Real-time signals workaround this???(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
 > 
