@@ -353,7 +353,7 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
 diagram needed here
 ```
 
-###nonblocking in conjunction with synchonized-demultipluxer(selector,e.g: select, poll and epoll) 
+###nonblocking in conjunction with synchonized-demultipluxer(readiness selector nofitication,e.g: select, poll and epoll) 
 
 both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
 
@@ -361,7 +361,7 @@ nonblocking + multplex well fit in this pattern, because:
 (http://davmac.org/davpage/linux/async-io.html)
 Non-blocking mode makes it possible to continuously iterate through the interesting file descriptors and check for available input (or check for readiness for output) simply by attempting a read (or write). This technique is called polling and is problematic primarily because it needlessly consumes CPU time - that is, the program never blocks, even when no input or output is possible on any file descriptor. An event notification mechanism is needed to discover when useful reads/writes are possible.
 
-### nonblocking in conjunction with asynchornized-demultipluxer(e.g: SIGIO notification)
+### nonblocking in conjunction with asynchornized-demultipluxer(e.g: readiness SIGIO notification)
 from pure theory perspective, using SIGIO signal nofication to is more efficient than synchornizced-demultiplexer(selector).. but...
 
 1. Signal handler can't do heavy logic
