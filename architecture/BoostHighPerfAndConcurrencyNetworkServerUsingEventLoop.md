@@ -401,7 +401,7 @@ program then checks periodically whether a signal has occurred and reacts accord
     
 ## Linux Kernel Support
 ### signal
-#### SIGIO (standard sigal way)
+#### SIGIO (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
    ```c
 #include <stdio.h>      /* for printf() and fprintf() */
 #include <sys/socket.h> /* for socket(), bind, and connect() */
