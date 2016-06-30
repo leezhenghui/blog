@@ -162,7 +162,7 @@ void handler (int signal_number)
 {
   printf ("SIGRTMIN+10 Handler Enter\n");
   ++sigusr1_count;
-  sleep(10);
+  sleep(3);
   printf ("SIGRTMIN+10 Handler Exit\n");
 }
 
@@ -176,7 +176,7 @@ int main ()
   while(1 > 0)  
   {
     printf ("SIGRTMIN+10 was raised %d times\n", sigusr1_count);
-    sleep(3);
+    sleep(1);
   }
 
   return 0;
@@ -191,7 +191,28 @@ for i in {1..10}; do kill -44 `pgrep rt_signal_test`; done
 result:
 
 ``` console
-
+SIGRTMIN+10 was raised 0 times
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 was raised 10 times
 ```
 
 > In above sample, I use a sleep in the signal handler to make the sample easy to simulate the situation of a signal is executing. However, in a real-life application, this is not a suggested way, as we need to make the singal handler perform as minimal as possible.
