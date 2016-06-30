@@ -308,6 +308,7 @@ Note also that SIGIO can itself be selected as the notification signal. This all
 http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show and http://www.visolve.com/uploads/resources/squidrtsignal.pdf
 http://davmac.org/davpage/linux/async-io.html#signals
 Event notification with poll
+the realtime signal came earlier than epoll, epoll is a more modern api for the polling
 
 ### Proactor Pattern
        
