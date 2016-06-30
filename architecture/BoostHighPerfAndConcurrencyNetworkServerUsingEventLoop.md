@@ -345,6 +345,8 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
     Let's explorer the situations from kernel and programming language..
 
  ## Programming Models(is is good to mentioned here, maybe better to introduced this in the place which use it, e.g: problem section to explain thread-based pattern, C10K solution to describe the others two pattern)
+ One of most interesting solution direction is to resolve the problem via having less thread/process to serve more connection. from programming models perspective, I am list them below:
+ 
 ### Thread-Based Pattern
 
 ### Reactor Pattern
