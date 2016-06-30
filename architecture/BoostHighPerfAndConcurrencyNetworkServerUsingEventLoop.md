@@ -575,6 +575,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [8] https://nikhilm.github.io/uvbook/basics.html#event-loops
 
 [9] https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
+
+[10] http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html
                               
      
      
