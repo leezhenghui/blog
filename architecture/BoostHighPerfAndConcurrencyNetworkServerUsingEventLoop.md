@@ -559,6 +559,11 @@ Programming Model:                             Java NIO      --(event-loop)---->
              
 ## References
 [1] http://www.ibm.com/developerworks/linux/library/l-async/
+[2] TCP Socket In C Pratical Guide for programers
+[3] Unix Network Programming
+[4] Advanced Linux Programming
+[5] TCPIP Sockets In C Pratical Guide For Programmers 2nd edition
+[6] http://davmac.org/davpage/linux/async-io.html
                               
      
      
