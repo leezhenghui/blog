@@ -293,8 +293,8 @@ Non-blocking mode makes it possible to continuously iterate through the interest
 from pure theory perspective, using SIGIO signal nofication to is more efficient than synchornizced-demultiplexer(selector).. but...
 
 1. Signal handler can't do heavy logic
-2. 
-http://davmac.org/davpage/linux/async-io.html
+2. Signal can not be queeued. Only handle one more pending, others will be discarded.
+3. http://davmac.org/davpage/linux/async-io.html
 
 Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll() and perhaps even epoll(), which will soon be discussed. 
 
