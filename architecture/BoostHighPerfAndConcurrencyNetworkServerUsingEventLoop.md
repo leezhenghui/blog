@@ -360,7 +360,7 @@ The C10K point out the thread-base(a.k.a process-per-connect) disavantage which 
 diagram needed here
 ```
 
-###nonblocking in conjunction with synchonized-demultipluxer(readiness selector nofitication,e.g: select, poll and epoll) 
+###nonblocking in conjunction with level-triggered readiness notification(readiness selector nofitication,e.g: select, poll) 
 
 both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
 
