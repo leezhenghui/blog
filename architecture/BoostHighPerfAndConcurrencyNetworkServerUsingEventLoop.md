@@ -396,6 +396,17 @@ void SIGIOHandler(int signalType)
    
    https://github.com/angrave/SystemProgramming/wiki/Signals,-Part-2:-Pending-Signals-and-Signal-Masks
    
+   http://stackoverflow.com/questions/5285414/signal-queuing-in-c
+   What happens is the following:
+
+First signal received, namely SIGUSR1, handler is called and is running
+Second signal received, since handler from nr1 is still running, the signal nr2 gets pending and blocked.
+Third signal received, since handler from nr1 is still running, the signal 3 gets discarded.
+Fourth, fifth...etc signal of the same type as the signal nr1 are discarded.
+Once signal handler is done with signal nr1, it will process signal nr2, and then signal handler will process the SIGUSR2.
+
+Basically, pending signals of the same type are not queued, but discarded. And no, there is no easy way to "burst" send signals that way. One always assumes that there can be several signals that are discarded, and tries to let the handler do the work of cleaning and finding out what to do (such as reaping children, if all children die at the same time).
+   
    ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
    book: TCPIP socket In C practical guide for programmer
