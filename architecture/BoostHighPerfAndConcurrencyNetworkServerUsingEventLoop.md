@@ -130,7 +130,7 @@ int main ()
 
 Run the command below
 ``` bash
-for i in {1..10}; do kill -s USR1 28333; done
+for i in {1..10}; do kill -s USR1 <pid>; done
 ```
 
 ``` console
