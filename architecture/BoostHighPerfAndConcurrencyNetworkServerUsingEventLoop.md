@@ -162,6 +162,26 @@ handled, the handler is only executed once more after it completes the original 
 
 So, if we have concurrency connections, after we register the signal handler, we only can receive the previous notification, some subseqencing notifications will be ignored!
 
+reference: http://www.makelinux.net/ldd3/chp-6-sect-4
+
+6.4. Asynchronous Notification
+
+Although the combination of blocking and nonblocking operations and the select method are sufficient for querying the device most of the time, some situations aren't efficiently managed by the techniques we've seen so far.
+
+Let's imagine a process that executes a long computational loop at low priority but needs to process incoming data as soon as possible. If this process is responding to new observations available from some sort of data acquisition peripheral, it would like to know immediately when new data is available. This application could be written to call poll regularly to check for data, but, for many situations, there is a better way. By enabling asynchronous notification, this application can receive a signal whenever data becomes available and need not concern itself with polling.
+
+User programs have to execute two steps to enable asynchronous notification from an input file. First, they specify a process as the "owner" of the file. When a process invokes the F_SETOWN command using the fcntl system call, the process ID of the owner process is saved in filp->f_owner for later use. This step is necessary for the kernel to know just whom to notify. In order to actually enable asynchronous notification, the user programs must set the FASYNC flag in the device by means of the F_SETFL fcntl command.
+
+After these two calls have been executed, the input file can request delivery of a SIGIO signal whenever new data arrives. The signal is sent to the process (or process group, if the value is negative) stored in filp->f_owner.
+
+For example, the following lines of code in a user program enable asynchronous notification to the current process for the stdin input file:
+
+signal(SIGIO, &input_handler); /* dummy sample; sigaction(  ) is better */
+fcntl(STDIN_FILENO, F_SETOWN, getpid(  ));
+oflags = fcntl(STDIN_FILENO, F_GETFL);
+fcntl(STDIN_FILENO, F_SETFL, oflags | FASYNC);
+
+
 ### Asynchronous I/O
 
 ~~~
