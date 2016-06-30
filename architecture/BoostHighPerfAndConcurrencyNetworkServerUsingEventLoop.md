@@ -214,6 +214,8 @@ the I/O facility, the process will not in pending status, once the response
 arrive, the data gram will be transferred by underlying system component 
 on background and a completion event which carrying response/error should be notified to process.
 ~~~
+http://davmac.org/davpage/linux/async-io.html
+The distinction between the two is largely a matter of operating mode (it is the difference between performing a read operation, for example, and being notified when the data is in the application's buffer, compared to simply being notified when the data is available and asking that it be copied to the application's buffer afterwards)
 
 >  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see refe
 >  rence [[1]](http://www.ibm.com/developerworks/linux/library/l-async/)), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
