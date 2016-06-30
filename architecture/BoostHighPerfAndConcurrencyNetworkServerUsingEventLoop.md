@@ -577,6 +577,8 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [9] https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/
 
 [10] http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html
+
+[11] http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
                               
      
      
