@@ -505,6 +505,8 @@ http://davmac.org/davpage/linux/async-io.html (why poxis aio is not suited to us
      Poll:
      
      Epoll: 
+     http://davmac.org/davpage/linux/async-io.html#signals
+     Epoll is fairly efficient compared to the poll/select variants, but it still won't work with regular files.
      
      Epoll was introduced by a paper, explain a little bit about that paper(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
      http://blog.csdn.net/zys85/article/details/3710579
