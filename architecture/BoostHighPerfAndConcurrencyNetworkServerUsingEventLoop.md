@@ -257,6 +257,11 @@ Non-blocking mode makes it possible to continuously iterate through the interest
 ### Reactor Pattern(nonblocking in conjunction with SIGIO notification)
 from pure theory perspective, using SIGIO signal nofication to is more efficient than synchornizced-demultiplexer(selector).. but...
 
+http://davmac.org/davpage/linux/async-io.html
+
+Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll() and perhaps even epoll(), which will soon be discussed. 
+
+
 ### Proactor Pattern
        
       
