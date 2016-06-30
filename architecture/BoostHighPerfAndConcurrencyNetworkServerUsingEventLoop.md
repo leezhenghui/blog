@@ -96,6 +96,9 @@ handled, the handler is only executed once more after it completes the original 
 (wikipedia https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29)
 Available in BSD and POSIX Unix. I/O is issued asynchronously, and when it is completed a signal (interrupt) is generated. As in low-level kernel programming, the facilities available for safe use within the signal handler are limited, and the main flow of the process could have been interrupted at nearly any point, resulting in inconsistent data structures as seen by the signal handler. The signal handler is usually not able to issue further asynchronous I/O by itself.
 
+http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show
+It's possible to be notified of I/O availability by a signal. It's an alternative to functions like select(2). It's done by setting the O_ASYNC flag on the file descriptor. If you do so and if I/O is available (as select(2) would consider it) a signal is sent to the process. By default it's SIGIO, but using Real-time signals is more practical and you can set up the file descriptor using fcntl(2) so that you get more information in siginfo_t structure. See the links at the bottom of this article for more information. There is now a better way to do it on Linux: epoll(7) and similar mechanisms are available on other systems. 
+
 ### signal
 ``` c
 #include <signal.h>
