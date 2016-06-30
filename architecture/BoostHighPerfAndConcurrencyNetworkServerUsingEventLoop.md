@@ -538,6 +538,7 @@ To use AIO with signal notifications reliably then, you need to check each and e
 http://bulk.fefe.de/scalable-networking.pdf
 http://www.kegel.com/c10k.html#nb.sigio
 http://www.freebsd.org/cgi/man.cgi?query=socket&apropos=0&sektion=7&manpath=SuSE+Linux%2Fi386+11.0&format=ascii
+http://www.visolve.com/uploads/resources/squidrtsignal.pdf
 
 ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
