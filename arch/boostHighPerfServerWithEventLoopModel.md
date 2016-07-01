@@ -3,24 +3,19 @@
 Today in internet world, a common technonical challenge we are facing in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop programming model seems usually take a key role in this field. Why? What underlying story is? I would like to jot down this writing which came cross with my earlier research/investigations as a future reference for me and any one who come across to this post. 
 
 ---
+
 Brief Content Table:
 > I/O models under unix-like OS
->>Blocking I/O
->>Non-blocking I/O
->>
->>I/O multiplexing
->>
->>Signal driven I/O
->>
->>Asynchronous I/O
->>
->>Blocking vs. Non-blocking
->>
->>Sync vs. Async
->
->Recap C10K problem
-  >>Issue
-    >>>Thread-Based model
+>> Blocking I/O
+>> Non-blocking I/O
+>> I/O multiplexing
+>> Signal driven I/O
+>> Asynchronous I/O
+>> Blocking vs. Non-blocking
+>> Sync vs. Async
+> Recap C10K problem
+>>Issue
+  >>>>>Thread-Based model
   >>Soluction
 >>>Reactor model
 >>>>nonblocking in conjunction with level-triggered readiness notification
