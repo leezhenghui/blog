@@ -137,53 +137,7 @@ http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show
 It's possible to be notified of I/O availability by a signal. It's an alternative to functions like select(2). It's done by setting the O_ASYNC flag on the file descriptor. If you do so and if I/O is available (as select(2) would consider it) a signal is sent to the process. By default it's SIGIO, but using Real-time signals is more practical and you can set up the file descriptor using fcntl(2) so that you get more information in siginfo_t structure. See the links at the bottom of this article for more information. There is now a better way to do it on Linux: epoll(7) and similar mechanisms are available on other systems. 
 
 ### signal
-``` c
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
 
-sig_atomic_t sigusr1_count = 0;
-
-void handler (int signal_number)
-{
-  printf ("SIGUSR1 Handler Enter\n");
-  ++sigusr1_count;
-  sleep(10);
-  printf ("SIGUSR1 Handler End\n");
-}
-
-int main ()
-{
-  struct sigaction sa;
-  memset (&sa, 0, sizeof (sa));
-  sa.sa_handler = &handler;
-  sigaction (SIGUSR1, &sa, NULL);
-
-  while(1 > 0)
-  {
-    printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
-    sleep(3);
-  }
-  return 0;
-}
-
-```
-
-Run the command below
-``` bash
-for i in {1..10}; do kill -s USR1 <pid>; done
-```
-
-``` console
-SIGUSR1 was raised 0 times
-SIGUSR1 Handler Enter
-SIGUSR1 Handler End
-SIGUSR1 Handler Enter
-SIGUSR1 Handler End
-SIGUSR1 was raised 2 times
-```
 Real-Time signal testing:
 
 ```c
@@ -480,7 +434,56 @@ It is possible to open a file (or device) in "non-blocking" mode by using the O_
       最后这项需要调研一下
      
 #### Standard Signal - "SIGIO" noitfication (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
+what is standard signal
+ :
+ ``` c
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 
+sig_atomic_t sigusr1_count = 0;
+
+void handler (int signal_number)
+{
+  printf ("SIGUSR1 Handler Enter\n");
+  ++sigusr1_count;
+  sleep(10);
+  printf ("SIGUSR1 Handler End\n");
+}
+
+int main ()
+{
+  struct sigaction sa;
+  memset (&sa, 0, sizeof (sa));
+  sa.sa_handler = &handler;
+  sigaction (SIGUSR1, &sa, NULL);
+
+  while(1 > 0)
+  {
+    printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
+    sleep(3);
+  }
+  return 0;
+}
+
+```
+
+Run the command below
+``` bash
+for i in {1..10}; do kill -s USR1 <pid>; done
+```
+
+``` console
+SIGUSR1 was raised 0 times
+SIGUSR1 Handler Enter
+SIGUSR1 Handler End
+SIGUSR1 Handler Enter
+SIGUSR1 Handler End
+SIGUSR1 was raised 2 times
+```
+Below is an example to leverage SIGIO signal for readiness notification
 ```c
 #include <stdio.h>      /* for printf() and fprintf() */
 #include <sys/socket.h> /* for socket(), bind, and connect() */
