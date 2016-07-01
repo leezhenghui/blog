@@ -123,10 +123,7 @@ SVR3 Unix provided the poll system call. Arguably better-named than select, for 
 TODO, diagram
 ~~~
 
-(TCP Socket In C Pratical Guide for programers)
-It is important to realize that signals are not queued—a signal is
-either pending or it is not. If the same signal is delivered more than once while it is being
-handled, the handler is only executed once more after it completes the original execution.
+
 
 
 
@@ -546,6 +543,11 @@ exec 3<>/dev/tcp/localhost/5500
 cat <&3 &
 for i in {1..10}; do echo "hello" >&3; done
 ```
+(TCP Socket In C Pratical Guide for programers)
+It is important to realize that signals are not queued—a signal is
+either pending or it is not. If the same signal is delivered more than once while it is being
+handled, the handler is only executed once more after it completes the original execution.
+
    TODO, if we turn on two port in one thread, and the signal handler is busy with port-1 message handling, can it receive message from port-2 via the signal handler way?
    
    https://github.com/angrave/SystemProgramming/wiki/Signals,-Part-2:-Pending-Signals-and-Signal-Masks
