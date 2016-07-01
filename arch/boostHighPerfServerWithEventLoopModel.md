@@ -6,6 +6,7 @@ Today in internet world, a common technonical challenge we are facing in network
 
 Brief Content Table:
 > I/O models under unix-like OS
+> 
 >> Blocking I/O
 >> Non-blocking I/O
 >> I/O multiplexing
@@ -13,6 +14,7 @@ Brief Content Table:
 >> Asynchronous I/O
 >> Blocking vs. Non-blocking
 >> Sync vs. Async
+>
 > Recap C10K problem
 >> Issue
 >>>>> Thread-Based model
