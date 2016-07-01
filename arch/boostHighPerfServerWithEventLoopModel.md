@@ -27,6 +27,8 @@ Brief Content Table:
 >>Soluction
 >>
 >>>Reactor model
+>>>>nonblocking in conjunction with level-triggered readiness notification
+>>>>nonblocking in conjunction with edge-triggered readiness notification
 >>>
 >>>Proactor model
 >
