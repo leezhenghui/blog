@@ -483,7 +483,8 @@ SIGUSR1 Handler Enter
 SIGUSR1 Handler End
 SIGUSR1 was raised 2 times
 ```
-Below is an example to leverage SIGIO signal for readiness notification
+Below is an example to leverage SIGIO signal for readiness notification based on UDP protocol
+
 ```c
 #include <stdio.h>      /* for printf() and fprintf() */
 #include <sys/socket.h> /* for socket(), bind, and connect() */
