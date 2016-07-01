@@ -599,6 +599,14 @@ void DieWithError(char *errorMessage)
     exit(1);
 }
 ```
+
+Start the upd server on localhost:5500, and then test the server with below script:
+```bash
+#!/bin/bash
+exec 3<>/dev/tcp/localhost/5500
+cat <&3 &
+for i in {1..10}; do echo "hello" >&3; done
+```
    TODO, if we turn on two port in one thread, and the signal handler is busy with port-1 message handling, can it receive message from port-2 via the signal handler way?
    
    https://github.com/angrave/SystemProgramming/wiki/Signals,-Part-2:-Pending-Signals-and-Signal-Masks
