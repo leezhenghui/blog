@@ -479,7 +479,8 @@ It is possible to open a file (or device) in "non-blocking" mode by using the O_
       最后这项需要调研一下
      
 #### Standard Signal - "SIGIO" noitfication (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
-   ```c
+
+```c
 #include <stdio.h>      /* for printf() and fprintf() */
 #include <sys/socket.h> /* for socket(), bind, and connect() */
 #include <arpa/inet.h>  /* for sockaddr_in and inet_ntoa() */
