@@ -8,21 +8,30 @@ Brief Content Table:
 > I/O models under unix-like OS
 > 
 >> Blocking I/O
+>> 
 >> Non-blocking I/O
+>> 
 >> I/O multiplexing
+>> 
 >> Signal driven I/O
+>> 
 >> Asynchronous I/O
+>> 
 >> Blocking vs. Non-blocking
+>> 
 >> Sync vs. Async
 >
 > Recap C10K problem
 >> Issue
->>>>> Thread-Based model
+>>> Thread-Based model
 >>
 >> Soluction
+>> 
 >>> Reactor model
 >>>> nonblocking in conjunction with level-triggered readiness notification
+>>>> 
 >>>> nonblocking in conjunction with edge-triggered readiness notification
+>>> 
 >>> Proactor model
 >
 >  ...
