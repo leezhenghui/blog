@@ -30,7 +30,6 @@ Brief Content Table:
 >  ...
 
 
-
 ~~~
 TO-DELETE:
 
