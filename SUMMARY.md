@@ -1,5 +1,5 @@
 # Summary
 
 * [Introduction](README.md)
-* Architecture
+* [Architecture](arch/index.md)
 
