@@ -607,6 +607,13 @@ for (;;) {
   if (r==signum) handle_io(info.si_fd,info.si_band);
 }
 ```
+Explain from http://davmac.org/davpage/linux/async-io.html#signals
+
+File descriptors can be set to generate a signal when an I/O readiness event occurs on them - except for those which refer to regular files (which should not be surprising by now). This allows using sleep(), pause() or sigsuspend() to wait for both signals and I/O readiness events, rather than using select()/poll(). The GNU libc documentation has some information on using SIGIO. It tells how you can use the F_SETOWN argument to fcntl() in order to specify which process should recieve the SIGIO signal for a given file descriptor. However, it does not mention that on linux you can also use fcntl() with F_SETSIG to specify an alternative signal, including a realtime signal. Usage is as follows:
+
+   fcntl(fd, F_SETSIG, signum);
+
+... where fd is the file descriptor and signum is the signal number you want to use. Setting signum to 0 restores the default behaviour (send SIGIO). Setting it to non-zero has the effect of causing the specified signal to be queued when an I/O readiness event occurs, if the specified signal is a non-realtime signal which is already pending (? I need to check this - didn't I mean if it is a realtime signal?). If the signal cannot be queued a SIGIO is sent in the traditional manner. 
 
 ### AIO
 ####Kernel AIO
