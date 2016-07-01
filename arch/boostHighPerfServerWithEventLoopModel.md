@@ -230,12 +230,6 @@ TO-DELETE
       
       E.g: Netty is a async IO framework, from the Netty API, it is a non-blocking ASync IO, but if we look into the implmentation, it actually based on Java NIO, the Java NIO on linux actually is based on epoll, that is a sync-multiplexing technology, it is not a AIO from kernel perspective. anyway, when we talk about IO pattern, we need to know what layer we are talking about, In a reality, some thread-model can convert a non-block sync IO to a non-blocking async IO...
 ```
- ## Key words
-       Blocking, 
-       non-blocking, 
-       Sync
-       Async
- 
 ## Recap C10K problem
 
 Finally, we get to the problem -- C10K. 15 Years ago, xxx arise C10K problem which was a big chellenge( This situation is often called the c10k problem. With select() or poll(), your network server will hardly perform any useful things but wasting precious CPU cycles under such high load. 
