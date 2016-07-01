@@ -597,7 +597,7 @@ void DieWithError(char *errorMessage)
     perror(errorMessage);
     exit(1);
 }
-   ```
+```
    TODO, if we turn on two port in one thread, and the signal handler is busy with port-1 message handling, can it receive message from port-2 via the signal handler way?
    
    https://github.com/angrave/SystemProgramming/wiki/Signals,-Part-2:-Pending-Signals-and-Signal-Masks
