@@ -823,5 +823,3 @@ Programming Model:                             Java NIO      --(event-loop)---->
 [40] http://www.freebsd.org/cgi/man.cgi?query=socket&apropos=0&sektion=7&manpath=SuSE+Linux%2Fi386+11.0&format=ascii
 
 [41] http://www.cnblogs.com/liyux/p/5603826.html   
-
-[42] http://www.visolve.com/uploads/resources/squidrtsignal.pdf
