@@ -399,6 +399,8 @@ AIO
     
 ## Linux Kernel Support
 
+每一大项填加一个bullets 说明
+
 ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
    book: TCPIP socket In C practical guide for programmer
