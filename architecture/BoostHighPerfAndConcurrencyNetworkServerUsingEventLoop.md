@@ -613,7 +613,7 @@ File descriptors can be set to generate a signal when an I/O readiness event occ
 
    fcntl(fd, F_SETSIG, signum);
 
-... where fd is the file descriptor and signum is the signal number you want to use. Setting signum to 0 restores the default behaviour (send SIGIO). Setting it to non-zero has the effect of causing the specified signal to be queued when an I/O readiness event occurs, if the specified signal is a non-realtime signal which is already pending (? I need to check this - didn't I mean if it is a realtime signal?). If the signal cannot be queued a SIGIO is sent in the traditional manner. 
+... where fd is the file descriptor and signum is the signal number you want to use. Setting signum to 0 restores the default behaviour (send SIGIO). Setting it to non-zero has the effect of causing the specified signal to be queued when an I/O readiness event occurs, if the specified signal is a non-realtime signal which is already pending (? I need to check this - didn't I mean if it is a realtime signal?--难道我不是说如果这是一个realtime信号吗？). If the signal cannot be queued a SIGIO is sent in the traditional manner. 
 
 ### AIO
 ####Kernel AIO
