@@ -22,10 +22,14 @@ Brief Content Table:
 >Recap C10K problem
 >
 >>Issue
->>>Thread-Based Model
+>>>Thread-Based model
 >>
 >>Soluction
 >>
+>>>Reactor model
+>>>
+>>>Proactor model
+>>>
 >
 >aaa
 
