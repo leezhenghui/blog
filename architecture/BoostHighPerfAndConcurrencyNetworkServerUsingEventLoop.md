@@ -439,7 +439,7 @@ It is possible to open a file (or device) in "non-blocking" mode by using the O_
      Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
      
    The synchornized-demultiplexing evolution timeline:
-      select --> poll --> paper --> epoll --> ?(aio combined epoll)
+      select --> poll --> SIGIO --> paper --> epoll --> ?(aio combined epoll)
       最后这项需要调研一下
      
 #### Standard Signal - "SIGIO" noitfication (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
