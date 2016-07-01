@@ -1,6 +1,6 @@
 # Boost high scalability network server using event-loop model
 
-Today in internet world, a common technonical challenge we are facing in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop programming model seems usually take a key role in this area. Why? What underlying story is? I would like to jot down this writing which came cross with my earlier experiences/research as a future reference for me and any one who come across to this post. 
+Today in internet world, a common technonical challenge we are facing in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop programming model seems usually take a key role in this field. Why? What underlying story is? I would like to jot down this writing which came cross with my earlier experiences/research as a future reference for me and any one who come across to this post. 
 
 ~~~
 TO-DELETE:
