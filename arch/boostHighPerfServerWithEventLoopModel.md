@@ -4,7 +4,16 @@ Today in internet world, a common technonical challenge we are facing in network
 
 Brief Content Table:
 
-> TODO, a roadmap
+> I/O models under unix-like OS
+>>Blocking I/O
+>>
+>>Non-blocking I/O
+>>
+>>I/O multiplexing
+>>
+>>Signal driven I/O
+>>
+>>Asynchronous I/O
 
 ~~~
 TO-DELETE:
