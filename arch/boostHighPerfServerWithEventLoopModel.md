@@ -123,10 +123,6 @@ SVR3 Unix provided the poll system call. Arguably better-named than select, for 
 TODO, diagram
 ~~~
 
-
-
-
-
 (wikipedia https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29)
 Available in BSD and POSIX Unix. I/O is issued asynchronously, and when it is completed a signal (interrupt) is generated. As in low-level kernel programming, the facilities available for safe use within the signal handler are limited, and the main flow of the process could have been interrupted at nearly any point, resulting in inconsistent data structures as seen by the signal handler. The signal handler is usually not able to issue further asynchronous I/O by itself.
 
