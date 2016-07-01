@@ -138,73 +138,7 @@ It's possible to be notified of I/O availability by a signal. It's an alternativ
 
 ### signal
 
-Real-Time signal testing:
 
-```c
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-sig_atomic_t sigusr1_count = 0;
-
-void handler (int signal_number)
-{
-  printf ("SIGRTMIN+10 Handler Enter\n");
-  ++sigusr1_count;
-  sleep(3);
-  printf ("SIGRTMIN+10 Handler Exit\n");
-}
-
-int main ()
-{
-  struct sigaction sa; 
-  memset (&sa, 0, sizeof (sa));
-  sa.sa_handler = &handler;
-  sigaction (SIGRTMIN+10, &sa, NULL);
-
-  while(1 > 0)  
-  {
-    printf ("SIGRTMIN+10 was raised %d times\n", sigusr1_count);
-    sleep(1);
-  }
-
-  return 0;
-}
-
-```
-run the command below:
-``` bash
-for i in {1..10}; do kill -44 `pgrep rt_signal_test`; done
-```
-
-result:
-
-``` console
-SIGRTMIN+10 was raised 0 times
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 was raised 10 times
-```
 
 > In above sample, I use a sleep in the signal handler to make the sample easy to simulate the situation of a signal is executing. However, in a real-life application, this is not a suggested way, as we need to make the singal handler perform as minimal as possible.
 > can Real-time signals workaround this???(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
@@ -631,6 +565,76 @@ http://davmac.org/davpage/linux/async-io.html#signals
 Of the notification methods, sending a signal would seem at the outset to be the only appropriate choice when large amounts of concurrent I/O are taking place. Although realtime signals could be used, there is a potential for signal buffer overflow which means signals could be lost; furthermore there is no notification at all of such overflow (one would think raising SIGIO in this case would be a good idea, but no, POSIX doesn't specify it, and Glibc doesn't do it). What Glibc does do is set an error on the AIO control block so that if you happen to check, you will see an error. Of course, you never will check because you'll never receive any notification of completion.
 To use AIO with signal notifications reliably then, you need to check each and every AIO control block that is associated with a particular signal whenever that signal is received. For realtime signals it means that the signal queue should be drained before this is performed, to avoid redundant checking. It would be possible to use a range of signals and distribute the control blocks to them, which would limit the amount of control blocks to check per signal received; however, it's clear that ultimately this technique is not suitable for large amounts of highly concurrent I/O.
 ####Realtime Signal Notification - "F_SETSIG" signal
+
+What is realtime signal:
+Real-Time signal testing:
+
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+sig_atomic_t sigusr1_count = 0;
+
+void handler (int signal_number)
+{
+  printf ("SIGRTMIN+10 Handler Enter\n");
+  ++sigusr1_count;
+  sleep(3);
+  printf ("SIGRTMIN+10 Handler Exit\n");
+}
+
+int main ()
+{
+  struct sigaction sa; 
+  memset (&sa, 0, sizeof (sa));
+  sa.sa_handler = &handler;
+  sigaction (SIGRTMIN+10, &sa, NULL);
+
+  while(1 > 0)  
+  {
+    printf ("SIGRTMIN+10 was raised %d times\n", sigusr1_count);
+    sleep(1);
+  }
+
+  return 0;
+}
+
+```
+run the command below:
+``` bash
+for i in {1..10}; do kill -44 `pgrep rt_signal_test`; done
+```
+
+result:
+
+``` console
+SIGRTMIN+10 was raised 0 times
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 was raised 10 times
+```
+The 2.4 linux kernel can deliver socket readiness events via a particular realtime signal. Here's how to turn this behavior on: 
 
 http://bulk.fefe.de/scalable-networking.pdf
 http://www.kegel.com/c10k.html#nb.sigio
