@@ -20,12 +20,9 @@ Brief Content Table:
 >>Sync vs. Async
 >
 >Recap C10K problem
->
->>Issue
->>>Thread-Based model
->>
->>Soluction
->>
+  >>Issue
+    >>>Thread-Based model
+  >>Soluction
 >>>Reactor model
 >>>>nonblocking in conjunction with level-triggered readiness notification
 >>>>nonblocking in conjunction with edge-triggered readiness notification
