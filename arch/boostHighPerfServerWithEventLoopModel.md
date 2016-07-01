@@ -568,7 +568,7 @@ Of the notification methods, sending a signal would seem at the outset to be the
 To use AIO with signal notifications reliably then, you need to check each and every AIO control block that is associated with a particular signal whenever that signal is received. For realtime signals it means that the signal queue should be drained before this is performed, to avoid redundant checking. It would be possible to use a range of signals and distribute the control blocks to them, which would limit the amount of control blocks to check per signal received; however, it's clear that ultimately this technique is not suitable for large amounts of highly concurrent I/O.
 ####Realtime Signal Notification - "F_SETSIG" signal
 
-What is realtime signal:
+The POSIX specification defines so called real-time signals and Linux supports it, What is realtime signal:
 Real-Time signal testing:
 
 ```c
