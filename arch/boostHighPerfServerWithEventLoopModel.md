@@ -412,7 +412,7 @@ void handler (int signal_number)
 {
   printf ("SIGUSR1 Handler Enter\n");
   ++sigusr1_count;
-  sleep(10);
+  sleep(3);
   printf ("SIGUSR1 Handler End\n");
 }
 
@@ -426,7 +426,7 @@ int main ()
   while(1 > 0)
   {
     printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
-    sleep(3);
+    sleep(1);
   }
   return 0;
 }
