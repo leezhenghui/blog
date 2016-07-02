@@ -38,6 +38,14 @@ Brief Content Table:
 >>> 2.2.2 Proactor model
 >
 >> 3 Linux kernel support
+>>> 3.1 Nonblocking I/O
+>>> 
+>>> 3.2 Edge-triggered Demultipluxer
+>>>> 3.2.1 Epoll
+>>>> 
+>>>> 3.2.2 Unix standard signal -- SIGIO
+>>>> 
+>>>> 3.2.3 POSIX Realtime signal
 > 
 
 ---
