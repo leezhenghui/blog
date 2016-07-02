@@ -41,11 +41,12 @@ Brief Content Table:
 >>> 3.1 Nonblocking I/O
 >>> 
 >>> 3.2 Edge-triggered Demultipluxer
->>>> 3.2.1 Epoll
 >>>> 
->>>> 3.2.2 Unix standard signal -- SIGIO
+>>>> 3.2.1 Unix standard signal -- SIGIO
 >>>> 
->>>> 3.2.3 POSIX Realtime signal
+>>>> 3.2.2 POSIX Realtime signal
+>>>>
+>>>> 3.2.3 Epoll
 >>> 
 >>> 3.3 AIO
 >>> 
