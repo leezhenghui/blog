@@ -801,7 +801,7 @@ http://davmac.org/davpage/linux/async-io.html (why poxis aio is not suited to us
  
 #define TRUE   1
 #define FALSE  0
-#define PORT 8888
+#define PORT 5500
 
 int main(int argc , char *argv[])
 {
@@ -960,6 +960,13 @@ int main(int argc , char *argv[])
      
     return 0;
 } 
+```
+
+```bash
+#!/bin/bash
+exec 3<>/dev/tcp/localhost/5500
+cat <&3 &
+for i in {1..10}; do echo "hello" >&3; done
 ```
 ####Poll(level-triggered):
      http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
