@@ -37,7 +37,7 @@ Brief Content Table:
 >>> 
 >>> 2.2.2 Proactor model
 >
->> 3 Linux kernel support
+> 3 Linux kernel support
 >>> 3.1 Nonblocking I/O
 >>> 
 >>> 3.2 Edge-triggered Demultipluxer
