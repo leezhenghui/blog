@@ -370,7 +370,7 @@ GNU libc
 
 The C10K not only raise the problem out, but also points us to the possible directions from programming perspective. So for our next step, let's take a closer look at linux kernel side, and see what linux kernel pursued on this over the years.  With these OS layer contributions, we can settle down above programming model into the real-life pratical experiements.
 
-I will only talk about linux operating system, as I am not familiar with others.
+The discusion only covers the linux operating system, as that is my personal intrests. :-)
 
 ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
