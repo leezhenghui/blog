@@ -714,6 +714,56 @@ for (;;) {
   if (r==signum) handle_io(info.si_fd,info.si_band);
 }
 ```
+
+```
+#define _GNU_SOURCE
+#include <fcntl.h>
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+/* For error handling */
+#include <stdlib.h>
+#include <errno.h>
+#include <error.h>
+
+static volatile int event_fd;
+
+static void handler(int sig, siginfo_t *si, void *data)
+{
+    event_fd = si->si_fd;
+}
+
+int main(int argc, char *argv[])
+{
+    struct sigaction sa;
+    int fd;
+
+if(argc < 2)
+    error(EXIT_FAILURE, 0, "missing argument");
+
+    sa.sa_sigaction = handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_SIGINFO;
+    sigaction(SIGRTMIN + 1, &sa, NULL);
+
+    if((fd = open(argv[1], O_RDONLY)) < 0)
+        error(EXIT_FAILURE, errno, "failed to open '%s'", argv[1]);
+
+    if(fcntl(fd, F_SETSIG, SIGRTMIN + 1) < 0)
+         error(EXIT_FAILURE, errno, "failed to set dnotify signal");
+
+    if(fcntl(fd, F_NOTIFY, DN_MODIFY|DN_CREATE|DN_DELETE|DN_MULTISHOT))
+    error(EXIT_FAILURE, errno, 
+              "failed to register notification for '%s'", argv[1]);
+
+    while (1) {
+        pause();
+        printf("event occured for fd=%d\n", event_fd);
+    }
+}
+
+```
 Explain from http://davmac.org/davpage/linux/async-io.html#signals
 
 File descriptors can be set to generate a signal when an I/O readiness event occurs on them - except for those which refer to regular files (which should not be surprising by now). This allows using sleep(), pause() or sigsuspend() to wait for both signals and I/O readiness events, rather than using select()/poll(). The GNU libc documentation has some information on using SIGIO. It tells how you can use the F_SETOWN argument to fcntl() in order to specify which process should recieve the SIGIO signal for a given file descriptor. However, it does not mention that on linux you can also use fcntl() with F_SETSIG to specify an alternative signal, including a realtime signal. Usage is as follows:
