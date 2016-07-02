@@ -82,7 +82,7 @@ Brief Content Table:
 >>> 
 >>> 4.2.3 Node.js
 >
->5 Weak point in event-loop
+>5 Weak point in event-loop model
 >
 >6 Alternative approach for C10K
 >
