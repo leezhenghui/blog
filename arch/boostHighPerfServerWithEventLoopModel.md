@@ -368,7 +368,7 @@ AIO
 TODO: 每一个具体技术API使用上，注明是POXIS，还是BSD的，还是Linux特有的
 GNU libc
 
-The C10K not only raise the problem out, but also points us to the possible directions from programming perspective. So for our next step, let's take a closer look at linux kernel side, and see what linux kernel pursued on this over the years.  
+The C10K not only raise the problem out, but also points us to the possible directions from programming perspective. So for our next step, let's take a closer look at linux kernel side, and see what linux kernel pursued on this over the years.  From these OS perspective things. we can settle down some idea into the perfect server implementation.
 
 ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
