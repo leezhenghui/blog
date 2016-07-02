@@ -365,6 +365,8 @@ AIO
 
 每一大项填加一个bullets 说明
 
+TODO: 每一个具体技术API使用上，注明是POXIS，还是BSD的，还是Linux特有的
+
 ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
    book: TCPIP socket In C practical guide for programmer
