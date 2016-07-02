@@ -993,16 +993,16 @@ main (int argc, char *argv[])
   int    desc_ready, end_server = FALSE, compress_array = FALSE;
   int    close_conn;
   char   buffer[80];
-  struct sockaddr_in6   addr;
+  struct sockaddr_in   addr;
   int    timeout;
   struct pollfd fds[200];
   int    nfds = 1, current_size = 0, i, j;
 
   /*************************************************************/
-  /* Create an AF_INET6 stream socket to receive incoming      */
+  /* Create an AF_INET stream socket to receive incoming       */
   /* connections on                                            */
   /*************************************************************/
-  listen_sd = socket(AF_INET6, SOCK_STREAM, 0);
+  listen_sd = socket(AF_INET, SOCK_STREAM, 0);
   if (listen_sd < 0)
   {
     perror("socket() failed");
@@ -1022,8 +1022,8 @@ main (int argc, char *argv[])
   }
 
   /*************************************************************/
-  /* Set socket to be nonblocking. All of the sockets for      */
-  /* the incoming connections will also be nonblocking since   */
+  /* Set socket to be nonblocking. All of the sockets for    */
+  /* the incoming connections will also be nonblocking since  */
   /* they will inherit that state from the listening socket.   */
   /*************************************************************/
   rc = ioctl(listen_sd, FIONBIO, (char *)&on);
@@ -1038,9 +1038,9 @@ main (int argc, char *argv[])
   /* Bind the socket                                           */
   /*************************************************************/
   memset(&addr, 0, sizeof(addr));
-  addr.sin6_family      = AF_INET6;
-  memcpy(&addr.sin6_addr, &in6addr_any, sizeof(in6addr_any));
-  addr.sin6_port        = htons(SERVER_PORT);
+  addr.sin_family      = AF_INET;
+  addr.sin_addr.s_addr = htonl(INADDR_ANY);
+  addr.sin_port        = htons(SERVER_PORT);
   rc = bind(listen_sd,
             (struct sockaddr *)&addr, sizeof(addr));
   if (rc < 0)
@@ -1072,7 +1072,7 @@ main (int argc, char *argv[])
   fds[0].fd = listen_sd;
   fds[0].events = POLLIN;
   /*************************************************************/
-  /* Initialize the timeout to 3 minutes. If no                */
+  /* Initialize the timeout to 3 minutes. If no               */
   /* activity after 3 minutes this program will end.           */
   /* timeout value is based on milliseconds.                   */
   /*************************************************************/
@@ -1150,9 +1150,9 @@ main (int argc, char *argv[])
         do
         {
           /*****************************************************/
-          /* Accept each incoming connection. If               */
+          /* Accept each incoming connection. If              */
           /* accept fails with EWOULDBLOCK, then we            */
-          /* have accepted all of them. Any other              */
+          /* have accepted all of them. Any other             */
           /* failure on accept will cause us to end the        */
           /* server.                                           */
           /*****************************************************/
@@ -1201,7 +1201,7 @@ main (int argc, char *argv[])
         {
           /*****************************************************/
           /* Receive data on this connection until the         */
-          /* recv fails with EWOULDBLOCK. If any other         */
+          /* recv fails with EWOULDBLOCK. If any other        */
           /* failure occurs, we will close the                 */
           /* connection.                                       */
           /*****************************************************/
@@ -1248,7 +1248,7 @@ main (int argc, char *argv[])
 
         /*******************************************************/
         /* If the close_conn flag was turned on, we need       */
-        /* to clean up this active connection. This            */
+        /* to clean up this active connection. This           */
         /* clean up process includes removing the              */
         /* descriptor.                                         */
         /*******************************************************/
@@ -1281,7 +1281,6 @@ main (int argc, char *argv[])
           {
             fds[j].fd = fds[j+1].fd;
           }
-          i--;
           nfds--;
         }
       }
@@ -1290,7 +1289,7 @@ main (int argc, char *argv[])
   } while (end_server == FALSE); /* End of serving running.    */
 
   /*************************************************************/
-  /* Clean up all of the sockets that are open                 */
+  /* Clean up all of the sockets that are open                  */
   /*************************************************************/
   for (i = 0; i < nfds; i++)
   {
