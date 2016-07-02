@@ -705,6 +705,9 @@ RealTime  signals  have  not  achieved
 widespread  use  because  of 
 difficulties  in  use  for  application  writers
 
+https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29
+The signal approach, though relatively simple to implement within the OS, brings to the application program the unwelcome baggage associated with writing an operating system's kernel interrupt system. Its worst characteristic is that every blocking (synchronous) system call is potentially interruptible; the programmer must usually incorporate retry code at each call.
+
 ####Epoll(edge-trigerred):
      http://www.kegel.com/c10k.html
      On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
