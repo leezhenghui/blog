@@ -6,7 +6,7 @@ Content Table:
 
 > 0 Preface
 > 
->  1 I/O models under unix-like OS
+>  1 I/O models under Unix-like OS
 > 
 >> 1.1 Blocking I/O
 >> 
