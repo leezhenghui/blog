@@ -80,7 +80,13 @@ Brief Content Table:
 >>>> 
 >>>> 4.2.2.3 Netty
 >>> 
->>> 4.2.3 Node.js 
+>>> 4.2.3 Node.js
+>
+>5 Weak point in event-loop
+>
+>6 Is there alternative approach to resolve C10K
+>
+>7 Wrappup
 
 ---
 
