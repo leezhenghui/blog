@@ -52,7 +52,12 @@ Brief Content Table:
 >>>> 3.3.1 Linux Kernal AIO
 >>>> 
 >>>> 3.3.2 POXIS AIO
-> 
+>>> 
+>>>3.4 Edge-triggered Demultipluxer
+>>>> 3.4.1 POXIS select
+>>>> 
+>>>> 3.4.2 Poll
+>
 
 ---
 
