@@ -37,7 +37,8 @@ Brief Content Table:
 >>> 
 >>> Proactor model
 >
->  ...
+>   Linux kernel support
+> 
 
 ---
 
