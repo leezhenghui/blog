@@ -368,7 +368,7 @@ AIO
 TODO: 每一个具体技术API使用上，注明是POXIS，还是BSD的，还是Linux特有的
 GNU libc
 
-As mentioned in above section, the C10K not only raise the problem out, but also points us to the possible directions from programming models perspective. So for our next step, let's take a closer look at linux kernel side, and see what linux kernel(including standard libc) pursued on during that period over years.  With these concrete OS layer fundamental contributions, we can settle down above programming model into the real-life pratical experiements.
+As mentioned in above section, the C10K not only raise the problem out, but also points us to the possible directions from programming models perspective. So for our next step, let's take a closer look at linux kernel side, and see what linux kernel(including standard libc) pursued on this area during the period over years.  With these concrete OS layer fundamental contributions, we can settle down above programming model into the real-life pratical experiements.
 
 The discusion only covers the linux operating system, as that is my personal intrests. :-)
 
