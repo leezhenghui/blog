@@ -6,38 +6,38 @@ Today in internet world, a common technonical challenge we are facing in network
 
 Brief Content Table:
 
-> I/O models under unix-like OS
+>  1 I/O models under unix-like OS
 > 
->> Blocking I/O
+>> 1.1 Blocking I/O
 >> 
->> Non-blocking I/O
+>> 1.2 Non-blocking I/O
 >> 
->> I/O multiplexing
+>> 1.3 I/O multiplexing
 >> 
->> Signal driven I/O
+>> 1.4 Signal driven I/O
 >> 
->> Asynchronous I/O
+>> 1.5 Asynchronous I/O
 >> 
->> Blocking vs. Non-blocking
+>> 1.6 Blocking vs. Non-blocking
 >> 
->> Sync vs. Async
+>> 1.7 Sync vs. Async
 >
-> Recap C10K problem
+>2 Recap C10K problem
 > 
->> Issue
->>> Thread-Based model
+>> 2.1 Issue
+>>> 2.1.1 Thread-Based model
 >>
->> Soluction
+>> 2.2 Soluction
 >> 
->>> Reactor model
+>>> 2.2.1 Reactor model
 >>> 
->>>> nonblocking in conjunction with level-triggered readiness notification
+>>>> 2.2.1.1 nonblocking in conjunction with level-triggered readiness notification
 >>>> 
->>>> nonblocking in conjunction with edge-triggered readiness notification
+>>>> 2.2.1.2 nonblocking in conjunction with edge-triggered readiness notification
 >>> 
->>> Proactor model
+>>> 2.2.2 Proactor model
 >
->   Linux kernel support
+>> 3 Linux kernel support
 > 
 
 ---
