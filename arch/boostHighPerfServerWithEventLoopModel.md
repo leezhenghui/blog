@@ -715,7 +715,9 @@ for (;;) {
 }
 ```
 
-```
+Below is an example to use `F_SETSIG` to monitor a file system directory
+
+```c
 #define _GNU_SOURCE
 #include <fcntl.h>
 #include <signal.h>
@@ -763,6 +765,12 @@ if(argc < 2)
     }
 }
 
+```
+compile the source and run it as below:
+```bash
+
+./folder_monitor /home/lizh/tmp
+touch /home/lizh/tmp/tmp.txt 
 ```
 Explain from http://davmac.org/davpage/linux/async-io.html#signals
 
