@@ -84,7 +84,7 @@ Brief Content Table:
 >
 >5 Weak point in event-loop
 >
->6 Is there alternative approach to resolve C10K
+>6 Alternative approach for C10K
 >
 >7 Wrappup
 
