@@ -123,7 +123,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
 
 Before jumping into event-loop programming model, let's step back and take a look at the bigger picture, exploring the differences among the classic I/O models under unix-like operating system as well as the appropriate programming models which fit in these I/O models individually.
 
-## I/O models under unix-like OS
+## I/O models under Unix-like operating system
 
 ~~~
   TODO, there are 5 I/O models comes from unix network programming
