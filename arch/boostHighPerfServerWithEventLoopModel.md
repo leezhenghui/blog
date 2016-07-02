@@ -586,6 +586,7 @@ Basically, pending signals of the same type are not queued, but discarded. And n
 http://davmac.org/davpage/linux/async-io.html#signals
 Of the notification methods, sending a signal would seem at the outset to be the only appropriate choice when large amounts of concurrent I/O are taking place. Although realtime signals could be used, there is a potential for signal buffer overflow which means signals could be lost; furthermore there is no notification at all of such overflow (one would think raising SIGIO in this case would be a good idea, but no, POSIX doesn't specify it, and Glibc doesn't do it). What Glibc does do is set an error on the AIO control block so that if you happen to check, you will see an error. Of course, you never will check because you'll never receive any notification of completion.
 To use AIO with signal notifications reliably then, you need to check each and every AIO control block that is associated with a particular signal whenever that signal is received. For realtime signals it means that the signal queue should be drained before this is performed, to avoid redundant checking. It would be possible to use a range of signals and distribute the control blocks to them, which would limit the amount of control blocks to check per signal received; however, it's clear that ultimately this technique is not suitable for large amounts of highly concurrent I/O.
+
 ####Realtime Signal Notification - "F_SETSIG" signal
 
 http://www.masterraghu.com/subjects/np/introduction/unix_network_programming_v1.3/ch05lev1sec8.html
