@@ -717,6 +717,7 @@ The signal approach, though relatively simple to implement within the OS, brings
      http://www.kegel.com/c10k.html
      On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
 
+     Epoll从multiplex角度看，他是ET, epoll的API内部也分为ET和LT两种。这是从两个不同层面的解读，不要混淆
 
      http://davmac.org/davpage/linux/async-io.html#signals
      Epoll is fairly efficient compared to the poll/select variants, but it still won't work with regular files.
