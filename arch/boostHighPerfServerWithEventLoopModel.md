@@ -381,32 +381,7 @@ It is possible to open a file (or device) in "non-blocking" mode by using the O_
 >A more subtle problem with non-blocking I/O is that it generally doesn't work with regular files (this is true on linux, even when files are opened with O_DIRECT; possibly not on other operating systems). That is, opening a regular file in non-blocking mode has no effect for regular files: a read will always actually read some of the file, even if the program blocks in order to do so. In some cases this may not be important, seeing as file I/O is generally fast enough so as to not cause long blocking periods (so long as the file is local and not on a network, or a slow medium). However, it is a general weakness of the technique. In general, non-blocking I/O and the event notification mechanisms here will work with sockets and pipes, TTYs, and certain other types of device.
 
 ### Edge-triggered Demultipluxer
-####Epoll(edge-trigerred):
-     http://www.kegel.com/c10k.html
-     On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
 
-
-     http://davmac.org/davpage/linux/async-io.html#signals
-     Epoll is fairly efficient compared to the poll/select variants, but it still won't work with regular files.
-     
-     Epoll was introduced by a paper, explain a little bit about that paper(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
-     http://blog.csdn.net/zys85/article/details/3710579
-     http://it.taocms.org/12/6246.htm
-     http://slidedeck.io/donatasm/hacking-an-nginx-module
-     Give a timeline of select --> poll --> paper -->epoll(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html, file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
-     
-     Give a chart about how epoll improve the perf so much
-     (file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
-     
-     Epoll is so important, explain a little bit more about the two work mode: LT和ET的区别(http://m.blog.csdn.net/article/details?id=39895449, http://www.ccvita.com/515.html)
-     
-     Select Vs poll Vs Epoll (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
-     
-     Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
-     
-   The synchornized-demultiplexing evolution timeline:
-      select --> poll --> SIGIO --> paper --> epoll --> ?(aio combined epoll)
-      最后这项需要调研一下
      
 #### Standard Signal - "SIGIO" noitfication (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
 what is standard signal
@@ -730,6 +705,33 @@ RealTime  signals  have  not  achieved
 widespread  use  because  of 
 difficulties  in  use  for  application  writers
 
+####Epoll(edge-trigerred):
+     http://www.kegel.com/c10k.html
+     On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
+
+
+     http://davmac.org/davpage/linux/async-io.html#signals
+     Epoll is fairly efficient compared to the poll/select variants, but it still won't work with regular files.
+     
+     Epoll was introduced by a paper, explain a little bit about that paper(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
+     http://blog.csdn.net/zys85/article/details/3710579
+     http://it.taocms.org/12/6246.htm
+     http://slidedeck.io/donatasm/hacking-an-nginx-module
+     Give a timeline of select --> poll --> paper -->epoll(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html, file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
+     
+     Give a chart about how epoll improve the perf so much
+     (file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
+     
+     Epoll is so important, explain a little bit more about the two work mode: LT和ET的区别(http://m.blog.csdn.net/article/details?id=39895449, http://www.ccvita.com/515.html)
+     
+     Select Vs poll Vs Epoll (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
+     
+     Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
+     
+   The synchornized-demultiplexing evolution timeline:
+      select --> poll --> SIGIO --> paper --> epoll --> ?(aio combined epoll)
+      最后这项需要调研一下
+      
 ### AIO
 ####Kernel AIO
 http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
