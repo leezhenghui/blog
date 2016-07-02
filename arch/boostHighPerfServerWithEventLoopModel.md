@@ -193,8 +193,6 @@ It's possible to be notified of I/O availability by a signal. It's an alternativ
 
 ### signal
 
-
-
 > In above sample, I use a sleep in the signal handler to make the sample easy to simulate the situation of a signal is executing. However, in a real-life application, this is not a suggested way, as we need to make the singal handler perform as minimal as possible.
 > can Real-time signals workaround this???(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
 > 
