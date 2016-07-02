@@ -1,5 +1,8 @@
 # Boost high scalability network server using event-loop model
 
+Author: Zhenghui Lee
+Email: leezhenghui@gmail.com
+
 ---
 
 Content Table:
