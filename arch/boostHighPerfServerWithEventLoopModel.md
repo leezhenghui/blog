@@ -31,9 +31,9 @@ Brief Content Table:
 >> 
 >>> 2.2.1 Reactor model
 >>> 
->>>> 2.2.1.1 nonblocking in conjunction with level-triggered readiness notification
+>>>> 2.2.1.1 Nonblocking in conjunction with level-triggered readiness notification
 >>>> 
->>>> 2.2.1.2 nonblocking in conjunction with edge-triggered readiness notification
+>>>> 2.2.1.2 Nonblocking in conjunction with edge-triggered readiness notification
 >>> 
 >>> 2.2.2 Proactor model
 >
