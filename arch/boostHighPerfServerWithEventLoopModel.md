@@ -1,7 +1,8 @@
 # Boost high scalability network server using event-loop model
+
 ---
 
-Brief Content Table:
+Content Table:
 
 >  1 I/O models under unix-like OS
 > 
