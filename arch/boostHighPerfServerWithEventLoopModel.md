@@ -368,6 +368,8 @@ AIO
 TODO: 每一个具体技术API使用上，注明是POXIS，还是BSD的，还是Linux特有的
 GNU libc
 
+Reading the article so far, we already know about the problem and also the possible solution directions. so let's take a closer at linux kernel side, and see whether it is ready to support this
+
 ### noblocking
    http://www.wangafu.net/~nickm/libevent-book/01_intro.html
    book: TCPIP socket In C practical guide for programmer
