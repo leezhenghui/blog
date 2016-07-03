@@ -1338,7 +1338,17 @@ https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
 rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
 
 #### Best practice on Signal based Readiness Notification
-I want to take a addition more section to talk about signal based readiness notification, because it is quit interesting. As the first feeling of the underhood excecuting mechanism,  It seems good. Let's see why it not spread out.. 
+I want to take a addition more section to talk about signal based readiness notification, because:
+1. it is quit interesting. As the first feeling of the underhood excecuting mechanism,  It seems good. Let's see why it not spread out.. 
+2. (http://www.visolve.com/uploads/resources/squidrtsignal.pdf)A new interface  called 
+kqueue[3]  has  been  implemented  on  the  FreeBSD  opera
+ting  system.  Kqueue  was 
+designed to eliminate the performance problems of p
+olling and avoid the difficulties 
+found in RealTime signals. But, there is currently 
+no implementation for Linux yet. Our 
+main focus is on RealTime signals because it is rea
+dily available for Linux. 
 
 (http://davmac.org/davpage/linux/async-io.html#signals)
 The IO signal technique, in conjunction with the signal wait functions, can be used to reliably wait on a set of events including both I/O readiness events and other signals. As such, it is already close to a complete solution to the problem.
@@ -1349,6 +1359,25 @@ By default it's SIGIO, but using Real-time signals is more practical and you can
 (http://davmac.org/davpage/linux/async-io.html#signals)
 Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll() and perhaps even epoll(), which will soon be discussed. 
 
+To make a complete solution based on signal, we need to combin signal and poll technologies together.
+
+http://www.visolve.com/uploads/resources/squidrtsignal.pdf 
+tells us what need additional handling besides the happy path (queue overflow, missing the beginging events before setup signal but socket has been created....)
+
+http://www.lxway.com/4444140926.htm
+tells the handling differences between linux 2.4 and linux2.6, as well as some coding details
+
+http://www.kegel.com/c10k.html#nb.sigio
+tells us a highlevel summary of how to use signal to resolve the prolbem
+
+http://davmac.org/davpage/linux/async-io.html#signals
+tells the basic concept and signal usage, why we select rtsignal instead of SIGIO
+
+
+
+Before 2.6: (SIGIO can be put to signal queue for socket event queue overflow notification)
+
+Since 2.6 (SIGIO should be only be handled by a signal handler)
 
 
 ####Epoll(edge-trigerred):
