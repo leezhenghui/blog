@@ -1344,7 +1344,10 @@ I want to take a addition more section to talk about signal based readiness noti
 The IO signal technique, in conjunction with the signal wait functions, can be used to reliably wait on a set of events including both I/O readiness events and other signals. As such, it is already close to a complete solution to the problem.
 
 The reason why we can't select SIGIO signal as the realtime signal for I/O readiness notification:
-By default it's SIGIO, but using Real-time signals is more practical and you can set up the file descriptor using fcntl(2). Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll() and perhaps even epoll(), which will soon be discussed. 
+(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
+By default it's SIGIO, but using Real-time signals is more practical and you can set up the file descriptor using fcntl(2). 
+(http://davmac.org/davpage/linux/async-io.html#signals)
+Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll() and perhaps even epoll(), which will soon be discussed. 
 
 
 
