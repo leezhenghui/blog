@@ -1378,14 +1378,14 @@ tell us some brief summary about nginx support rtsig from nginx implementation a
 
 based on above materilas, make a sequencing diagram about the details of how to use signal as well as poll to come out a complete solution.
 
-Before 2.6: (SIGIO can be put to signal queue for socket event queue overflow notification)
+1. Before 2.6: (SIGIO can be put to signal queue for socket event queue overflow notification)
 > TODO:
 > e.g: create socket file descriptor --> Mask off SIGIO and the signal you want to use (which will result in the event to be queued) -->  invoke F_SETOWN, F_SETSIG, and set O_ASYNC, O_NONBLOCK. --> use poll make sure no missing notification event ---> after handling the data coming during we initial signal configuration via poll, get to normalized execution logic --> use signalwait to detect I/O event by rt-signal ---> see if the queued event is SIGIO type, queue overflow occurs --> flush events in queue --> use poll to handle all of socket data --> normalize execution and get back to rtsig await api 
 
-Since 2.6 (SIGIO should be only be handled by a signal handler)
+2. Since 2.6 (SIGIO should be only be handled by a signal handler)
 > TODO
 
-A solution to avoid signal queue overflow is to all
+3. A solution to avoid signal queue overflow is to all
 ow only one event per socket file 
 descriptor in the signal queue.
 > /* 
