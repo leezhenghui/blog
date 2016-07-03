@@ -58,16 +58,16 @@ Content Table:
 >>>>
 >>>> 3.2.3 Epoll
 >>> 
->>> 3.3 AIO
->>> 
->>>> 3.3.1 Linux Kernal AIO
+>>> 3.3 Edge-triggered Demultipluxer
+>>>> 3.3.1 POXIS select
 >>>> 
->>>> 3.3.2 POXIS AIO
->>> 
->>>3.4 Edge-triggered Demultipluxer
->>>> 3.4.1 POXIS select
+>>>> 3.3.2 Poll
 >>>> 
->>>> 3.4.2 Poll
+>>> 3.4 AIO
+>>> 
+>>>> 3.4.1 Linux Kernal AIO
+>>>> 
+>>>> 3.4.2 POXIS AIO
 >
 >4 Event-loop programming model
 >
