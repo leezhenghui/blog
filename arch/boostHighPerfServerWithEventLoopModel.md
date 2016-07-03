@@ -400,429 +400,6 @@ http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 A more subtle problem with non-blocking I/O is that it generally doesn't work with regular files (this is true on linux). That is, opening a regular file in non-blocking mode has no effect for regular files: a read will always actually read some of the file, even if the program blocks in order to do so. In some cases this may not be important, seeing as file I/O is generally fast enough so as to not cause long blocking periods. However, I see it as a general weakness of the technique.
 Note the O_NONBLOCK also causes the open() call itself to be non-blocking for certain types of device (modems are the primary example in the GNU libc documentation). Unfortunately, there doesn't seem to exist a mechanism by which you can execute an open() call in a truly non-blocking manner for all files.
 
-### Edge-triggered Demultipluxer
-
-     
-#### Standard Signal - "SIGIO" noitfication (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
-what is standard signal
- :
- ``` c
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-sig_atomic_t sigusr1_count = 0;
-
-void handler (int signal_number)
-{
-  printf ("SIGUSR1 Handler Enter\n");
-  ++sigusr1_count;
-  sleep(3);
-  printf ("SIGUSR1 Handler End\n");
-}
-
-int main ()
-{
-  struct sigaction sa;
-  memset (&sa, 0, sizeof (sa));
-  sa.sa_handler = &handler;
-  sigaction (SIGUSR1, &sa, NULL);
-
-  while(1 > 0)
-  {
-    printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
-    sleep(1);
-  }
-  return 0;
-}
-
-```
-
-Run the command below
-``` bash
-for i in {1..10}; do kill -s USR1 <pid>; done
-```
-
-``` console
-SIGUSR1 was raised 0 times
-SIGUSR1 Handler Enter
-SIGUSR1 Handler End
-SIGUSR1 Handler Enter
-SIGUSR1 Handler End
-SIGUSR1 was raised 2 times
-```
-Below is an example to leverage SIGIO signal for readiness notification based on UDP protocol
-
-```c
-#include <stdio.h>      /* for printf() and fprintf() */
-#include <sys/socket.h> /* for socket(), bind, and connect() */
-#include <arpa/inet.h>  /* for sockaddr_in and inet_ntoa() */
-#include <stdlib.h>     /* for atoi() and exit() */
-#include <string.h>     /* for memset() */
-#include <unistd.h>     /* for close() and getpid() */
-#include <fcntl.h>      /* for fcntl() */
-#include <sys/file.h>   /* for O_NONBLOCK and FASYNC */
-#include <signal.h>     /* for signal() and SIGALRM */
-#include <errno.h>      /* for errno */
-
-#define ECHOMAX 255     /* Longest string to echo */
-
-void DieWithError(char *errorMessage);  /* Error handling function */
-void UseIdleTime();                     /* Function to use idle time */
-void SIGIOHandler(int signalType);      /* Function to handle SIGIO */
-
-int sock;                        /* Socket -- GLOBAL for signal handler */
-
-int main(int argc, char *argv[])
-{
-    struct sockaddr_in echoServAddr; /* Server address */
-    unsigned short echoServPort;     /* Server port */
-    struct sigaction handler;        /* Signal handling action definition */
-
-    /* Test for correct number of parameters */
-    if (argc != 2)
-    {
-        fprintf(stderr,"Usage:  %s <SERVER PORT>\n", argv[0]);
-        exit(1);
-    }
-
-    echoServPort = atoi(argv[1]);  /* First arg:  local port */
-
-    /* Create socket for sending/receiving datagrams */
-    if ((sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0)
-        DieWithError("socket() failed");
-
-    /* Set up the server address structure */
-    memset(&echoServAddr, 0, sizeof(echoServAddr));   /* Zero out structure */
-    echoServAddr.sin_family = AF_INET;                /* Internet family */
-    echoServAddr.sin_addr.s_addr = htonl(INADDR_ANY); /* Any incoming interface */
-    echoServAddr.sin_port = htons(echoServPort);      /* Port */
-
-    /* Bind to the local address */
-    if (bind(sock, (struct sockaddr *) &echoServAddr, sizeof(echoServAddr)) < 0)
-        DieWithError("bind() failed");
-
-    /* Set signal handler for SIGIO */
-    handler.sa_handler = SIGIOHandler;
-    /* Create mask that mask all signals */
-    if (sigfillset(&handler.sa_mask) < 0) 
-        DieWithError("sigfillset() failed");
-    /* No flags */
-    handler.sa_flags = 0;
-
-    if (sigaction(SIGIO, &handler, 0) < 0)
-        DieWithError("sigaction() failed for SIGIO");
-
-    /* We must own the socket to receive the SIGIO message */
-    if (fcntl(sock, F_SETOWN, getpid()) < 0)
-        DieWithError("Unable to set process owner to us");
-
-    /* Arrange for nonblocking I/O and SIGIO delivery */
-    if (fcntl(sock, F_SETFL, O_NONBLOCK | FASYNC) < 0)
-        DieWithError("Unable to put client sock into non-blocking/async mode");
-
-    /* Go off and do real work; echoing happens in the background */
-
-    for (;;)
-        UseIdleTime();
-
-    /* NOTREACHED */
-}
-
-void UseIdleTime()
-{
-    printf(".\n");
-    sleep(3);     /* 3 seconds of activity */
-}
-
-void SIGIOHandler(int signalType)
-{
-    struct sockaddr_in echoClntAddr;  /* Address of datagram source */
-    unsigned int clntLen;             /* Address length */
-    int recvMsgSize;                  /* Size of datagram */
-    char echoBuffer[ECHOMAX];         /* Datagram buffer */
-
-    do  /* As long as there is input... */
-    {
-        /* Set the size of the in-out parameter */
-        clntLen = sizeof(echoClntAddr);
-
-        if ((recvMsgSize = recvfrom(sock, echoBuffer, ECHOMAX, 0,
-               (struct sockaddr *) &echoClntAddr, &clntLen)) < 0)
-        {
-            /* Only acceptable error: recvfrom() would have blocked */
-            if (errno != EWOULDBLOCK)  
-                DieWithError("recvfrom() failed");
-        }
-        else
-        {
-            printf("Handling client %s\n", inet_ntoa(echoClntAddr.sin_addr));
-
-            if (sendto(sock, echoBuffer, recvMsgSize, 0, (struct sockaddr *) 
-                  &echoClntAddr, sizeof(echoClntAddr)) != recvMsgSize)
-                DieWithError("sendto() failed");
-        }
-    }  while (recvMsgSize >= 0);
-    /* Nothing left to receive */
-}
-
-void DieWithError(char *errorMessage)
-{
-    perror(errorMessage);
-    exit(1);
-}
-```
-
-Start the upd server on localhost:5500, and then test the server with below script:
-```bash
-#!/bin/bash
-exec 3<>/dev/tcp/localhost/5500
-cat <&3 &
-for i in {1..10}; do echo "hello" >&3; done
-```
-(TCP Socket In C Pratical Guide for programers)
-It is important to realize that signals are not queued—a signal is
-either pending or it is not. If the same signal is delivered more than once while it is being
-handled, the handler is only executed once more after it completes the original execution.
-
-   TODO, if we turn on two port in one thread, and the signal handler is busy with port-1 message handling, can it receive message from port-2 via the signal handler way?
-   
-   https://github.com/angrave/SystemProgramming/wiki/Signals,-Part-2:-Pending-Signals-and-Signal-Masks
-   
-   http://stackoverflow.com/questions/5285414/signal-queuing-in-c
-   What happens is the following:
-
-First signal received, namely SIGUSR1, handler is called and is running
-Second signal received, since handler from nr1 is still running, the signal nr2 gets pending and blocked.
-Third signal received, since handler from nr1 is still running, the signal 3 gets discarded.
-Fourth, fifth...etc signal of the same type as the signal nr1 are discarded.
-Once signal handler is done with signal nr1, it will process signal nr2, and then signal handler will process the SIGUSR2.
-
-Basically, pending signals of the same type are not queued, but discarded. And no, there is no easy way to "burst" send signals that way. One always assumes that there can be several signals that are discarded, and tries to let the handler do the work of cleaning and finding out what to do (such as reaping children, if all children die at the same time).
-
-http://davmac.org/davpage/linux/async-io.html#signals
-Of the notification methods, sending a signal would seem at the outset to be the only appropriate choice when large amounts of concurrent I/O are taking place. Although realtime signals could be used, there is a potential for signal buffer overflow which means signals could be lost; furthermore there is no notification at all of such overflow (one would think raising SIGIO in this case would be a good idea, but no, POSIX doesn't specify it, and Glibc doesn't do it). What Glibc does do is set an error on the AIO control block so that if you happen to check, you will see an error. Of course, you never will check because you'll never receive any notification of completion.
-To use AIO with signal notifications reliably then, you need to check each and every AIO control block that is associated with a particular signal whenever that signal is received. For realtime signals it means that the signal queue should be drained before this is performed, to avoid redundant checking. It would be possible to use a range of signals and distribute the control blocks to them, which would limit the amount of control blocks to check per signal received; however, it's clear that ultimately this technique is not suitable for large amounts of highly concurrent I/O.
-
-####Realtime Signal Notification - "F_SETSIG" signal
-
-http://www.masterraghu.com/subjects/np/introduction/unix_network_programming_v1.3/ch05lev1sec8.html
-That is, by default, Unix signals are not queued. We will see an example of this in the next section. The POSIX real-time standard, 1003.1b, defines some reliable signals that are queued, but we do not use them in this text.
-
-The POSIX specification defines so called real-time signals and Linux supports it(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
-Real-Time signal testing:
-
-```c
-#include <signal.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
-
-sig_atomic_t sigusr1_count = 0;
-
-void handler (int signal_number)
-{
-  printf ("SIGRTMIN+10 Handler Enter\n");
-  ++sigusr1_count;
-  sleep(3);
-  printf ("SIGRTMIN+10 Handler Exit\n");
-}
-
-int main ()
-{
-  struct sigaction sa; 
-  memset (&sa, 0, sizeof (sa));
-  sa.sa_handler = &handler;
-  sigaction (SIGRTMIN+10, &sa, NULL);
-
-  while(1 > 0)  
-  {
-    printf ("SIGRTMIN+10 was raised %d times\n", sigusr1_count);
-    sleep(1);
-  }
-
-  return 0;
-}
-
-```
-run the command below:
-``` bash
-for i in {1..10}; do kill -44 `pgrep rt_signal_test`; done
-```
-
-result:
-
-``` console
-SIGRTMIN+10 was raised 0 times
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 Handler Enter
-SIGRTMIN+10 Handler Exit
-SIGRTMIN+10 was raised 10 times
-```
-The 2.4 linux kernel can deliver socket readiness events via a particular realtime signal. Here's how to turn this behavior on: 
-
-http://bulk.fefe.de/scalable-networking.pdf
-http://www.kegel.com/c10k.html#nb.sigio
-http://www.freebsd.org/cgi/man.cgi?query=socket&apropos=0&sektion=7&manpath=SuSE+Linux%2Fi386+11.0&format=ascii
-http://www.visolve.com/uploads/resources/squidrtsignal.pdf
-http://www.lxway.com/4444140926.htm
-http://davmac.org/davpage/linux/async-io.html#signals
-
-```c
-int sigio_add_fd(int fd) {
-  static const int signum=SIGRTMIN+1;
-  static pid_t mypid=0;
-  if (!mypid) mypid=getpid();
-  fcntl(fd,F_SETOWN,mypid);
-  fcntl(fd,F_SETSIG,signum);
-  fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)|O_NONBLOCK|O_ASYNC);
-}
-
-int sigio_rm_fd(struct sigio* s,int fd) {
-  fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)&(~O_ASYNC));
-}
-```
-
-```c
-for (;;) {
-  timeout.tv_sec=0;
-  timeout.tv_nsec=10000;
-  switch (r=sigtimedwait(&s.ss,&info,&timeout)) {
-    case -1: if (errno!=EAGAIN) error("sigtimedwait");
-    case SIGIO: puts("SIGIO queue overflow!"); return 1;
-  }
-  if (r==signum) handle_io(info.si_fd,info.si_band);
-}
-```
-
-Below is an example to use `F_SETSIG` to monitor a file system directory
-
-```c
-#define _GNU_SOURCE
-#include <fcntl.h>
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-
-/* For error handling */
-#include <stdlib.h>
-#include <errno.h>
-#include <error.h>
-
-static volatile int event_fd;
-
-static void handler(int sig, siginfo_t *si, void *data)
-{
-    event_fd = si->si_fd;
-}
-
-int main(int argc, char *argv[])
-{
-    struct sigaction sa;
-    int fd;
-
-if(argc < 2)
-    error(EXIT_FAILURE, 0, "missing argument");
-
-    sa.sa_sigaction = handler;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_SIGINFO;
-    sigaction(SIGRTMIN + 1, &sa, NULL);
-
-    if((fd = open(argv[1], O_RDONLY)) < 0)
-        error(EXIT_FAILURE, errno, "failed to open '%s'", argv[1]);
-
-    if(fcntl(fd, F_SETSIG, SIGRTMIN + 1) < 0)
-         error(EXIT_FAILURE, errno, "failed to set dnotify signal");
-
-    if(fcntl(fd, F_NOTIFY, DN_MODIFY|DN_CREATE|DN_DELETE|DN_MULTISHOT))
-    error(EXIT_FAILURE, errno, 
-              "failed to register notification for '%s'", argv[1]);
-
-    while (1) {
-        pause();
-        printf("event occured for fd=%d\n", event_fd);
-    }
-}
-
-```
-compile the source and run it as below:
-```bash
-
-./folder_monitor /home/lizh/tmp
-touch /home/lizh/tmp/tmp.txt 
-```
-Explain from http://davmac.org/davpage/linux/async-io.html#signals
-
-File descriptors can be set to generate a signal when an I/O readiness event occurs on them - except for those which refer to regular files (which should not be surprising by now). This allows using sleep(), pause() or sigsuspend() to wait for both signals and I/O readiness events, rather than using select()/poll(). The GNU libc documentation has some information on using SIGIO. It tells how you can use the F_SETOWN argument to fcntl() in order to specify which process should recieve the SIGIO signal for a given file descriptor. However, it does not mention that on linux you can also use fcntl() with F_SETSIG to specify an alternative signal, including a realtime signal. Usage is as follows:
-
-   fcntl(fd, F_SETSIG, signum);
-
-... where fd is the file descriptor and signum is the signal number you want to use. Setting signum to 0 restores the default behaviour (send SIGIO). Setting it to non-zero has the effect of causing the specified signal to be queued when an I/O readiness event occurs, if the specified signal is a non-realtime signal which is already pending (? I need to check this - didn't I mean if it is a realtime signal?--难道我不是说如果这是一个realtime信号吗？). If the signal cannot be queued a SIGIO is sent in the traditional manner. 
-
-http://www.visolve.com/uploads/resources/squidrtsignal.pdf
-http://www.lxway.com/4444140926.htm
-
-RealTime  signals  have  not  achieved 
-widespread  use  because  of 
-difficulties  in  use  for  application  writers
-
-https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29
-The signal approach, though relatively simple to implement within the OS, brings to the application program the unwelcome baggage associated with writing an operating system's kernel interrupt system. Its worst characteristic is that every blocking (synchronous) system call is potentially interruptible; the programmer must usually incorporate retry code at each call.
-
-https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
-rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
-
-####Epoll(edge-trigerred):
-     http://www.kegel.com/c10k.html
-     On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
-
-     Epoll从multiplex角度看，他是ET, epoll的API内部也分为ET和LT两种。这是从两个不同层面的解读，不要混淆
-
-     http://davmac.org/davpage/linux/async-io.html#signals
-     Epoll is fairly efficient compared to the poll/select variants, but it still won't work with regular files.
-     
-     Epoll was introduced by a paper, explain a little bit about that paper(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
-     http://blog.csdn.net/zys85/article/details/3710579
-     http://it.taocms.org/12/6246.htm
-     http://slidedeck.io/donatasm/hacking-an-nginx-module
-     Give a timeline of select --> poll --> paper -->epoll(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html, file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
-     
-     Give a chart about how epoll improve the perf so much
-     (file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
-     
-     Epoll is so important, explain a little bit more about the two work mode: LT和ET的区别(http://m.blog.csdn.net/article/details?id=39895449, http://www.ccvita.com/515.html)
-     
-     Select Vs poll Vs Epoll (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
-     
-     Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
-     
-   The synchornized-demultiplexing evolution timeline:
-      select --> poll --> SIGIO --> paper --> epoll --> ?(aio combined epoll)
-      最后这项需要调研一下
-      
-
-    
 ### Level-triggered Demultipluxer
      Explain what is multiplux(diagram file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
      
@@ -1349,6 +926,427 @@ cat <&3 &
 for i in {1..10}; do echo "hello" >&3; done
 ```
 
+### Edge-triggered Demultipluxer
+
+     
+#### Standard Signal - "SIGIO" noitfication (standard sigal way mentioned in book, TCPIP Sockets In C practical Guide)
+what is standard signal
+ :
+ ``` c
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+sig_atomic_t sigusr1_count = 0;
+
+void handler (int signal_number)
+{
+  printf ("SIGUSR1 Handler Enter\n");
+  ++sigusr1_count;
+  sleep(3);
+  printf ("SIGUSR1 Handler End\n");
+}
+
+int main ()
+{
+  struct sigaction sa;
+  memset (&sa, 0, sizeof (sa));
+  sa.sa_handler = &handler;
+  sigaction (SIGUSR1, &sa, NULL);
+
+  while(1 > 0)
+  {
+    printf ("SIGUSR1 was raised %d times\n", sigusr1_count);
+    sleep(1);
+  }
+  return 0;
+}
+
+```
+
+Run the command below
+``` bash
+for i in {1..10}; do kill -s USR1 <pid>; done
+```
+
+``` console
+SIGUSR1 was raised 0 times
+SIGUSR1 Handler Enter
+SIGUSR1 Handler End
+SIGUSR1 Handler Enter
+SIGUSR1 Handler End
+SIGUSR1 was raised 2 times
+```
+Below is an example to leverage SIGIO signal for readiness notification based on UDP protocol
+
+```c
+#include <stdio.h>      /* for printf() and fprintf() */
+#include <sys/socket.h> /* for socket(), bind, and connect() */
+#include <arpa/inet.h>  /* for sockaddr_in and inet_ntoa() */
+#include <stdlib.h>     /* for atoi() and exit() */
+#include <string.h>     /* for memset() */
+#include <unistd.h>     /* for close() and getpid() */
+#include <fcntl.h>      /* for fcntl() */
+#include <sys/file.h>   /* for O_NONBLOCK and FASYNC */
+#include <signal.h>     /* for signal() and SIGALRM */
+#include <errno.h>      /* for errno */
+
+#define ECHOMAX 255     /* Longest string to echo */
+
+void DieWithError(char *errorMessage);  /* Error handling function */
+void UseIdleTime();                     /* Function to use idle time */
+void SIGIOHandler(int signalType);      /* Function to handle SIGIO */
+
+int sock;                        /* Socket -- GLOBAL for signal handler */
+
+int main(int argc, char *argv[])
+{
+    struct sockaddr_in echoServAddr; /* Server address */
+    unsigned short echoServPort;     /* Server port */
+    struct sigaction handler;        /* Signal handling action definition */
+
+    /* Test for correct number of parameters */
+    if (argc != 2)
+    {
+        fprintf(stderr,"Usage:  %s <SERVER PORT>\n", argv[0]);
+        exit(1);
+    }
+
+    echoServPort = atoi(argv[1]);  /* First arg:  local port */
+
+    /* Create socket for sending/receiving datagrams */
+    if ((sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0)
+        DieWithError("socket() failed");
+
+    /* Set up the server address structure */
+    memset(&echoServAddr, 0, sizeof(echoServAddr));   /* Zero out structure */
+    echoServAddr.sin_family = AF_INET;                /* Internet family */
+    echoServAddr.sin_addr.s_addr = htonl(INADDR_ANY); /* Any incoming interface */
+    echoServAddr.sin_port = htons(echoServPort);      /* Port */
+
+    /* Bind to the local address */
+    if (bind(sock, (struct sockaddr *) &echoServAddr, sizeof(echoServAddr)) < 0)
+        DieWithError("bind() failed");
+
+    /* Set signal handler for SIGIO */
+    handler.sa_handler = SIGIOHandler;
+    /* Create mask that mask all signals */
+    if (sigfillset(&handler.sa_mask) < 0) 
+        DieWithError("sigfillset() failed");
+    /* No flags */
+    handler.sa_flags = 0;
+
+    if (sigaction(SIGIO, &handler, 0) < 0)
+        DieWithError("sigaction() failed for SIGIO");
+
+    /* We must own the socket to receive the SIGIO message */
+    if (fcntl(sock, F_SETOWN, getpid()) < 0)
+        DieWithError("Unable to set process owner to us");
+
+    /* Arrange for nonblocking I/O and SIGIO delivery */
+    if (fcntl(sock, F_SETFL, O_NONBLOCK | FASYNC) < 0)
+        DieWithError("Unable to put client sock into non-blocking/async mode");
+
+    /* Go off and do real work; echoing happens in the background */
+
+    for (;;)
+        UseIdleTime();
+
+    /* NOTREACHED */
+}
+
+void UseIdleTime()
+{
+    printf(".\n");
+    sleep(3);     /* 3 seconds of activity */
+}
+
+void SIGIOHandler(int signalType)
+{
+    struct sockaddr_in echoClntAddr;  /* Address of datagram source */
+    unsigned int clntLen;             /* Address length */
+    int recvMsgSize;                  /* Size of datagram */
+    char echoBuffer[ECHOMAX];         /* Datagram buffer */
+
+    do  /* As long as there is input... */
+    {
+        /* Set the size of the in-out parameter */
+        clntLen = sizeof(echoClntAddr);
+
+        if ((recvMsgSize = recvfrom(sock, echoBuffer, ECHOMAX, 0,
+               (struct sockaddr *) &echoClntAddr, &clntLen)) < 0)
+        {
+            /* Only acceptable error: recvfrom() would have blocked */
+            if (errno != EWOULDBLOCK)  
+                DieWithError("recvfrom() failed");
+        }
+        else
+        {
+            printf("Handling client %s\n", inet_ntoa(echoClntAddr.sin_addr));
+
+            if (sendto(sock, echoBuffer, recvMsgSize, 0, (struct sockaddr *) 
+                  &echoClntAddr, sizeof(echoClntAddr)) != recvMsgSize)
+                DieWithError("sendto() failed");
+        }
+    }  while (recvMsgSize >= 0);
+    /* Nothing left to receive */
+}
+
+void DieWithError(char *errorMessage)
+{
+    perror(errorMessage);
+    exit(1);
+}
+```
+
+Start the upd server on localhost:5500, and then test the server with below script:
+```bash
+#!/bin/bash
+exec 3<>/dev/tcp/localhost/5500
+cat <&3 &
+for i in {1..10}; do echo "hello" >&3; done
+```
+(TCP Socket In C Pratical Guide for programers)
+It is important to realize that signals are not queued—a signal is
+either pending or it is not. If the same signal is delivered more than once while it is being
+handled, the handler is only executed once more after it completes the original execution.
+
+   TODO, if we turn on two port in one thread, and the signal handler is busy with port-1 message handling, can it receive message from port-2 via the signal handler way?
+   
+   https://github.com/angrave/SystemProgramming/wiki/Signals,-Part-2:-Pending-Signals-and-Signal-Masks
+   
+   http://stackoverflow.com/questions/5285414/signal-queuing-in-c
+   What happens is the following:
+
+First signal received, namely SIGUSR1, handler is called and is running
+Second signal received, since handler from nr1 is still running, the signal nr2 gets pending and blocked.
+Third signal received, since handler from nr1 is still running, the signal 3 gets discarded.
+Fourth, fifth...etc signal of the same type as the signal nr1 are discarded.
+Once signal handler is done with signal nr1, it will process signal nr2, and then signal handler will process the SIGUSR2.
+
+Basically, pending signals of the same type are not queued, but discarded. And no, there is no easy way to "burst" send signals that way. One always assumes that there can be several signals that are discarded, and tries to let the handler do the work of cleaning and finding out what to do (such as reaping children, if all children die at the same time).
+
+http://davmac.org/davpage/linux/async-io.html#signals
+Of the notification methods, sending a signal would seem at the outset to be the only appropriate choice when large amounts of concurrent I/O are taking place. Although realtime signals could be used, there is a potential for signal buffer overflow which means signals could be lost; furthermore there is no notification at all of such overflow (one would think raising SIGIO in this case would be a good idea, but no, POSIX doesn't specify it, and Glibc doesn't do it). What Glibc does do is set an error on the AIO control block so that if you happen to check, you will see an error. Of course, you never will check because you'll never receive any notification of completion.
+To use AIO with signal notifications reliably then, you need to check each and every AIO control block that is associated with a particular signal whenever that signal is received. For realtime signals it means that the signal queue should be drained before this is performed, to avoid redundant checking. It would be possible to use a range of signals and distribute the control blocks to them, which would limit the amount of control blocks to check per signal received; however, it's clear that ultimately this technique is not suitable for large amounts of highly concurrent I/O.
+
+####Realtime Signal Notification - "F_SETSIG" signal
+
+http://www.masterraghu.com/subjects/np/introduction/unix_network_programming_v1.3/ch05lev1sec8.html
+That is, by default, Unix signals are not queued. We will see an example of this in the next section. The POSIX real-time standard, 1003.1b, defines some reliable signals that are queued, but we do not use them in this text.
+
+The POSIX specification defines so called real-time signals and Linux supports it(http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
+Real-Time signal testing:
+
+```c
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+sig_atomic_t sigusr1_count = 0;
+
+void handler (int signal_number)
+{
+  printf ("SIGRTMIN+10 Handler Enter\n");
+  ++sigusr1_count;
+  sleep(3);
+  printf ("SIGRTMIN+10 Handler Exit\n");
+}
+
+int main ()
+{
+  struct sigaction sa; 
+  memset (&sa, 0, sizeof (sa));
+  sa.sa_handler = &handler;
+  sigaction (SIGRTMIN+10, &sa, NULL);
+
+  while(1 > 0)  
+  {
+    printf ("SIGRTMIN+10 was raised %d times\n", sigusr1_count);
+    sleep(1);
+  }
+
+  return 0;
+}
+
+```
+run the command below:
+``` bash
+for i in {1..10}; do kill -44 `pgrep rt_signal_test`; done
+```
+
+result:
+
+``` console
+SIGRTMIN+10 was raised 0 times
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 Handler Enter
+SIGRTMIN+10 Handler Exit
+SIGRTMIN+10 was raised 10 times
+```
+The 2.4 linux kernel can deliver socket readiness events via a particular realtime signal. Here's how to turn this behavior on: 
+
+http://bulk.fefe.de/scalable-networking.pdf
+http://www.kegel.com/c10k.html#nb.sigio
+http://www.freebsd.org/cgi/man.cgi?query=socket&apropos=0&sektion=7&manpath=SuSE+Linux%2Fi386+11.0&format=ascii
+http://www.visolve.com/uploads/resources/squidrtsignal.pdf
+http://www.lxway.com/4444140926.htm
+http://davmac.org/davpage/linux/async-io.html#signals
+
+```c
+int sigio_add_fd(int fd) {
+  static const int signum=SIGRTMIN+1;
+  static pid_t mypid=0;
+  if (!mypid) mypid=getpid();
+  fcntl(fd,F_SETOWN,mypid);
+  fcntl(fd,F_SETSIG,signum);
+  fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)|O_NONBLOCK|O_ASYNC);
+}
+
+int sigio_rm_fd(struct sigio* s,int fd) {
+  fcntl(fd,F_SETFL,fcntl(fd,F_GETFL)&(~O_ASYNC));
+}
+```
+
+```c
+for (;;) {
+  timeout.tv_sec=0;
+  timeout.tv_nsec=10000;
+  switch (r=sigtimedwait(&s.ss,&info,&timeout)) {
+    case -1: if (errno!=EAGAIN) error("sigtimedwait");
+    case SIGIO: puts("SIGIO queue overflow!"); return 1;
+  }
+  if (r==signum) handle_io(info.si_fd,info.si_band);
+}
+```
+
+Below is an example to use `F_SETSIG` to monitor a file system directory
+
+```c
+#define _GNU_SOURCE
+#include <fcntl.h>
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+/* For error handling */
+#include <stdlib.h>
+#include <errno.h>
+#include <error.h>
+
+static volatile int event_fd;
+
+static void handler(int sig, siginfo_t *si, void *data)
+{
+    event_fd = si->si_fd;
+}
+
+int main(int argc, char *argv[])
+{
+    struct sigaction sa;
+    int fd;
+
+if(argc < 2)
+    error(EXIT_FAILURE, 0, "missing argument");
+
+    sa.sa_sigaction = handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_SIGINFO;
+    sigaction(SIGRTMIN + 1, &sa, NULL);
+
+    if((fd = open(argv[1], O_RDONLY)) < 0)
+        error(EXIT_FAILURE, errno, "failed to open '%s'", argv[1]);
+
+    if(fcntl(fd, F_SETSIG, SIGRTMIN + 1) < 0)
+         error(EXIT_FAILURE, errno, "failed to set dnotify signal");
+
+    if(fcntl(fd, F_NOTIFY, DN_MODIFY|DN_CREATE|DN_DELETE|DN_MULTISHOT))
+    error(EXIT_FAILURE, errno, 
+              "failed to register notification for '%s'", argv[1]);
+
+    while (1) {
+        pause();
+        printf("event occured for fd=%d\n", event_fd);
+    }
+}
+
+```
+compile the source and run it as below:
+```bash
+
+./folder_monitor /home/lizh/tmp
+touch /home/lizh/tmp/tmp.txt 
+```
+Explain from http://davmac.org/davpage/linux/async-io.html#signals
+
+File descriptors can be set to generate a signal when an I/O readiness event occurs on them - except for those which refer to regular files (which should not be surprising by now). This allows using sleep(), pause() or sigsuspend() to wait for both signals and I/O readiness events, rather than using select()/poll(). The GNU libc documentation has some information on using SIGIO. It tells how you can use the F_SETOWN argument to fcntl() in order to specify which process should recieve the SIGIO signal for a given file descriptor. However, it does not mention that on linux you can also use fcntl() with F_SETSIG to specify an alternative signal, including a realtime signal. Usage is as follows:
+
+   fcntl(fd, F_SETSIG, signum);
+
+... where fd is the file descriptor and signum is the signal number you want to use. Setting signum to 0 restores the default behaviour (send SIGIO). Setting it to non-zero has the effect of causing the specified signal to be queued when an I/O readiness event occurs, if the specified signal is a non-realtime signal which is already pending (? I need to check this - didn't I mean if it is a realtime signal?--难道我不是说如果这是一个realtime信号吗？). If the signal cannot be queued a SIGIO is sent in the traditional manner. 
+
+http://www.visolve.com/uploads/resources/squidrtsignal.pdf
+http://www.lxway.com/4444140926.htm
+
+RealTime  signals  have  not  achieved 
+widespread  use  because  of 
+difficulties  in  use  for  application  writers
+
+https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29
+The signal approach, though relatively simple to implement within the OS, brings to the application program the unwelcome baggage associated with writing an operating system's kernel interrupt system. Its worst characteristic is that every blocking (synchronous) system call is potentially interruptible; the programmer must usually incorporate retry code at each call.
+
+https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
+rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
+
+####Epoll(edge-trigerred):
+     http://www.kegel.com/c10k.html
+     On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
+
+     Epoll从multiplex角度看，他是ET, epoll的API内部也分为ET和LT两种。这是从两个不同层面的解读，不要混淆
+
+     http://davmac.org/davpage/linux/async-io.html#signals
+     Epoll is fairly efficient compared to the poll/select variants, but it still won't work with regular files.
+     
+     Epoll was introduced by a paper, explain a little bit about that paper(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
+     http://blog.csdn.net/zys85/article/details/3710579
+     http://it.taocms.org/12/6246.htm
+     http://slidedeck.io/donatasm/hacking-an-nginx-module
+     Give a timeline of select --> poll --> paper -->epoll(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html, file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
+     
+     Give a chart about how epoll improve the perf so much
+     (file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
+     
+     Epoll is so important, explain a little bit more about the two work mode: LT和ET的区别(http://m.blog.csdn.net/article/details?id=39895449, http://www.ccvita.com/515.html)
+     
+     Select Vs poll Vs Epoll (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
+     
+     Time Complexity: (http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
+     
+   The synchornized-demultiplexing evolution timeline:
+      select --> poll --> SIGIO --> paper --> epoll --> ?(aio combined epoll)
+      最后这项需要调研一下
+      
 ### AIO
 ####Kernel AIO
 http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
