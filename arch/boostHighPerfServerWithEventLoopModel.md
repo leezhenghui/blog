@@ -1551,3 +1551,5 @@ evolution timeline:
 [43] http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 
 [44] Nginx High Performance
+
+[45] https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
