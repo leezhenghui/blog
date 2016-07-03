@@ -400,6 +400,9 @@ http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 A more subtle problem with non-blocking I/O is that it generally doesn't work with regular files (this is true on linux). That is, opening a regular file in non-blocking mode has no effect for regular files: a read will always actually read some of the file, even if the program blocks in order to do so. In some cases this may not be important, seeing as file I/O is generally fast enough so as to not cause long blocking periods. However, I see it as a general weakness of the technique.
 Note the O_NONBLOCK also causes the open() call itself to be non-blocking for certain types of device (modems are the primary example in the GNU libc documentation). Unfortunately, there doesn't seem to exist a mechanism by which you can execute an open() call in a truly non-blocking manner for all files.
 
+### Demultipluxer Technology
+
+
 ### Level-triggered Demultipluxer
      Explain what is multiplux(diagram file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
      
