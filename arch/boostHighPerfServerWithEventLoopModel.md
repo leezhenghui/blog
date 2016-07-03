@@ -1341,7 +1341,10 @@ rtsig - real time signals, the executable used on Linux 2.2.19+. By default no m
 I want to take a addition more section to talk about signal based readiness notification, because it is quit interesting. As the first feeling of the underhood excecuting mechanism,  It seems good. Let's see why it not spread out.. 
 
 (http://davmac.org/davpage/linux/async-io.html#signals)
-The IO signal technique, in conjunction with the signal wait functions, can be used to reliably wait on a set of events including both I/O readiness events and other signals. As such, it is already close to a complete solution to the problem
+The IO signal technique, in conjunction with the signal wait functions, can be used to reliably wait on a set of events including both I/O readiness events and other signals. As such, it is already close to a complete solution to the problem.
+
+The reason why we can't select SIGIO signal as the realtime signal for I/O readiness notification:
+Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll() and perhaps even epoll(), which will soon be discussed. 
 
 ####Epoll(edge-trigerred):
      http://www.kegel.com/c10k.html
