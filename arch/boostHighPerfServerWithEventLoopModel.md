@@ -1380,10 +1380,14 @@ based on above materilas, make a sequencing diagram about the details of how to 
 
 1. Before 2.6: (SIGIO can be put to signal queue for socket event queue overflow notification)
 > TODO:
-> e.g: create socket file descriptor --> Mask off SIGIO and the signal you want to use (which will result in the event to be queued) -->  invoke F_SETOWN, F_SETSIG, and set O_ASYNC, O_NONBLOCK. --> use poll make sure no missing notification event ---> after handling the data coming during we initial signal configuration via poll, get to normalized execution logic --> use signalwait to detect I/O event by rt-signal ---> see if the queued event is SIGIO type, queue overflow occurs --> flush events in queue --> use poll to handle all of socket data --> normalize execution and get back to rtsig await api 
+> e.g: system ("echo 49152 > /proc/sys/kernel/rtsig-max")--> create socket file descriptor --> Mask off SIGIO and the signal you want to use (which will result in the event to be queued) -->  invoke F_SETOWN, F_SETSIG, and set O_ASYNC, O_NONBLOCK. --> use poll make sure no missing notification event ---> after handling the data coming during we initial signal configuration via poll, get to normalized execution logic --> use signalwait to detect I/O event by rt-signal ---> see if the queued event is SIGIO type, queue overflow occurs --> flush events in queue --> use poll to handle all of socket data --> normalize execution and get back to rtsig await api 
 
 2. Since 2.6 (SIGIO should be only be handled by a signal handler)
 > TODO
+> struct rlimit rlim;
+rlim.rlim_cur=49152;
+int setrlimit(RLIMIT_SIGPENDING, &rlim); --> create socket file descriptor --> Mask off SIGIO and the signal you want to use (which will result in the event to be queued) -->  invoke F_SETOWN, F_SETSIG, and set O_ASYNC, O_NONBLOCK. --> use poll make sure no missing notification event ---> after handling the data coming during we initial signal configuration via poll, get to normalized execution logic --> use signalwait to detect I/O event by rt-signal ---> if receive SIGIO type event via signal hander, queue overflow occurs --> flush events in queue --> use poll to handle all of socket data --> normalize execution and get back to rtsig await api 
+
 
 3. A solution to avoid signal queue overflow is to all
 ow only one event per socket file 
