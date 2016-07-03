@@ -402,6 +402,19 @@ Note the O_NONBLOCK also causes the open() call itself to be non-blocking for ce
 
 ### Demultipluxer Technology
 
+https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
+
+Table based below information:
+Event Models¶
+
+NGINX supports the following methods of treating the connections, which can be assigned by the use directive:
+
+select - standard method. Compiled by default, if the current platform does not have a more effective method. You can enable or disable this module by using configuration parameters --with-select_module and --without-select_module.
+poll - standard method. Compiled by default, if the current platform does not have a more effective method. You can enable or disable this module by using configuration parameters --with-poll_module and --without-poll_module.
+kqueue - the effective method, used on FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 and MacOS X. With dual-processor machines running MacOS X using kqueue can lead to kernel panic.
+epoll - the effective method, used on Linux 2.6+. In some distrubutions, like SuSE 8.2, there are patches for supporting epoll by kernel version 2.4.
+rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
+/dev/poll - the effective method, used on Solaris 7 11/99+, HP/UX 11.22+ (eventport), IRIX 6.5.15+ and Tru64 UNIX 5.1A+.
 
 ### Level-triggered Demultipluxer
      Explain what is multiplux(diagram file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
