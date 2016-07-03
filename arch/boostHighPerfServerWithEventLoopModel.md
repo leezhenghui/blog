@@ -1374,7 +1374,7 @@ http://davmac.org/davpage/linux/async-io.html#signals
 tells the basic concept and signal usage, why we select rtsignal instead of SIGIO
 
 https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
-tell us some brief summary about nginx support rtsig and what changes since 2.6
+tell us some brief summary about nginx support rtsig from nginx implementation and what changes since 2.6
 
 Before 2.6: (SIGIO can be put to signal queue for socket event queue overflow notification)
 
