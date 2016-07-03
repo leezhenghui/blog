@@ -1386,7 +1386,7 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
  
  ## Event-loop based I/O framework across different programming languages
  ### C programming language:
- Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
+ #### Nginx: event mode(file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html)
  event module: http://www.cnblogs.com/fll369/archive/2012/11/29/2794939.html
  http://nginx-book.readthedocs.io/en/latest/chapter_06.html#event-40
  https://www.nginx.com/blog/thread-pools-boost-performance-9x/ (event loop and thread based event loop)
@@ -1398,10 +1398,18 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
   一些操作系统为读写文件提供了异步接口，NGINX可以使用这样的接口（见AIO指令）。FreeBSD就是个很好的例子。不幸的是，我们不能在Linux上得到相同的福利。虽然Linux为读取文件提供了一种异步接口，但是存在明显的缺点。其中之一是要求文件访问和缓冲要对齐，但NGINX很好地处理了这个问题。但是，另一个缺点更糟糕。异步接口要求文件描述符中要设置O_DIRECT标记，就是说任何对文件的访问都将绕过内存中的缓存，这增加了磁盘的负载。在很多场景中，这都绝对不是最佳选择。
   
   Nginx High Performance page-2 diagram
- Libevent
+  NGINX has its foundation in event-based architecture (EBA). In EBA, components
+interact predominantly using event notifications instead of direct method calls. These
+event notifications, occurring from different tasks, are then queued for processing
+by an event handler. The event handler runs in an event loop, where it processes an
+event, de-queues it, and then moves on to the next event. Thus, the work executed by
+a thread is very similar to that of a scheduler, multiplexing multiple connections to a
+single flow of execution. The following diagram shows this:
+
+ #### Libevent
  https://zhuanlan.zhihu.com/p/20315482
- Libev
- Libuv(https://nikhilm.github.io/uvbook/basics.html#event-loops)
+ #### Libev
+ #### Libuv(https://nikhilm.github.io/uvbook/basics.html#event-loops)
  
  ### Java programming language:
  Netty:
