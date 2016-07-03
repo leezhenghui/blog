@@ -1371,7 +1371,7 @@ http://www.kegel.com/c10k.html#nb.sigio
 tells us a highlevel summary of how to use signal to resolve the prolbem
 
 http://davmac.org/davpage/linux/async-io.html#signals
-tells the basic concept and signal usage, why we select rtsignal instead of SIGIO
+tells the basic concept and signal API usage(e.g: how many api can use to await for events), why we select rtsignal instead of SIGIO
 
 https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
 tell us some brief summary about nginx support rtsig from nginx implementation and what changes since 2.6
