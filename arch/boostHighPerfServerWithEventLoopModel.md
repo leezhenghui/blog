@@ -1376,9 +1376,13 @@ tells the basic concept and signal usage, why we select rtsignal instead of SIGI
 https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
 tell us some brief summary about nginx support rtsig from nginx implementation and what changes since 2.6
 
+based on above materilas, make a sequencing diagram about the details of how to use signal as well as poll to come out a complete solution.
+
 Before 2.6: (SIGIO can be put to signal queue for socket event queue overflow notification)
+> TODO:
 
 Since 2.6 (SIGIO should be only be handled by a signal handler)
+> TODO
 
 
 ####Epoll(edge-trigerred):
