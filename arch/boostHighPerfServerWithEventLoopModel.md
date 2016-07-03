@@ -790,6 +790,9 @@ difficulties  in  use  for  application  writers
 https://en.wikipedia.org/wiki/Asynchronous_I/O#Signals_.28interrupts.29
 The signal approach, though relatively simple to implement within the OS, brings to the application program the unwelcome baggage associated with writing an operating system's kernel interrupt system. Its worst characteristic is that every blocking (synchronous) system call is potentially interruptible; the programmer must usually incorporate retry code at each call.
 
+https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
+rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
+
 ####Epoll(edge-trigerred):
      http://www.kegel.com/c10k.html
      On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
