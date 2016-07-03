@@ -1401,6 +1401,18 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
   一些操作系统为读写文件提供了异步接口，NGINX可以使用这样的接口（见AIO指令）。FreeBSD就是个很好的例子。不幸的是，我们不能在Linux上得到相同的福利。虽然Linux为读取文件提供了一种异步接口，但是存在明显的缺点。其中之一是要求文件访问和缓冲要对齐，但NGINX很好地处理了这个问题。但是，另一个缺点更糟糕。异步接口要求文件描述符中要设置O_DIRECT标记，就是说任何对文件的访问都将绕过内存中的缓存，这增加了磁盘的负载。在很多场景中，这都绝对不是最佳选择。
   
   Nginx High Performance page-2 diagram
+  
+  Nginx Event Models
+
+NGINX supports the following methods of treating the connections, which can be assigned by the use directive:
+
+select - standard method. Compiled by default, if the current platform does not have a more effective method. You can enable or disable this module by using configuration parameters --with-select_module and --without-select_module.
+poll - standard method. Compiled by default, if the current platform does not have a more effective method. You can enable or disable this module by using configuration parameters --with-poll_module and --without-poll_module.
+kqueue - the effective method, used on FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 and MacOS X. With dual-processor machines running MacOS X using kqueue can lead to kernel panic.
+epoll - the effective method, used on Linux 2.6+. In some distrubutions, like SuSE 8.2, there are patches for supporting epoll by kernel version 2.4.
+rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
+/dev/poll - the effective method, used on Solaris 7 11/99+, HP/UX 11.22+ (eventport), IRIX 6.5.15+ and Tru64 UNIX 5.1A+.
+
   NGINX has its foundation in event-based architecture (EBA). In EBA, components
 interact predominantly using event notifications instead of direct method calls. These
 event notifications, occurring from different tasks, are then queued for processing
