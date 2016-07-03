@@ -1401,7 +1401,14 @@ http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop
   一些操作系统为读写文件提供了异步接口，NGINX可以使用这样的接口（见AIO指令）。FreeBSD就是个很好的例子。不幸的是，我们不能在Linux上得到相同的福利。虽然Linux为读取文件提供了一种异步接口，但是存在明显的缺点。其中之一是要求文件访问和缓冲要对齐，但NGINX很好地处理了这个问题。但是，另一个缺点更糟糕。异步接口要求文件描述符中要设置O_DIRECT标记，就是说任何对文件的访问都将绕过内存中的缓存，这增加了磁盘的负载。在很多场景中，这都绝对不是最佳选择。
   
   Nginx High Performance page-2 diagram
-  
+  NGINX has its foundation in event-based architecture (EBA). In EBA, components
+interact predominantly using event notifications instead of direct method calls. These
+event notifications, occurring from different tasks, are then queued for processing
+by an event handler. The event handler runs in an event loop, where it processes an
+event, de-queues it, and then moves on to the next event. Thus, the work executed by
+a thread is very similar to that of a scheduler, multiplexing multiple connections to a
+single flow of execution. The following diagram shows this:
+
   Nginx Event Models
 
 NGINX supports the following methods of treating the connections, which can be assigned by the use directive:
@@ -1413,13 +1420,26 @@ epoll - the effective method, used on Linux 2.6+. In some distrubutions, like Su
 rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
 /dev/poll - the effective method, used on Solaris 7 11/99+, HP/UX 11.22+ (eventport), IRIX 6.5.15+ and Tru64 UNIX 5.1A+.
 
-  NGINX has its foundation in event-based architecture (EBA). In EBA, components
-interact predominantly using event notifications instead of direct method calls. These
-event notifications, occurring from different tasks, are then queued for processing
-by an event handler. The event handler runs in an event loop, where it processes an
-event, de-queues it, and then moves on to the next event. Thus, the work executed by
-a thread is very similar to that of a scheduler, multiplexing multiple connections to a
-single flow of execution. The following diagram shows this:
+http://nginx.org/en/docs/events.html
+
+nginx supports a variety of connection processing methods. The availability of a particular method depends on the platform used. On platforms that support several methods nginx will normally select the most efficient method automatically. However, if needed, a connection processing method can be selected explicitly with the use directive.
+
+The following connection processing methods are supported:
+
+select — standard method. The supporting module is built automatically on platforms that lack more efficient methods. The --with-select_module and --without-select_module configuration parameters can be used to forcibly enable or disable the build of this module.
+
+poll — standard method. The supporting module is built automatically on platforms that lack more efficient methods. The --with-poll_module and --without-poll_module configuration parameters can be used to forcibly enable or disable the build of this module.
+
+kqueue — efficient method used on FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0, and Mac OS X.
+
+epoll — efficient method used on Linux 2.6+.
+
+Some older distributions like SuSE 8.2 provide patches that add epoll support to 2.4 kernels.
+/dev/poll — efficient method used on Solaris 7 11/99+, HP/UX 11.22+ (eventport), IRIX 6.5.15+, and Tru64 UNIX 5.1A+.
+
+eventport — event ports, efficient method used on Solaris 10.
+
+  
 
  #### Libevent
  https://zhuanlan.zhihu.com/p/20315482
