@@ -62,12 +62,14 @@ Content Table:
 >>>> 3.3.1 POXIS select
 >>>> 
 >>>> 3.3.2 Poll
->>>> 
->>> 3.4 AIO
+>>>
+>>> 3.4 Brief summary about demultipluxer techonlogies on each popule OS
 >>> 
->>>> 3.4.1 Linux Kernal AIO
+>>> 3.5 AIO
+>>> 
+>>>> 3.5.1 Linux Kernal AIO
 >>>> 
->>>> 3.4.2 POXIS AIO
+>>>> 3.5.2 POXIS AIO
 >
 >4 Event-loop programming model
 >
