@@ -821,31 +821,7 @@ rtsig - real time signals, the executable used on Linux 2.2.19+. By default no m
       select --> poll --> SIGIO --> paper --> epoll --> ?(aio combined epoll)
       最后这项需要调研一下
       
-### AIO
-####Kernel AIO
-http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
-####POSIX AIO
-      http://blog.csdn.net/fz_ywj/article/details/9124897
-      异步处理线程同步地处理每一个请求，处理完成后在对应的aiocb中填充结果，然后触发可能的信号通知或回调函数（回调函数是需要创建新线程来调用的）；
-     In Linux, the real AIO actually is supported only on Disk IO, (
-     http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
-     http://www.bullopensource.org/posix/ (not good at performance, it actually add a thread-mode in user-space, underearth, it still call the blocking system api)
-     http://man7.org/linux/man-pages/man7/aio.7.html(The current Linux POSIX AIO implementation is provided in user space
-       by glibc.  This has a number of limitations, most notably that
-       maintaining multiple threads to perform I/O operations is expensive
-       and scales poorly)
-     http://stackoverflow.com/questions/8768083/difference-between-posix-aio-and-libaio-on-linux
-     https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/ 
-     The situation for the AIO mode however is bit different at least in the Linux
-case. The aio support for sockets in Linux seems to be shady at best with some
-suggesting it is actually using readiness events at kernel level while providing
-an asynchronous abstraction on completion events at application level. However
-Windows seems to support this first class again via “I/O Completion Ports”.)Poxis AIO actually introduced thread model, not a real AIO supported from kernel level. For Network IO, we only have non-blocking IO. 
-     How can we achieve I/O multiplexing without thread-per-connection? You can simply do busy-wait polling for each connection with non-blocking socket operations, but this is too wasteful. What we need to know is which socket becomes ready. So the OS kernel provides a separate channel between your application and the kernel, and this channel notifies when some of your sockets become ready. This is how select()/poll() works, based on the readiness model. (http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
-     In Linux, for network, we only have multiplux way,  to implement non-blocking and sync IO, OS need provide two things:
-     non-blocking socket, with this non-blocking socket, the caller thread can continue do some other things, in order to map the socket response to approparite socket client, a selector is needed here to do the mapping, once there is "readiness" event ready, and caller thread to pick that event up and do the corresponding actions on correct socket. This is IO multipluxer(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html what is multiplux)
-     
-http://davmac.org/davpage/linux/async-io.html (why poxis aio is not suited to use)
+
     
 ### Level-triggered Demultipluxer
      Explain what is multiplux(diagram file:///home/lizh/materials/studyplan/Nginx/Linux%20IO%20%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%9F%20-%20Linux%20%E5%BC%80%E5%8F%91%20-%20%E7%9F%A5%E4%B9%8E.html)
@@ -1372,6 +1348,33 @@ exec 3<>/dev/tcp/localhost/5500
 cat <&3 &
 for i in {1..10}; do echo "hello" >&3; done
 ```
+
+### AIO
+####Kernel AIO
+http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
+####POSIX AIO
+      http://blog.csdn.net/fz_ywj/article/details/9124897
+      异步处理线程同步地处理每一个请求，处理完成后在对应的aiocb中填充结果，然后触发可能的信号通知或回调函数（回调函数是需要创建新线程来调用的）；
+     In Linux, the real AIO actually is supported only on Disk IO, (
+     http://lse.sourceforge.net/io/aio.html, (the real kernal aio, but not support socket)
+     http://www.bullopensource.org/posix/ (not good at performance, it actually add a thread-mode in user-space, underearth, it still call the blocking system api)
+     http://man7.org/linux/man-pages/man7/aio.7.html(The current Linux POSIX AIO implementation is provided in user space
+       by glibc.  This has a number of limitations, most notably that
+       maintaining multiple threads to perform I/O operations is expensive
+       and scales poorly)
+     http://stackoverflow.com/questions/8768083/difference-between-posix-aio-and-libaio-on-linux
+     https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/ 
+     The situation for the AIO mode however is bit different at least in the Linux
+case. The aio support for sockets in Linux seems to be shady at best with some
+suggesting it is actually using readiness events at kernel level while providing
+an asynchronous abstraction on completion events at application level. However
+Windows seems to support this first class again via “I/O Completion Ports”.)Poxis AIO actually introduced thread model, not a real AIO supported from kernel level. For Network IO, we only have non-blocking IO. 
+     How can we achieve I/O multiplexing without thread-per-connection? You can simply do busy-wait polling for each connection with non-blocking socket operations, but this is too wasteful. What we need to know is which socket becomes ready. So the OS kernel provides a separate channel between your application and the kernel, and this channel notifies when some of your sockets become ready. This is how select()/poll() works, based on the readiness model. (http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html)
+     In Linux, for network, we only have multiplux way,  to implement non-blocking and sync IO, OS need provide two things:
+     non-blocking socket, with this non-blocking socket, the caller thread can continue do some other things, in order to map the socket response to approparite socket client, a selector is needed here to do the mapping, once there is "readiness" event ready, and caller thread to pick that event up and do the corresponding actions on correct socket. This is IO multipluxer(http://people.eecs.berkeley.edu/~sangjin/2012/12/21/epoll-vs-kqueue.html what is multiplux)
+     
+http://davmac.org/davpage/linux/async-io.html (why poxis aio is not suited to use)
+
  ## Event Loop Programming Model(The Bridge of From Reactor Pattern to Proactor pattern) 
  Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode  
  Alought OS kernel did not provide us a easy to do this, smarter programmer never give up the effort to figure out a way  move to Proactor pattern on Reactor pattern, the answer is yes, we can 封装 a thread-mode to adopt the reactor pattern to proactor pattern, the answer is event-loop mode
