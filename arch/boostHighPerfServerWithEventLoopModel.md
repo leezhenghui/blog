@@ -344,7 +344,7 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
     
     Let's explorer the situations from kernel and programming language..
     
-    The C10K problem lighted a way of making less thread/process to serves more connections, how to do this? firstly, we need to unbound I/O operation from process/thread
+    
 
  ## Programming Models(is is good to mentioned here, maybe better to introduced this in the place which use it, e.g: problem section to explain thread-based pattern, C10K solution to describe the others two pattern)
 
@@ -355,6 +355,8 @@ The C10K point out the thread-base(a.k.a process-per-connect) disavantage which 
     Diagram of :Apache solution for high perfmance -- request per thread
     
     This model actually is mapped to the IO pattern -- Blocking Pattern
+    
+    The C10K problem lighted a way of making less thread/process to serves more connections, how to do this? firstly, we need to unbound I/O operation from process/thread
 
 ### Reactor Pattern
 
