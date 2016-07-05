@@ -147,9 +147,6 @@ Before digging into "problem" description and event-loop explanation part, let's
 This is not intented as an exhaustive review to these common I/O models, but just a quick walk through to illustrate the basic differences in the five common I/O models.
 
 > Note: If you are familiar with these five I/O models under Unix-like operating system, you can skip the content about these 5 I/O types explanations. But I strongly suggest you to read the section 1.6 and section 1.7 which are aimed to clarify some key terminologies we want to cover in this writing. IMO, these terminologies are used widely in the purposes of introducing I/O behaviors, but people use them ususally from different perspective/program layers,  not always comply with POSIX standard. It could be really helpful if we are on the same page before we get to following sections.
-~~~
-  TODO, there are 5 I/O models comes from unix network programming
-~~~
 
 ### Blocking I/O
 The default behavior of a socket call in C standard library is to block until the requested action is completed. For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
