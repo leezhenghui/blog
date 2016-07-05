@@ -152,13 +152,13 @@ In Unix-like operating system, especially, in Linux, the `file` is the most basi
 
 ### Blocking I/O
 
-This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in C standard library. If we open a file via blocking I/O(e.g: set `O_SYNC` flag), no `read` or `write` will complete until the data is transferred to user-space application buffer or physical deivce. The process is to block until the requested action is completed. As a result of the manner of blocking I/O is that it bound I/O operations to a specifc thread/process.
+This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in C standard library. If we open a file via blocking I/O(e.g: set `O_SYNC` flag), no `read` or `write` will complete until the data is transferred to user-space application buffer or physical deivce. The process is to block until the requested action is completed. As a result of the manner of blocking I/O is that it bound I/O operations to a specifc thread/process. Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into `thread-per-connection` programming model, which found in most of early web server, like Apache.
 
 ~~~
 TODO, diagram with a socket read/write
 ~~~
  
-Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns, Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into `thread-per-connection` programming model, which found in most of early web server, like Apache.
+Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns,
 
 ```
 TODELETE
