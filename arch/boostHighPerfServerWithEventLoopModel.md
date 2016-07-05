@@ -152,7 +152,7 @@ In Unix-like operating system, especially, in Linux, the `file` is the most basi
 
 ### Blocking I/O
 
-This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in C standard library. If we open a file via blocking I/O(e.g: set `O_SYNC` flag), no `read` or `write` will complete until the data is transferred to user-space application buffer or physical deivce. The process is to block until the requested action is completed. 
+This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in C standard library. If we open a file via blocking I/O(e.g: set `O_SYNC` flag), no `read` or `write` will complete until the data is transferred to user-space application buffer or physical deivce. The process is to block until the requested action is completed. The manner of blocking I/O is bound I/O operations to a specifc thread/process.
 
 ~~~
 TODO, diagram with a socket read/write
