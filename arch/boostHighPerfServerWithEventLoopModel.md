@@ -103,7 +103,9 @@ Content Table:
 
 ---
 ## Preface
-Today in internet world, a common technonical challenge we are facing in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop programming model seems usually take a key role in this field. Why? What underlying story is? I would like to jot down this writing which came cross with my earlier research/investigations as a future reference for me and any one who come across to this post. 
+Today in internet world, a common technonical challenge we are facing in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop programming model seems usually take a key role in this field. Why? What underlying story is? I would like to jot down this writing which came cross with my earlier investigations/research as a future reference for me and any one who come across to this post. 
+
+> Note: If you are familiar with the 5 typical Input/Output(short for I/O) types under Unix-like operating system, you can skip the content about these 5 I/O types explanations. But I personaly strongly suggest you to read the section 1.6 and section 1.7 which are used to clarify some key concepts/terminologies in the article, especially, if you were reading some others documents with these terminologies not comply with POSIX standard. 
 
 ~~~
 TO-DELETE:
