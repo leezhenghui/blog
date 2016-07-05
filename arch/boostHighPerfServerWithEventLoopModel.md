@@ -151,8 +151,10 @@ In Unix-like operating system, especially, in Linux, the `file` is the most basi
 > Note: If you are familiar with these five I/O models under Unix-like operating system, you can skip the content about these 5 I/O types explanations. But I strongly suggest you to read the section 1.6 and section 1.7 which are aimed to clarify some key terminologies we want to cover in this writing. IMO, these terminologies are used widely in the purposes of introducing I/O behaviors, but people use them ususally from different perspective/program layers,  not always comply with POSIX standard. It could be really helpful if we are on the same page before we get to following sections.
 
 ### Blocking I/O
-Blocking I/O is the most prevalent I/O model 
-The default behavior of a socket call in C standard library is to block until the requested action is completed. For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
+
+This is the most prevalent I/O model supported by all of I/O devices.It is also the default behavior of a file call in C standard library. When we issue a read or write via blocking I/O, the process is to block until the requested action is completed. 
+
+For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
 
 ~~~
 TODO, diagram
