@@ -157,6 +157,9 @@ This is the most prevalent I/O model supported by all of I/O devices. It is also
 ~~~
 TODO, diagram with a socket read/write
 ~~~
+ 
+Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns, Imaging that if we want to write a program to handle multiple connections simultaneously via blocking system calls, we have no choice but fall into thread-per-connection programming model. We will talk about this programming model later with more details.
+
 
 For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
 
