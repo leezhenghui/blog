@@ -146,13 +146,13 @@ Before digging into "problem" description and event-loop explanation part, let's
 
 This is not intented as an exhaustive review to these common I/O models, but just a quick walk through to illustrate the basic differences in the five common I/O models.
 
-In Unix-like operating system, especially, in Linux, the `file` is the most basic and fundamential asbraction. In general, everything with a `read and write` style interaction interface can be abstracted file type. Disk file, pipe, socket(either `Internet-Domain sockets` or `Unix-Domain socket`) and some special files which are intented for kernel status/configuration, they are all file from operating system perspective. What most of us calling `regular file` are actually for `disk file`.
+In Unix-like operating system, especially, in Linux, the `file` is the most basic and fundamential asbraction. In general, everything with a `read and write` style system interaction interface can be abstracted file type. Disk file, pipe, socket(either `Internet-Domain sockets` or `Unix-Domain socket`) and some special files which are intented for kernel status/configuration, they are all file from operating system perspective. What most of us calling `regular file` are actually for `disk file`.
 
 > Note: If you are familiar with these five I/O models under Unix-like operating system, you can skip the content about these 5 I/O types explanations. But I strongly suggest you to read the section 1.6 and section 1.7 which are aimed to clarify some key terminologies we want to cover in this writing. IMO, these terminologies are used widely in the purposes of introducing I/O behaviors, but people use them ususally from different perspective/program layers,  not always comply with POSIX standard. It could be really helpful if we are on the same page before we get to following sections.
 
 ### Blocking I/O
 
-This is the most prevalent I/O model supported by all of I/O devices.It is also the default behavior of a file call in C standard library. When we issue a read or write via blocking I/O, the process is to block until the requested action is completed. 
+This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior of a file call in C standard library. When we issue a read or write via blocking I/O, the process is to block until the requested action is completed. 
 
 For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
 
