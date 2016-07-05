@@ -158,9 +158,10 @@ This is the most prevalent I/O model supported by all of I/O devices. It is also
 TODO, diagram with a socket read/write
 ~~~
  
-Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns, Imaging that if we want to write a program to handle multiple connections simultaneously via blocking system calls, we have no choice but fall into thread-per-connection programming model. We will talk about this programming model later with more details.
+Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns, Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into thread-per-connection programming model, which found in most of early web server, like Apache.
 
-
+```
+TODELETE
 For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
 
 ~~~
@@ -168,6 +169,7 @@ TODO, diagram
 ~~~
 
 We use UDP for example, the process calls recvfrom and the system call does not return until the datagram arrives and is transferred from kernel buffer into our user space buffer, or an error occurs. We say that our process is blocked the entire time from when it calls recvfrom until it returns. When recvfrom returns successfully, our application continue processing the datagram. Imaging that we need to write a program to handle multiple connections at once, we almost no choice but fall into thread-per-connection programming model. We will talk about this programming model later with more details.
+```
 
 ### Non-blocking I/O
 http://compgeom.com/~piyush/teach/4531_06/project/hell.html
