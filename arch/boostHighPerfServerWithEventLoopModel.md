@@ -137,7 +137,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
 
 ## Common I/O models
 
-Before digging into "problem" description and event-loop explanation part, let's step back and take a look at the bigger picture, exploring the differences among the most common Input/Output(short for I/O) models under Unix-like operating system as well as the appropriate programming models which fit in these I/O models individually.
+Before digging into "problem" description and event-loop explanation part, let's step back and take a look at the bigger picture, exploring the basic differences in the most common Input/Output(short for I/O) models under Unix-like operating system as well as the appropriate programming models which fit in these I/O models individually.
 
 This is not intented as an exhaustive review to these common I/O models, just a quick walk through to illustrate the basic differences in the five models.
 
