@@ -158,7 +158,7 @@ This is the most prevalent I/O model supported by all of I/O devices. It is also
 TODO, diagram with a socket read/write
 ~~~
  
-Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns, Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into thread-per-connection programming model, which found in most of early web server, like Apache.
+Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns, Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into `thread-per-connection` programming model, which found in most of early web server, like Apache.
 
 ```
 TODELETE
