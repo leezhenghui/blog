@@ -152,7 +152,7 @@ In Unix-like operating system, especially, in Linux, the `file` is the most basi
 
 ### Blocking I/O
 
-This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in C standard library. When we issue a read or write via blocking I/O, the process is to block until the requested action is completed. 
+This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in C standard library. If we open a file via blocking I/O(e.g: set `O_SYNC` flag), the process is to block until the requested action is completed. 
 
 For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
 
