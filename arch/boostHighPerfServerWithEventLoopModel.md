@@ -146,7 +146,7 @@ Before digging into "problem" description and event-loop explanation part, let's
 
 This is not intented as an exhaustive review to these common I/O models, but just a quick walk through to illustrate the basic differences in the five common I/O models.
 
-In Unix-like operating system, especially, in Linux, the `file` is the most basic and fundamential asbraction. In general, everything with a `read and write` style interaction interface can be abstracted file type. Disk file, pipe, socket(either `Internet-Domain sockets` or `Unix-Domain socket`) and some special files which are intented for kernel status/configuration 
+In Unix-like operating system, especially, in Linux, the `file` is the most basic and fundamential asbraction. In general, everything with a `read and write` style interaction interface can be abstracted file type. Disk file, pipe, socket(either `Internet-Domain sockets` or `Unix-Domain socket`) and some special files which are intented for kernel status/configuration, they are all file from operating system perspective, event through they have some different hehaviors/usage via some advanced/specific programming models.
 
 > Note: If you are familiar with these five I/O models under Unix-like operating system, you can skip the content about these 5 I/O types explanations. But I strongly suggest you to read the section 1.6 and section 1.7 which are aimed to clarify some key terminologies we want to cover in this writing. IMO, these terminologies are used widely in the purposes of introducing I/O behaviors, but people use them ususally from different perspective/program layers,  not always comply with POSIX standard. It could be really helpful if we are on the same page before we get to following sections.
 
