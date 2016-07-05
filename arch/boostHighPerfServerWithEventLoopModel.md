@@ -58,7 +58,7 @@ Content Table:
 >>>>
 >>>> 3.2.3 Epoll
 >>> 
->>> 3.3 Edge-triggered Demultipluxer
+>>> 3.3 Level-triggered Demultipluxer
 >>>> 3.3.1 POXIS select
 >>>> 
 >>>> 3.3.2 Poll
