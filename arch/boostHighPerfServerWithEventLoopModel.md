@@ -108,6 +108,10 @@ Today in internet world, a common technonical challenge we are facing in network
 Before jumping into event-loop programming model, let's step back and take a look at the bigger picture, exploring the differences among the 5 typical Input/Output(short for I/O) models under Unix-like operating system as well as the appropriate programming models which fit in these I/O models individually.
 > Note: If you are familiar with the 5 typical Input/Output(short for I/O) types under Unix-like operating system, you can skip the content about these 5 I/O types explanations. But I strongly suggest you to read the section 1.6 and section 1.7 which are aimed to clarify some key terminologies we want to cover in this writing. IMO, these terminologies are used widely in the purposes of introducing I/O behaviors, but people use them ususally from different perspective/program layers,  not always comply with POSIX standard. It could be really helpful if we are on the same page before we get to following sections.
 
+a
+b
+c
+
 ~~~
 TO-DELETE:
 
