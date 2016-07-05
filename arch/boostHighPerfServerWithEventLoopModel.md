@@ -144,7 +144,7 @@ There is a very good article talking about POXIS AIO API, but If you were readin
 
 Before digging into "problem" description and event-loop explanation part, let's step back and take a look at the bigger picture, exploring the basic differences in these five common Input/Output(short for I/O) models under Unix-like operating system as well as the appropriate programming models which well fit in these I/O models individually.
 
-This is not intented as an exhaustive review to these common I/O models, but just a quick walk through to illustrate the basic differences in the five I/O models.
+This is not intented as an exhaustive review to these common I/O models, but just a quick walk through to illustrate the basic differences in the five common I/O models.
 
 > Note: If you are familiar with these five I/O models under Unix-like operating system, you can skip the content about these 5 I/O types explanations. But I strongly suggest you to read the section 1.6 and section 1.7 which are aimed to clarify some key terminologies we want to cover in this writing. IMO, these terminologies are used widely in the purposes of introducing I/O behaviors, but people use them ususally from different perspective/program layers,  not always comply with POSIX standard. It could be really helpful if we are on the same page before we get to following sections.
 ~~~
