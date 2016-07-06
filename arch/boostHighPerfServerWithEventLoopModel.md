@@ -1709,7 +1709,10 @@ rtsig - real time signals, the executable used on Linux 2.2.19+. By default no m
 
 
 在基于 Linux 的多线程应用中，对于因为程序逻辑需要而产生的信号，可考虑调用 sigwait（）使用同步模型进行处理
+https://www.ibm.com/developerworks/cn/linux/l-cn-signalsec/
+```c
 
+```
 #### Best practice on Signal based Readiness Notification
 I want to take a addition more section to talk about signal based readiness notification, because:
 1. it is quit interesting. As the first feeling of the underhood excecuting mechanism,  It seems good. Let's see why it not spread out.. 
