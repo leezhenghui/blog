@@ -1708,3 +1708,5 @@ evolution timeline:
 [44] Nginx High Performance
 
 [45] https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
+
+[46] http://www.programering.com/a/MDN2IzMwATQ.html
