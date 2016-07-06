@@ -2370,7 +2370,8 @@ Some older distributions like SuSE 8.2 provide patches that add epoll support to
 
 eventport — event ports, efficient method used on Solaris 10.
 
-  
+https://assets.wp.nginx.com/wp-content/uploads/2016/05/nginx-modules-reference-r9.pdf
+Nginx support AIO for file access in the recent new releases
 
  #### Libevent
  https://zhuanlan.zhihu.com/p/20315482
