@@ -273,6 +273,7 @@ TODO, diagram
 
 ### Async vs. Sync
 Both terms we used in this docutment are following POXIS standard definition. 
+strictly comply with the definitions provided by POSIX standard
 
 Async: xxxxx
 Sync: xxxx
