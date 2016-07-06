@@ -2371,6 +2371,8 @@ Some older distributions like SuSE 8.2 provide patches that add epoll support to
 eventport — event ports, efficient method used on Solaris 10.
 
 https://assets.wp.nginx.com/wp-content/uploads/2016/05/nginx-modules-reference-r9.pdf
+http://www.pagefault.info/?p=76
+https://cnodejs.org/topic/4f16442ccae1f4aa270010a7
 Nginx support AIO for file access in the recent new releases
 
  #### Libevent
@@ -2531,3 +2533,5 @@ evolution timeline:
 [51] https://assets.wp.nginx.com/wp-content/uploads/2016/05/nginx-modules-reference-r9.pdf
 
 [52] http://www.ibm.com/developerworks/linux/library/l-reent/index.html
+
+[53] http://www.pagefault.info/?p=76
