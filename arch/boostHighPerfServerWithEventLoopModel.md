@@ -2339,3 +2339,9 @@ evolution timeline:
 [45] https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
 
 [46] http://www.programering.com/a/MDN2IzMwATQ.html
+
+[47] https://www.ibm.com/developerworks/cn/linux/l-cn-signalsec/
+
+[48] http://www.csl.mtu.edu/cs4411.ck/www/NOTES/process/fork/create.html
+
+[49] http://www.lai18.com/content/1370755.html
