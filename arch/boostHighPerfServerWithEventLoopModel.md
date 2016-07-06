@@ -2526,3 +2526,5 @@ evolution timeline:
 [49] http://www.lai18.com/content/1370755.html
 
 [50] https://cnodejs.org/topic/4f16442ccae1f4aa270010a7
+
+[51] https://assets.wp.nginx.com/wp-content/uploads/2016/05/nginx-modules-reference-r9.pdf
