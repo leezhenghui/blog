@@ -1466,6 +1466,9 @@ fcntl(sockfd, F_SETAUXFL, O_ONESIGFD);
       select --> poll --> SIGIO --> paper --> epoll --> ?(aio combined epoll)
       最后这项需要调研一下
       
+      
+  (http://www.programering.com/a/MDN2IzMwATQ.html) it will only "active" socket - this is because on the kernel of epoll is based on the callback function on each FD implementation. 
+      
 ### AIO
 ####Kernel AIO
 http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
