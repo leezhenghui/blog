@@ -357,7 +357,7 @@ The C10K point out the thread-base(a.k.a process-per-connect) disavantage which 
     
     This model actually is mapped to the IO pattern -- Blocking Pattern
     
-    Essentially, the C10K problem lighted a way of making less threads/processes to serve more connections, how to do this? firstly, we need to unbound I/O operation from process/thread
+    Essentially, the insightful idea delivered by C10K problem lighted a way of making less threads/processes to serve more connections, how to do this? firstly, we need to unbound I/O operation from process/thread
 
 ### Reactor Pattern
 
