@@ -1707,6 +1707,9 @@ The signal approach, though relatively simple to implement within the OS, brings
 https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
 rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime (queued) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter /proc/sys/kernel/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
 
+
+在基于 Linux 的多线程应用中，对于因为程序逻辑需要而产生的信号，可考虑调用 sigwait（）使用同步模型进行处理
+
 #### Best practice on Signal based Readiness Notification
 I want to take a addition more section to talk about signal based readiness notification, because:
 1. it is quit interesting. As the first feeling of the underhood excecuting mechanism,  It seems good. Let's see why it not spread out.. 
