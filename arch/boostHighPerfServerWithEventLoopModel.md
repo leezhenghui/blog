@@ -1805,8 +1805,8 @@ fcntl(sockfd, F_SETAUXFL, O_ONESIGFD);
       
   (http://www.programering.com/a/MDN2IzMwATQ.html) it will only "active" socket - this is because on the kernel of epoll is based on the callback function on each FD implementation. 
   
-  ```c
-  #include <errno.h>
+```c
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -2096,7 +2096,7 @@ printf("set events %u, infd=%d\n", event.events, infd);
 
   return EXIT_SUCCESS;
 }
-  ```
+```
       
 ### AIO
 ####Kernel AIO
