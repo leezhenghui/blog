@@ -158,7 +158,7 @@ This is the most prevalent I/O model supported by all of I/O devices. It is also
 TODO, diagram with a socket read/write
 ~~~
  
-The diagram above illuminate the procedure, as you can see, when the process make a read() or write() system call,  the process will be locked, a context switch from usser space to kernel space occurs underhood indeed, after the data copied from device to kernel buffer or delvered to device, process context will switch back and the process will be unlocked to fetch the operation result from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns.
+The diagram above illuminate the procedure, as you can see, when the process make a read() or write() system call,  the process will be locked, a context switch from usser space to kernel space occurs underhood indeed, after either the data copied from device to kernel buffer(in the case of `read`) or delvered to device from kernel buffer(in the case of `write`), process context will switch back and the process will be unlocked to fetch the operation result from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns.
 
 Apparently, as a result of the operation manner in blocking I/O, the I/O operations are bound to a specifc thread/process. Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into `thread-per-connection` programming model, which we can find in most of early web server, like Apache.
 ```
