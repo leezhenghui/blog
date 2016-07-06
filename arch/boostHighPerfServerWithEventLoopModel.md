@@ -504,7 +504,7 @@ int main(){
 }
 ```
 
-socket_blocking_multiconn
+socket_blocking_multiconn (process-per-connect model)
 ```c
 #include <stdio.h>
 #include <stdlib.h>
