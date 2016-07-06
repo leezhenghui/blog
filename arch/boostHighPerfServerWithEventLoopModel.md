@@ -1027,6 +1027,7 @@ SIGUSR1 was raised 2 times
 ```
 Below is an example to leverage SIGIO signal for readiness notification based on UDP protocol
 
+>Linux System programming 2nd edition
 >O_ASYNC
 A signal ( SIGIO by default) will be generated when the specified file becomes read‐
 able or writable. This flag is available only for FIFOs, pipes, sockets, and terminals,
