@@ -2276,6 +2276,7 @@ printf("set events %u, infd=%d\n", event.events, infd);
 ```
 https://cnodejs.org/topic/4f16442ccae1f4aa270010a7
  在高性能的服务器编程中，IO 模型理所当然的是重中之重，需要谨慎选型的，对于网络套接字，我们可以采用epoll 的方式来轮询，尽管epoll也有一些缺陷，但总体来说还是很高效的，尤其来大量套接字的场景下；但对于Regular File 来说，是不能够用采用 poll/epoll 的，即O_NOBLOCK 方式对于传统文件句柄是无效的，也就是说我们的 open ,read, mkdir 之类的Regular File操作必定会导致阻塞.在多线程、多进程模型中，可以选择以同步阻塞的方式来进行IO操作，任务调度由操作系统来保证公平性，但在单进程/线程模型中
+ 
 ### AIO
 ####Kernel AIO
 http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
