@@ -152,7 +152,7 @@ In Unix-like operating system, especially, in Linux, the `file` is the most basi
 
 ### Blocking I/O
 
-This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in libc standard library. If we open a file via blocking I/O(e.g: set `O_SYNC` flag), no `read` or `write` will complete until the data is transferred to user-space application buffer from kernel buffer or already delivered to physical deivce. The process is to block until the requested action is completed. Apparently, as a result of this kind of operation manner, the I/O operations are bound to a specifc thread/process. Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into `thread-per-connection` programming model, which we can find in most of early web server, like Apache.
+This is the most prevalent I/O model supported by all of I/O devices. It is also the default behavior to open a file or access a file(`read` or `write` system calls) in libc standard library. If we open a file via blocking I/O(e.g: set `O_SYNC` flag), no `read` or `write` will complete until the data is transferred to user-space application buffer from kernel buffer or already delivered to physical deivce. The process is to block until the requested action is completed.
 
 ~~~
 TODO, diagram with a socket read/write
@@ -160,6 +160,7 @@ TODO, diagram with a socket read/write
  
 Above is a UPD example, as you can see, the process call recvfrom and the system call doe not return until the datagram arrives and is trnasferred from kernel buffer to user-space application buffer. We say the process is blocked entire time from when it calls until it turns,
 
+Apparently, as a result of this kind of operation manner, the I/O operations are bound to a specifc thread/process. Imaging that if we want to write a program to handle multiple connections simultaneously via blocking I/O calls, we will fall into `thread-per-connection` programming model, which we can find in most of early web server, like Apache.
 ```
 TODELETE
 For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
