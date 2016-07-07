@@ -164,7 +164,7 @@ TODO, diagram with a socket read/write
  
 The diagram above illustrate the procedure, when the process issue a `read()` or `write()` system call,  the process will be locked, a context switch from usser space to kernel space occurs under the hood indeed, after either the data copied from device to kernel buffer(in the case of `read`) or delivered to device hardware from kernel buffer(in the case of `write`), process context will switch back, the process in user space will be unlocked and start to fetch the result from kernel buffer to user-space application buffer. From user space perspective, we say the process is blocked entire time from when it calls until it turns.
 
-Apparently, as a result of the I/O handling manner in blocking mode, the system calls to I/O devices are bound/blocked to a specifc thread/process during the I/O staying in either ready or not ready state. In order to limit/avoid the effect of serialized I/O handling for multiple concurrent connections in I/O blocking mode,  we probably will fall into `thread-per-connection` strategy. `thread-per-connection` can be found in many of early web server implementation, like Apache.
+Apparently, as a result of the I/O handling manner in blocking mode, the system calls to I/O devices are bound/blocked to a specifc thread/process during the I/O staying in either ready or not ready state. In order to give a timely handling to each connection, we should limit/avoid the effect of serialized I/O handling for multiple concurrent connections in I/O blocking mode,  we probably will fall into `thread-per-connection` strategy. `thread-per-connection` can be found in many of early web server implementation, like Apache.
 
 ```
 TODO, move to strategy section
