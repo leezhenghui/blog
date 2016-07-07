@@ -169,9 +169,7 @@ Apparently, as a result of the I/O handling manner in blocking mode, the system 
 ```
 TODO, move to strategy section
 
- 
-
-This is fine as long as the I/O connections are short-lived and data link latencies are not bad. But if we want to write a program to handle multiple long-lived and high latency connections simultaneously in blocking I/O mode, we can image a large number of threads/processes are held up and blocked by the long-lived and high latency connections which are in `read`or `write` state, if a fixed size thread/process pool is used here, we will see it become drain, otherwise, we have to spwan new threads/processes to service the new connections. In the worst situation, we might fall into the situation of servicing each connection by a new thread/process, with the concurrency count increasing, the program become more and more resource intensive and CPU context switch are also highly loaded. 
+`thread-per-connection` is fine as long as the I/O connections are short-lived and data link latencies are not bad. But if we want to write a program to handle multiple long-lived and high latency connections simultaneously in blocking I/O mode, we can image a large number of threads/processes are held up and blocked by the long-lived and high latency connections which are in `read`or `write` state, if a fixed size thread/process pool is used here, we will see it become drain, otherwise, we have to spwan new threads/processes to service the new connections. In the worst situation, we might fall into the situation of servicing each connection by a new thread/process, with the concurrency count increasing, the program become more and more resource intensive and CPU context switch are also highly loaded. 
 ```
 
 ```
