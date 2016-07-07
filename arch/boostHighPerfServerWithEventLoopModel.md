@@ -2281,8 +2281,20 @@ https://cnodejs.org/topic/4f16442ccae1f4aa270010a7
 http://www.pagefault.info/?p=76
 https://cnodejs.org/topic/4f16442ccae1f4aa270010a7
 ####Kernel AIO
+http://ftp.dei.uc.pt/pub/linux/kernel/people/suparna/aio-linux.pdf
+Native Linux AIO API (libaio)
+– io_setup, io_destroy [queue setup/teardown]
+– io_submit (e.g. IO_CMD_PREAD, IO_CMD_PWRITE)
+– io_getevents [completion status notification]
+– io_cancel
 http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
 ####POSIX AIO
+http://ftp.dei.uc.pt/pub/linux/kernel/people/suparna/aio-linux.pdf
+ POSIX AIO API (glibc)
+– aio_read/aio_write/aio_fsync
+– lio_listio
+– aio_cancel, aio_suspend, aio_return/aio_error
+
       http://blog.csdn.net/fz_ywj/article/details/9124897
       异步处理线程同步地处理每一个请求，处理完成后在对应的aiocb中填充结果，然后触发可能的信号通知或回调函数（回调函数是需要创建新线程来调用的）；
      In Linux, the real AIO actually is supported only on Disk IO, (
@@ -2537,3 +2549,5 @@ evolution timeline:
 [52] http://www.ibm.com/developerworks/linux/library/l-reent/index.html
 
 [53] http://www.pagefault.info/?p=76
+
+[54] http://ftp.dei.uc.pt/pub/linux/kernel/people/suparna/aio-linux.pdf
