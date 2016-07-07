@@ -180,6 +180,7 @@ We use UDP for example, the process calls recvfrom and the system call does not 
 ```
 
 ### Non-blocking I/O
+http://www.wangafu.net/~nickm/libevent-book/01_intro.html
 http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation.
 
