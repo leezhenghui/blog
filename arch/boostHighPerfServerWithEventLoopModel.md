@@ -353,12 +353,6 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
     
     Let's explorer the situations from kernel and programming language..
     
-    
-
- ## Programming Models(is is good to mentioned here, maybe better to introduced this in the place which use it, e.g: problem section to explain thread-based pattern, C10K solution to describe the others two pattern)
-
-The C10K point out the thread-base(a.k.a process-per-connect) disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads/processes to serve more connection. From programming models perspective, I am list them below:
- 
 ### Thread-Based Model(a.k.a thread-per-connection)
     the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.
     Diagram of :Apache solution for high perfmance -- request per thread
@@ -366,6 +360,13 @@ The C10K point out the thread-base(a.k.a process-per-connect) disavantage which 
     This model actually is mapped to the IO pattern -- Blocking Pattern
     
     Essentially, the insightful idea delivered by C10K problem lighted a way of using less threads/processes to serve more connections, how to do this? firstly, we need to unbound I/O operation from process/thread
+    
+
+ ## Programming Models(is is good to mentioned here, maybe better to introduced this in the place which use it, e.g: problem section to explain thread-based pattern, C10K solution to describe the others two pattern)
+
+The C10K point out the thread-base(a.k.a process-per-connect) disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads/processes to serve more connection. From programming models perspective, I am list them below:
+ 
+
 
 ### Reactor Pattern
 
