@@ -2302,6 +2302,23 @@ http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
 
 ####combine aio and epoll
 
+pesuodo code
+```
+1. 創建一個eventfd
+efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
+2. 將eventfd設置到iocb中
+io_set_eventfd(iocb, efd);
+3. 交接AIO請求
+io_submit(ctx, NUM_EVENTS, iocb);
+4. 創建一個epollfd，並將eventfd加到epoll中
+epfd = epoll_create(1);
+epoll_ctl(epfd, EPOLL_CTL_ADD, efd, &epevent);
+epoll_wait(epfd, &epevent, 1, -1);
+5. 當eventfd可讀時，從eventfd讀出完成IO請求的數量，並調用io_getevents獲取這些IO
+read(efd, &finished_aio, sizeof(finished_aio);
+r = io_getevents(ctx, 1, NUM_EVENTS, events, &tms);
+```
+
 ```c
 #define _GNU_SOURCE
 #define __STDC_FORMAT_MACROS
