@@ -2569,6 +2569,8 @@ Nginx support AIO for file access in the recent new releases
 
  #### Libevent
  https://zhuanlan.zhihu.com/p/20315482
+ 
+ libevent中的信号集中处理是什么呢？ 我们知道, 信号总是来的很突然, 以及因为信号的特殊, 信号处理函数的内容不宜过多, 所以在libevent中, 每个信号真正要做的事情就不被放在信号处理函数中完成. 那么如何完成信号要真正处理的事件呢？ 既然libevent是事件驱动框架, 那么就将每个信号的到来看作一个事件, 将信号与epoll利用管道相联系. 每个需要处理的信号在发生后, 其信号处理函数都只是简单的向管道发送数据(数据往往是每个信号的整型值), 这样, epoll在检查管道中的数据时就会得知某信号发生了, 之后就调用该信号对应的真正的处理函数进行处理. 所以, 管道一端描述符在epoll中注册的事件处理函数的主要工作就是, 读取管道中的内容, 根据不同的信号调用不同的处理函数.
  #### Libev
  #### Libuv(https://nikhilm.github.io/uvbook/basics.html#event-loops)
  
