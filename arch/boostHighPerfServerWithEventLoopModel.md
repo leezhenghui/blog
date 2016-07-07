@@ -148,7 +148,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input/Output(short for I/O) models under Unix-like operating system as well as the appropriate programming models which well fit in these I/O models individually.
 
-This is not intented as an exhaustive review to these common I/O models, but just a quick walk through to illustrate the basic differences in the five common I/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [*UNIX Network Programming*](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
+This is not intented as an exhaustive review to these common I/O models, but just a quick walk through to illustrate the basic differences in the five common I/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [*UNIX® Network Programming Volume 1*](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
 
 In Unix-like operating system, especially, in Linux, the `file` is the most basic and fundamential asbraction. In general, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket(both `Internet-Domain sockets` and `Unix-Domain socket`) and some special purpose files(e.g: the "virtual" files which are intented for kernel status/configuration), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
