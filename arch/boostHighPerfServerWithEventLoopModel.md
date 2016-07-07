@@ -2551,3 +2551,5 @@ evolution timeline:
 [53] http://www.pagefault.info/?p=76
 
 [54] http://ftp.dei.uc.pt/pub/linux/kernel/people/suparna/aio-linux.pdf
+
+[55] http://www.csdn123.com/html/blogs/20131104/92968.htm
