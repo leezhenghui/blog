@@ -2443,6 +2443,11 @@ int main(int argc, char *argv[])
     return 0;
 }
 ```
+
+compile the source code:
+```
+gcc ./eventfs_aio_epoll.c -laio -o eventfs_aio_epoll
+```
 http://fanli7.net/a/bianchengyuyan/C__/20130728/402136.html
 ####POSIX AIO
 http://ftp.dei.uc.pt/pub/linux/kernel/people/suparna/aio-linux.pdf
