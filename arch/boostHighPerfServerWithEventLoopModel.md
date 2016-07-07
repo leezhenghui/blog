@@ -365,13 +365,13 @@ The C10K point out the thread-base(a.k.a process-per-connect) disavantage which 
 Essentially, the insightful idea delivered by C10K problem lighted a way of using less threads/processes to serve more connections, how to do this? firstly, we need to unbound I/O operation from process/thread
 
 
-### Reactor Pattern
+####Reactor Pattern
 
 ```
 diagram needed here
 ```
 
-###nonblocking in conjunction with level-triggered readiness notification(readiness selector nofitication,e.g: select, poll) 
+#####nonblocking in conjunction with level-triggered readiness notification(readiness selector nofitication,e.g: select, poll) 
 
 both model(2) and mode(3) can be mapped to this pattern, but model(2)  is extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is perform
 
@@ -379,7 +379,7 @@ nonblocking + multplex well fit in this pattern, because:
 (http://davmac.org/davpage/linux/async-io.html)
 Non-blocking mode makes it possible to continuously iterate through the interesting file descriptors and check for available input (or check for readiness for output) simply by attempting a read (or write). This technique is called polling and is problematic primarily because it needlessly consumes CPU time - that is, the program never blocks, even when no input or output is possible on any file descriptor. An event notification mechanism is needed to discover when useful reads/writes are possible.
 
-###nonblocking in conjunction with edge-trigerred readiness notification(e.g: epoll and signal notification)
+#####nonblocking in conjunction with edge-trigerred readiness notification(e.g: epoll and signal notification)
 from pure theory perspective, using SIGIO signal nofication to is more efficient than synchornizced-demultiplexer(selector).. but...
 
 1. Signal handler can't do heavy logic
