@@ -359,7 +359,7 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
     
     This model actually is mapped to the IO pattern -- Blocking Pattern
  
- ### Strategy
+### Strategy
 Essentially, the insightful idea delivered by C10K problem lighted a way of using less threads/processes to serve more connections, how to do this? firstly, we need to unbound I/O operation from process/thread
     
 
