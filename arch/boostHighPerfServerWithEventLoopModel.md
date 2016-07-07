@@ -406,6 +406,7 @@ most cases, this consists simply of recording the fact that a signal occurred.Th
 program then checks periodically whether a signal has occurred and reacts accordingly.
 
 #### Proactor Pattern
+AIO, edge-triggered completion notification, 
 AIO
     
 ## Linux Kernel Support
