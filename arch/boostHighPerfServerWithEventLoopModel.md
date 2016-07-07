@@ -620,6 +620,9 @@ http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 A more subtle problem with non-blocking I/O is that it generally doesn't work with regular files (this is true on linux). That is, opening a regular file in non-blocking mode has no effect for regular files: a read will always actually read some of the file, even if the program blocks in order to do so. In some cases this may not be important, seeing as file I/O is generally fast enough so as to not cause long blocking periods. However, I see it as a general weakness of the technique.
 Note the O_NONBLOCK also causes the open() call itself to be non-blocking for certain types of device (modems are the primary example in the GNU libc documentation). Unfortunately, there doesn't seem to exist a mechanism by which you can execute an open() call in a truly non-blocking manner for all files.
 
+http://www.kegel.com/c10k.html#nb
+Note: it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification.
+
 ### Demultipluxer Technology
 
 https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
