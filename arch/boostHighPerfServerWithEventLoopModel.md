@@ -35,7 +35,7 @@ Contents Table:
 >> 2.1 Issue
 >>> 2.1.1 Thread-Based model
 >>
->> 2.2 Soluction
+>> 2.2 Strategies
 >> 
 >>> 2.2.1 Reactor model
 >>> 
