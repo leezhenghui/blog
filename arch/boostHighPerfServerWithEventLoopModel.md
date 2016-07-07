@@ -405,7 +405,7 @@ signal, and then return control to the main program (or terminate the program). 
 most cases, this consists simply of recording the fact that a signal occurred.The main
 program then checks periodically whether a signal has occurred and reacts accordingly.
 
-### Proactor Pattern
+#### Proactor Pattern
 AIO
     
 ## Linux Kernel Support
