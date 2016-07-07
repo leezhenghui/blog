@@ -2299,6 +2299,9 @@ Native Linux AIO API (libaio)
 – io_getevents [completion status notification]
 – io_cancel
 http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/
+
+combin aio and epoll
+http://fanli7.net/a/bianchengyuyan/C__/20130728/402136.html
 ####POSIX AIO
 http://ftp.dei.uc.pt/pub/linux/kernel/people/suparna/aio-linux.pdf
  POSIX AIO API (glibc)
