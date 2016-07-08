@@ -625,9 +625,11 @@ void doprocessing (int sock) {
 ```
 
 ### noblocking
-   http://www.wangafu.net/~nickm/libevent-book/01_intro.html
-   book: TCPIP socket In C practical guide for programmer
-   write a sample here:
+API signatures:
+
+http://www.wangafu.net/~nickm/libevent-book/01_intro.html
+book: TCPIP socket In C practical guide for programmer
+write a sample here:
    ```
        TODO, sample code
    ```
