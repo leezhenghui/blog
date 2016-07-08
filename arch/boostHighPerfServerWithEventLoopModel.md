@@ -180,7 +180,7 @@ We use UDP for example, the process calls recvfrom and the system call does not 
 ```
 
 ### Non-blocking I/O
-It is possible that programmers issue a `read()` or `write()` on a file, the call will return immediately with an error code if there is no data available, and the request can be reissued later. We call this Non-blocking I/O model.POSIX allow us to turn on the non-blocking mode either using the `O_NONBLOCK` option in the call to open the file or setting non-blocking mode on an already open file using the fcntl call.Both of these options are documented in the GNU libc documentation.
+It is possible that programmers issue a `read()` or `write()` request on a file, rather than put the process to sleep, the call will return immediately with an error code if there is no data available, and the request can be reissued later. We call this Non-blocking I/O model.POSIX allow us to turn on the non-blocking mode either using the `O_NONBLOCK` option in the call to open the file or setting non-blocking mode on an already open file using the fcntl call.Both of these options are documented in the GNU libc documentation.
 
 Generally, the non-blocking mode can be turned on the file descriptors representing sockets and FIFOs. No OS that I know of implements non-blocking IO for `regular file`.
 
