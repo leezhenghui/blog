@@ -1978,6 +1978,9 @@ fcntl(sockfd, F_SETAUXFL, O_ONESIGFD);
 
 
 ####Epoll(edge-trigerred):
+     https://bugzilla.kernel.org/show_bug.cgi?id=15272
+     does not support regular file
+     
      http://www.kegel.com/c10k.html
      On 11 July 2001, Davide Libenzi proposed an alternative to realtime signals; his patch provides what he now calls /dev/epoll www.xmailserver.org/linux-patches/nio-improve.html. This is just like the realtime signal readiness notification, but it coalesces redundant events, and has a more efficient scheme for bulk event retrieval.
 
@@ -2760,4 +2763,6 @@ evolution timeline:
 [58] http://blog.omega-prime.co.uk/?p=155
 
 [59] https://blogs.msdn.microsoft.com/csliu/2009/08/27/io-concept-blockingnon-blocking-vs-syncasync/
+
+[60] https://bugzilla.kernel.org/show_bug.cgi?id=15272
 
