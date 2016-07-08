@@ -189,16 +189,6 @@ Generally, non-blocking mode only works with file descriptors representing socke
 > Note: Per [document](http://www.remlab.net/op/nonblock.shtml) from Remlab pointed out, for reqular file,  if the system needs time to perform the I/O operation, it will put the task in non-interruptible sleep from the read or write system call. The only safe way to read data from or write data to a regular file while not blocking a task is that we need to consider creating a separate thread (or process), or using asynchronous I/O (functions whose name starts with aio_). Whether you like it or not, and even if you think multiple threads suck, there are no other options.
 ```
 
-```
-TODELETE
-
-http://blog.omega-prime.co.uk/?p=155
-No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
-Non-blocking read and writes are available via the POSIX O_NONBLOCK operating mode, which can be set on file descriptors (FDs) representing sockets and FIFOs.
-
-http://compgeom.com/~piyush/teach/4531_06/project/hell.html
-It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation.
-```
 
 
 ~~~
@@ -223,6 +213,18 @@ Noblocking is not beatiful...., it does not support regular file
 
 http://www.remlab.net/op/nonblock.shtml
 nonblocking does not support regular file
+
+
+```
+TODELETE
+
+http://blog.omega-prime.co.uk/?p=155
+No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
+Non-blocking read and writes are available via the POSIX O_NONBLOCK operating mode, which can be set on file descriptors (FDs) representing sockets and FIFOs.
+
+http://compgeom.com/~piyush/teach/4531_06/project/hell.html
+It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation.
+```
 ### I/O multiplexing
 
 What is Multiplex? 
