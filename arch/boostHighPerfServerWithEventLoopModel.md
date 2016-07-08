@@ -194,10 +194,7 @@ Generally, non-blocking mode works with file descriptors representing sockets, p
 TODO, diagram
 ~~~
 
-As above diagram illustrate, when we set a socket to be nonblocking, we are telling the kernel "when an I/O operation that I request cannot be completed without putting the process to sleep, do not put the process to sleep, but return an error instead. 
-
-(TCP Socket In C Pratical Guide for programers)
-The difficulty with nonblocking socket calls is that there is no way of knowing when one would
+As above diagram illustrate, when we set a socket to be nonblocking, we are telling the kernel "when an I/O operation that I request cannot be completed without putting the process to sleep, do not put the process to sleep, but return an error instead. As you may tell in this sample, the difficulty with nonblocking socket calls is that there is no way of knowing when one would
 succeed, except by periodically trying it until it does (a process known as “polling”). In above sample, the device is opened as non-blocking. This means that instead of completing an I/O immediately, a read may return an error code indicating that the command could not be immediately satisfied (EAGAIN or EWOULDBLOCK). The implication of non-blocking is that an I/O command may not be satisfied immediately, requiring that the application make numerous calls to await completion. This can be extremely inefficient because in many cases the application must busy-wait until the data is available or attempt to do other work while the command is performed in the kernel. As also shown in Figure 3, this method can introduce latency in the I/O because any gap between the data becoming available in the kernel and the user calling read to return it can reduce the overall data throughput.
 
 http://www.wangafu.net/~nickm/libevent-book/01_intro.html
