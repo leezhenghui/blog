@@ -180,7 +180,7 @@ We use UDP for example, the process calls recvfrom and the system call does not 
 ```
 
 ### Non-blocking I/O
-Non-blocking I/O refers to an interface where I/O operations will return immediately with a special error code if the I/O state is not ready, intead of put the process in "sleep" and blocking the process.
+It is possible that programmers issue a `read()` or `write()` on a file, the call will return immediately even though there is no data available. 
 
 http://blog.omega-prime.co.uk/?p=155
 No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
