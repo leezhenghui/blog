@@ -657,6 +657,7 @@ Note: it's particularly important to remember that readiness notification from t
  http://www.remlab.net/op/nonblock.shtml
 其实select和poll也是“不支持”对regular file进行监控的，只不过它们被设计为可以接受regular file的fd，只是默认对任何event都全部返回True。epoll在设计的时候，考虑到既然对regular file‘s fd进行polling是没意义的，干脆我就不接受这种类型的fd，所以如果你传入一个真实文件的fd给epoll，它会直接报错返回-1，并将errno设置为EPERM错误码。
 
+源引的资料:
 ```
 =========================================POSIX mandates that regular files always return ready for reading or
 writing. IEEE Std 1003.1-2008 says, regarding the poll() interface, that Regular files shall always poll TRUE for reading and writing.
