@@ -861,6 +861,10 @@ POSIX says:
 File descriptors associated with regular files shall always select true for ready to read, ready to write, and error conditions.
 Also, as cnicutar pointed out in a now-deleted post, in general, you have to initialize the FD_SET on each iteration. In your code, you are monitoring one fd, and that fd is always ready, so the FD_SET is not in fact changing. However, if you have 5 decriptors to monitor, and select detects that only one is ready, then on the next iteration, only that one descriptor would be monitored (unless you reset the FD_SET). This makes using select tricky.
 ####Poll(level-triggered):
+https://bugzilla.kernel.org/show_bug.cgi?id=15272
+Regular files do not support the linux ->poll() file operation.
+If you want to wait for events on regular files, you need to use AIO+eventfd+epoll.
+
      http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
      http://bulk.fefe.de/scalable-networking.pdf
 ```c
