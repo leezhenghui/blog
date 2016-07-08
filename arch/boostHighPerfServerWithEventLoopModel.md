@@ -180,7 +180,7 @@ We use UDP for example, the process calls recvfrom and the system call does not 
 ```
 
 ### Non-blocking I/O
-It is possible that programmers issue a `read()` or `write()` on a file, the call will return immediately even though there is no data available. 
+It is possible that programmers issue a `read()` or `write()` on a file, the call will return immediately with an error code if there is no data available, and the request can be reissued later. We call this Non-blocking I/O model.
 
 http://blog.omega-prime.co.uk/?p=155
 No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
