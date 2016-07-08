@@ -204,7 +204,7 @@ http://www.wangafu.net/~nickm/libevent-book/01_intro.html
 Now that we’re using nonblocking sockets, the code above would work… but only barely. The performance will be awful, for two reasons. First, when there is no data to read on either connection the loop will spin indefinitely, using up all your CPU cycles. Second, if you try to handle more than one or two connections with this approach you’ll do a kernel call for each one, whether it has any data for you or not. So what we need is a way to tell the kernel "wait until one of these sockets is ready to give me some data, and tell me which ones are ready."
 
 http://tinyclouds.org/iocp-links.html
-Noblocking is not beatiful....
+Noblocking is not beatiful...., it does not support regular file
 ### I/O multiplexing
 
 What is Multiplex? 
