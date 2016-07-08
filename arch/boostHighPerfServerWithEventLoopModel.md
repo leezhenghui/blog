@@ -316,6 +316,8 @@ The distinction between the two is largely a matter of operating mode (it is the
 >  Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API(see refe
 >  rence [[1]](http://www.ibm.com/developerworks/linux/library/l-async/)), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
 
+http://blog.omega-prime.co.uk/?p=155
+
 ```
 TO-DELETE
       Before we just into the docment, let's clarify some I/O pattern concepts. Thoese are really important for us to understand the whole articles.
