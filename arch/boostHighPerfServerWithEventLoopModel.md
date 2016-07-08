@@ -186,12 +186,16 @@ Generally, the non-blocking mode only works with file descriptors representing s
 
 > Note: Per [document](http://www.remlab.net/op/nonblock.shtml) from Remlab indicated, the only safe way to read data from or write data to a regular file while not blocking a task is that we need to consider creating a separate thread (or process), or using asynchronous I/O (functions whose name starts with aio_). Whether you like it or not, and even if you think multiple threads suck, there are no other options.
 
+```
+TODELETE
+
 http://blog.omega-prime.co.uk/?p=155
 No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
 Non-blocking read and writes are available via the POSIX O_NONBLOCK operating mode, which can be set on file descriptors (FDs) representing sockets and FIFOs.
 
 http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation.
+```
 
 When we set a socket to be nonblocking, we are telling the kernel "when an I/O operation
 that I request cannot be completed without putting the process to sleep, do not put the
