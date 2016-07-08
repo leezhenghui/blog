@@ -372,7 +372,7 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
      
      reactor pattern diagram (http://gngrwzrd.com/libgwrl/pod.html#reactor_pattern, http://blog.omega-prime.co.uk/?p=155)
      
-     proactor pattern diagram(https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/)
+     proactor pattern diagram(https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/, http://blog.omega-prime.co.uk/?p=155)
      
      Those two pattern actually mapped to the two I/O pattern:
      
