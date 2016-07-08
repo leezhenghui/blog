@@ -656,6 +656,69 @@ Note: it's particularly important to remember that readiness notification from t
  http://blog.csdn.net/zxjcarrot/article/details/32935001
  http://www.remlab.net/op/nonblock.shtml
 其实select和poll也是“不支持”对regular file进行监控的，只不过它们被设计为可以接受regular file的fd，只是默认对任何event都全部返回True。epoll在设计的时候，考虑到既然对regular file‘s fd进行polling是没意义的，干脆我就不接受这种类型的fd，所以如果你传入一个真实文件的fd给epoll，它会直接报错返回-1，并将errno设置为EPERM错误码。
+
+```
+=========================================POSIX mandates that regular files always return ready for reading or
+writing. IEEE Std 1003.1-2008 says, regarding the poll() interface, that Regular files shall always poll TRUE for reading and writing.
+For select(), File descriptors associated with regular files shall always select
+true for ready to read, ready to write, and error conditions.
+
+The reasons for this are based on historical and modern implementations
+(neither the BSDs nor Linux have an asynchronous block layer), but
+regardless it's a part of the abstract interface and won't change anytime
+soon even if the implementations change in a way that supports non-blocking
+reads. AIO in Linux, for example, AFAIK, is still done using threads, either
+preemptible userland threads or kernel work queue threads.  ===============================================What you are trying to do doesn't make any sense. 
+
+For a socket, for example, "ready to read" can mean that there's data 
+that a "read" could return without blocking. However, with a file, the 
+system has no idea where in the file you'd like to read, so it cannot 
+know whether that "read" could return without blocking. 
+
+For a socket, for example, "ready to write" can mean that the other 
+side has acknowledged data or enlarged the window or it can mean 
+there's space in the local socket send buffer. For a file, the system 
+has no idea where you might want to write in the file and system cache 
+space is shared and so is unlikely to still be available by the time 
+you get around to calling write. 
+
+So even if you could add a regular file to an epoll set, there would 
+be no point. If you did ever get a 'ready to read' or 'ready to write' 
+indication, you would have no idea what it meant. 
+
+DS  ============================================The problem is that non-blocking I/O isn't specified for regular files 
+either. So how many bytes have to be ready for the file to be "ready 
+for read". If it woke the process with just one byte ready to read, 
+the process would block on the "read" for more than one byte. 
+
+The reason 'select', 'poll', and 'epoll' work so well for sockets is 
+because sockets have a well-defined non-blocking API. Generally, 
+people use these functions to discover when to attempt non-blocking 
+operations in designs where it's important the thread not block. 
+
+Because no such non-blocking API exists for local files (other than 
+AIO which doesn't require discovery anyway), a discovery mechanism 
+wouldn't really have any use if there was one. 
+
+So while "ready for read" could be defined for files in this way, it 
+would have almost no use. A way to discover that a file had been 
+modified would be much more useful, and so that is provided. 
+
+DS  ===============================================The problem is the definition of "available". What does it mean for
+data to be "available" in a regular file? Does that mean it is not
+past the EOF? Does it mean that it's in cache? Or what? （因为没法界定，所以不好支持啊……）
+
+DS ===============================================
+ （试想一下你在使用普通磁盘文件时的操作，其实都是阻塞的。对于磁盘文件来说，根本不存在NON_BLOCKING模式。为什么？因为不管你想阻塞还是不想阻塞，它都需要从磁盘盘片上去一个一个字节读进来，但是磁盘的状态是没法预知的，万一你遇上一个破旧的软盘，你即使读取文件的已有部分，它还是会阻塞你的进程的，而且还是Uninterruptible Blocking！所以对于磁盘文件来说，你使用的、你用到的、你需要的都是阻塞模式，因此Linux中不支持磁盘文件的NON_BLOCKING模式，也不需要支持！）
+Normal file I/O is blocking in the sense that the function will not
+return, stalling the process as long as needed, until the operation
+definitively succeeds or fails. It is expected that this will be
+"soon", but that isn't always the case. However, it is not the typical
+blocking behavior because the process is not interruptible.
+
+DS
+===============================================
+```
 https://www.nginx.com/resources/wiki/start/topics/tutorials/optimizations/#
 
 Table based below information:
