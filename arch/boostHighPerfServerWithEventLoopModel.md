@@ -853,6 +853,13 @@ exec 3<>/dev/tcp/localhost/5500
 cat <&3 &
 for i in {1..10}; do echo "hello" >&3; done
 ```
+http://stackoverflow.com/questions/11901884/how-can-select-wait-on-regular-file-descriptors-non-sockets
+Disk files are always ready to read (but the read might return 0 bytes if you're already at the end of the file), so you can't use select() on a disk file to find out when new data is added to the file.
+
+POSIX says:
+
+File descriptors associated with regular files shall always select true for ready to read, ready to write, and error conditions.
+Also, as cnicutar pointed out in a now-deleted post, in general, you have to initialize the FD_SET on each iteration. In your code, you are monitoring one fd, and that fd is always ready, so the FD_SET is not in fact changing. However, if you have 5 decriptors to monitor, and select detects that only one is ready, then on the next iteration, only that one descriptor would be monitored (unless you reset the FD_SET). This makes using select tricky.
 ####Poll(level-triggered):
      http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html
      http://bulk.fefe.de/scalable-networking.pdf
