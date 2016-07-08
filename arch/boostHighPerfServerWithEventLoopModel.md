@@ -193,9 +193,7 @@ Generally, non-blocking mode only works with file descriptors representing socke
 TODO, diagram
 ~~~
 
-When we set a socket to be nonblocking, we are telling the kernel "when an I/O operation
-that I request cannot be completed without putting the process to sleep, do not put the
-process to sleep, but return an error instead.
+As above diagram illustrate, when we set a socket to be nonblocking, we are telling the kernel "when an I/O operation that I request cannot be completed without putting the process to sleep, do not put the process to sleep, but return an error instead.
 
 (TCP Socket In C Pratical Guide for programers)
 The difficulty with nonblocking socket calls is that there is no way of knowing when one would
