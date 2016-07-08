@@ -205,6 +205,9 @@ Now that we’re using nonblocking sockets, the code above would work… but onl
 
 http://tinyclouds.org/iocp-links.html
 Noblocking is not beatiful...., it does not support regular file
+
+http://www.remlab.net/op/nonblock.shtml
+nonblocking does not support regular file
 ### I/O multiplexing
 
 What is Multiplex? 
