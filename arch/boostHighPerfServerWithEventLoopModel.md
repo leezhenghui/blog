@@ -2857,3 +2857,5 @@ evolution timeline:
 [62] http://www.remlab.net/op/nonblock.shtml
 
 [63] http://blog.csdn.net/zxjcarrot/article/details/32935001
+
+[64] http://www.programmr.com/blogs/difference-between-asynchronous-and-non-blocking
