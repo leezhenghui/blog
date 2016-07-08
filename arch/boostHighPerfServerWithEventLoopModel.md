@@ -208,11 +208,7 @@ In this model, a device is opened as non-blocking. This means that instead of co
 http://www.wangafu.net/~nickm/libevent-book/01_intro.html
 Now that we’re using nonblocking sockets, the code above would work… but only barely. The performance will be awful, for two reasons. First, when there is no data to read on either connection the loop will spin indefinitely, using up all your CPU cycles. Second, if you try to handle more than one or two connections with this approach you’ll do a kernel call for each one, whether it has any data for you or not. So what we need is a way to tell the kernel "wait until one of these sockets is ready to give me some data, and tell me which ones are ready."
 
-http://tinyclouds.org/iocp-links.html
-Noblocking is not beatiful...., it does not support regular file
 
-http://www.remlab.net/op/nonblock.shtml
-nonblocking does not support regular file
 
 
 ```
@@ -224,6 +220,12 @@ Non-blocking read and writes are available via the POSIX O_NONBLOCK operating mo
 
 http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation.
+
+http://tinyclouds.org/iocp-links.html
+Noblocking is not beatiful...., it does not support regular file
+
+http://www.remlab.net/op/nonblock.shtml
+nonblocking does not support regular file
 ```
 ### I/O multiplexing
 
