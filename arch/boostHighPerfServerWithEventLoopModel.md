@@ -180,6 +180,9 @@ We use UDP for example, the process calls recvfrom and the system call does not 
 ```
 
 ### Non-blocking I/O
+http://blog.omega-prime.co.uk/?p=155
+No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
+Non-blocking read and writes are available via the POSIX O_NONBLOCK operating mode, which can be set on file descriptors (FDs) representing sockets and FIFOs.
 
 http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation.
