@@ -197,12 +197,14 @@ http://compgeom.com/~piyush/teach/4531_06/project/hell.html
 It is possible to open a file (or device) in "non-blocking" mode by using the O_NONBLOCK option in the call to open. You can also set non-blocking mode on an already open file using the fcntl call. Both of these options are documented in the GNU libc documentation.
 ```
 
-When we set a socket to be nonblocking, we are telling the kernel "when an I/O operation
-that I request cannot be completed without putting the process to sleep, do not put the
-process to sleep, but return an error instead.
+
 ~~~
 TODO, diagram
 ~~~
+
+When we set a socket to be nonblocking, we are telling the kernel "when an I/O operation
+that I request cannot be completed without putting the process to sleep, do not put the
+process to sleep, but return an error instead.
 
 (TCP Socket In C Pratical Guide for programers)
 The difficulty with nonblocking socket calls is that there is no way of knowing when one would
