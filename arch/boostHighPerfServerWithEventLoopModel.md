@@ -2749,3 +2749,5 @@ evolution timeline:
 
 [58] http://blog.omega-prime.co.uk/?p=155
 
+[59] https://blogs.msdn.microsoft.com/csliu/2009/08/27/io-concept-blockingnon-blocking-vs-syncasync/
+
