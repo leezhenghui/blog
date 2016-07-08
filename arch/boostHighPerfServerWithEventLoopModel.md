@@ -182,7 +182,7 @@ We use UDP for example, the process calls recvfrom and the system call does not 
 ### Non-blocking I/O
 It is possible that programmers issue a `read()` or `write()` request on a file, rather than put the process to sleep to wait for available data, the call will return immediately with an error code if there is no data available, and the request can be reissued later on the file descriptor for further operations. This is called Non-blocking I/O. POSIX allows us to turn on the non-blocking mode either using the `O_NONBLOCK` option in the call to open the file or setting non-blocking mode on an already opened file descriptor using the fcntl call. Both of these options are documented in the GNU libc documentation.
 
-Generally, the non-blocking mode can be turned on the file descriptors representing sockets and FIFOs. No OS that I know of implements non-blocking IO for `regular file`.
+To be awareness, Generally, the non-blocking mode can be turned on the file descriptors representing sockets and FIFOs. No OS that I know of implements non-blocking IO for `regular file`.
 
 http://blog.omega-prime.co.uk/?p=155
 No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
