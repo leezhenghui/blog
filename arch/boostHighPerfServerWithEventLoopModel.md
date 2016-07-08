@@ -184,7 +184,7 @@ It is possible that programmers issue a `read()` or `write()` request on a file,
 
 Generally, the non-blocking mode only works the file descriptors representing sockets, pipes TTYs and FIFOs. AFAIK, seems there is no OS implements non-blocking I/O for `regular file`, because regular files are always readable and they are also always writeable. This is clearly stated in the relevant POSIX specifications. Putting a regular file in non-blocking has ABSOLUTELY no effects other than changing one bit in the file flags. That is, opening a `regular file` in non-blocking mode has no effect for regular files: a read will always actually read some of the file, even if the program blocks in order to do so.
 
-> Note: The only safe way to read data from or write data to a regular file while not blocking a task is that you need to create a separate thread (or process), or use asynchronous I/O (functions whose name starts with aio_). Whether you like it or not, and even if you think multiple threads suck, there are no other options.
+> Note: As the [document](http://www.remlab.net/op/nonblock.shtml) from Remlab indicated, the only safe way to read data from or write data to a regular file while not blocking a task is that you need to create a separate thread (or process), or use asynchronous I/O (functions whose name starts with aio_). Whether you like it or not, and even if you think multiple threads suck, there are no other options.
 
 http://blog.omega-prime.co.uk/?p=155
 No OS that I know of implements non-blocking IO for file IO, but support for socket IO is generally reasonable:
