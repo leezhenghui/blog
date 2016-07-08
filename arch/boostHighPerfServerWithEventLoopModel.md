@@ -370,7 +370,7 @@ http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-an
      Reactor Pattern and Proactor Pattern
      Explain reactor apttern and proactor pattern:
      
-     reactor pattern diagram (http://gngrwzrd.com/libgwrl/pod.html#reactor_pattern)
+     reactor pattern diagram (http://gngrwzrd.com/libgwrl/pod.html#reactor_pattern, http://blog.omega-prime.co.uk/?p=155)
      
      proactor pattern diagram(https://chamibuddhika.wordpress.com/2012/08/11/io-demystified/)
      
