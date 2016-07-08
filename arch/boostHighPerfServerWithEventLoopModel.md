@@ -293,6 +293,8 @@ TODO, diagram
 http://www.programmr.com/blogs/difference-between-asynchronous-and-non-blocking
 ### Async vs. Sync
 http://www.programmr.com/blogs/difference-between-asynchronous-and-non-blocking
+But they are also different because asynchronous calls usually involve a callback or an event,
+
 Both terms we used in this docutment are following POXIS standard definition. 
 strictly comply with the definitions provided by POSIX standard
 
