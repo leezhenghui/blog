@@ -189,8 +189,6 @@ Generally, non-blocking mode only works with file descriptors representing socke
 > Note: Per [document](http://www.remlab.net/op/nonblock.shtml) from Remlab pointed out, for reqular file,  if the system needs time to perform the I/O operation, it will put the task in non-interruptible sleep from the read or write system call. The only safe way to read data from or write data to a regular file while not blocking a task is that we need to consider creating a separate thread (or process), or using asynchronous I/O (functions whose name starts with aio_). Whether you like it or not, and even if you think multiple threads suck, there are no other options.
 ```
 
-
-
 ~~~
 TODO, diagram
 ~~~
