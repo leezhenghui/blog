@@ -431,6 +431,9 @@ The discusion only covers the linux operating system, as that is my personal int
 
 ### blocking socket programming
 
+API signatures:
+
+
 Simple Client:
 ```c
 #include <stdio.h>
@@ -519,6 +522,8 @@ int main(){
   return 0;
 }
 ```
+
+Process-per-connection API signatures:
 
 socket_blocking_multiconn (process-per-connect model)
 ```c
