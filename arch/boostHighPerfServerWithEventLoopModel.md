@@ -2723,7 +2723,8 @@ With some handy visualisations, and fun hacks, let's get an intuitive understand
 For the thread model, e.g: node.js, in the main loop, if cpu-intensive job performance, the server will lost response. To sovle this, the straightforward way is to make the cpu-intensive work running in a separate thread/process(different than the main event-loop process). 
 Nginx realize this problem, in 1.7, it introduce multple thread model in their even model
 Netty's event-loop can add customized strategy ??
- ## Is event-loop model the ONLY choice?
+
+## Is event-loop model the ONLY choice?
 Of course not, essentially, the event loop model is on the way of using less threads to service more requests/connections. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
  http://demo.netfoucs.com/jiao_fuyou/article/details/36010691
     
