@@ -2886,3 +2886,5 @@ evolution timeline:
 
 [71] https://coelhorjc.wordpress.com/2014/12/18/using-non-blocking-and-asynchronous-io-ck10-problem-in-linux-and-windows-with-epool-iocp-aiolibaio-libeventlibevlibuv-boost-asio/
 various event loop framework and aio impl
+
+[72] http://www.tutorialspoint.com/unix_system_calls/_newselect.htm a simplest sample for select
