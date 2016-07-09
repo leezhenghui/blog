@@ -2879,3 +2879,5 @@ evolution timeline:
 [67] http://www.ulduzsoft.com/2014/01/select-poll-epoll-practical-difference-for-system-architects/ including a simplified typical workflow for each multiplexing method
 
 [68] http://austingwalters.com/io-multiplexing/ kqueue and epoll compare
+
+[69] http://neethack.com/2013/01/understand-event-loops/ node.js and eventloop
