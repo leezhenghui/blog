@@ -2881,3 +2881,5 @@ evolution timeline:
 [68] http://austingwalters.com/io-multiplexing/ kqueue and epoll compare
 
 [69] http://neethack.com/2013/01/understand-event-loops/ node.js and eventloop
+
+[70] http://fred-zone.blogspot.com/2012/09/glib-main-event-loop-nodejs-libuv.html event engine
