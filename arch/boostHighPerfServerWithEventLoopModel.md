@@ -2883,3 +2883,6 @@ evolution timeline:
 [69] http://neethack.com/2013/01/understand-event-loops/ node.js and eventloop
 
 [70] http://fred-zone.blogspot.com/2012/09/glib-main-event-loop-nodejs-libuv.html event engine
+
+[71] https://coelhorjc.wordpress.com/2014/12/18/using-non-blocking-and-asynchronous-io-ck10-problem-in-linux-and-windows-with-epool-iocp-aiolibaio-libeventlibevlibuv-boost-asio/
+various event loop framework and aio impl
