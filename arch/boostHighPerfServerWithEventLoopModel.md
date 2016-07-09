@@ -2872,3 +2872,5 @@ evolution timeline:
 [64] http://www.programmr.com/blogs/difference-between-asynchronous-and-non-blocking
 
 [65] http://www.ulduzsoft.com/2014/01/select-poll-epoll-practical-difference-for-system-architects/  examples for select poll epoll andlibevent
+
+[66] https://banu.com/blog/2/how-to-use-epoll-a-complete-example-in-c/ step-by-step for a socket server in c
