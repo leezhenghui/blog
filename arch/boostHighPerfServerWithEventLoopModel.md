@@ -2888,3 +2888,5 @@ evolution timeline:
 various event loop framework and aio impl
 
 [72] http://www.tutorialspoint.com/unix_system_calls/_newselect.htm a simplest sample for select
+
+[73] https://segmentfault.com/a/1190000003063859 类似的文章，但写得不够全面
