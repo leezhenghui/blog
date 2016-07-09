@@ -2877,3 +2877,5 @@ evolution timeline:
 [66] https://banu.com/blog/2/how-to-use-epoll-a-complete-example-in-c/ step-by-step for a socket server in c
 
 [67] http://www.ulduzsoft.com/2014/01/select-poll-epoll-practical-difference-for-system-architects/ including a simplified typical workflow for each multiplexing method
+
+[68] http://austingwalters.com/io-multiplexing/ kqueue and epoll compare
