@@ -150,7 +150,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input\/Output\(short for I\/O\) models under Unix-like operating system as well as the appropriate programming models which well fit in these I\/O models individually.
 
-This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - _[UNIX® Network Programming Volume 1](https://en.wikipedia.org/wiki/UNIX_Network_Programming)_.
+This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [_UNIX® Network Programming Volume 1_](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
 
 In Unix-like operating system,  the `file` is actually a principle asbraction of many computer resoruces. Generally, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket\(both `Internet-Domain sockets` and `Unix-Domain socket`\) and some special purpose files\(e.g: the "virtual" files which are intented for kernel status\/configuration\), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
@@ -335,7 +335,7 @@ on background and a completion event which carrying response/error should be not
 The distinction between the two is largely a matter of operating mode \(it is the difference between performing a read operation, for example, and being notified when the data is in the application's buffer, compared to simply being notified when the data is available and asking that it be copied to the application's buffer afterwards\)
 
 > Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API\(see refe
->  rence [\[](http://www.ibm.com/developerworks/linux/library/l-async/)[1\]](http://www.ibm.com/developerworks/linux/library/l-async/)\), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
+>  rence [\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[](http://www.ibm.com/developerworks/linux/library/l-async/)[1\]](http://www.ibm.com/developerworks/linux/library/l-async/)\), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
 
 [http:\/\/blog.omega-prime.co.uk\/?p=155](http://blog.omega-prime.co.uk/?p=155)
 
@@ -418,11 +418,13 @@ from pure theory perspective, using SIGIO signal nofication to is more efficient
 
 1. Signal handler can't do heavy logic
 2. Signal can not be queeued. Only handle one more pending, others will be discarded.
+
   ```C
-   move the c signal handler sample from I/O model section to here
+  move the c signal handler sample from I/O model section to here
   ```
 
 3. [http:\/\/davmac.org\/davpage\/linux\/async-io.html](http://davmac.org/davpage/linux/async-io.html)
+
 
 Note also that SIGIO can itself be selected as the notification signal. This allows the assosicated extra data to be retrieved, however, multiple SIGIO signals will not be queued and there is no way to detect if signals have been lost, so it is necessary to treat each SIGIO as an overflow regardless. It's much better to use a real-time signal. If you do, you potentially have an asynchronous event handling scheme which in some cases may be more efficient than using poll\(\) and perhaps even epoll\(\), which will soon be discussed.
 
@@ -2056,7 +2058,7 @@ int main()
 
 I want to take a addition more section to talk about signal based readiness notification, because:
 1. it is quit interesting. As the first feeling of the underhood excecuting mechanism,  It seems good. Let's see why it not spread out.. 
-2. \([http:\/\/www.visolve.com\/uploads\/resources\/squidrtsignal.pdf\)A](http://www.visolve.com/uploads/resources/squidrtsignal.pdf)A) new interface  called 
+2. \([http:\/\/www.visolve.com\/uploads\/resources\/squidrtsignal.pdf\)A](http://www.visolve.com/uploads/resources/squidrtsignal.pdf)A\) new interface  called 
 kqueue\[3\]  has  been  implemented  on  the  FreeBSD  opera
 ting  system.  Kqueue  was 
 designed to eliminate the performance problems of p
@@ -2783,6 +2785,8 @@ Explain about event-loop in netty , channelpipeline in netty with diagram
 
 Diagram about how nodejs works
  \([http:\/\/www.ruanyifeng.com\/blog\/2014\/10\/event-loop.html](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)\)
+
+ [https:\/\/github.com\/nodejs\/node\/blob\/master\/doc\/topics\/the-event-loop-timers-and-nexttick.md](https://github.com/nodejs/node/blob/master/doc/topics/the-event-loop-timers-and-nexttick.md)
 
 \(alternative begin: [https:\/\/vimeo.com\/96425312](https://vimeo.com/96425312) Us JavaScript programmers like to use words like, "event-loop", "non-blocking", "callback", "asynchronous", "single-threaded" and "concurrency".
 
