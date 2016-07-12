@@ -2892,3 +2892,5 @@ various event loop framework and aio impl
 [73] https://segmentfault.com/a/1190000003063859 类似的文章，但写得不够全面
 
 [74] http://blog.csdn.net/sbjiesbjie/article/details/50717368 linux native aio examples
+
+[75] https://github.com/nodejs/node/blob/master/doc/topics/the-event-loop-timers-and-nexttick.md
