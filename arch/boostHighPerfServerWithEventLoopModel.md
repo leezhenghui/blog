@@ -150,7 +150,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input\/Output\(short for I\/O\) models under Unix-like operating system as well as the appropriate programming models which well fit in these I\/O models individually.
 
-This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - _[UNIX® Network Programming Volume 1](https://en.wikipedia.org/wiki/UNIX_Network_Programming)_.
+This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [_UNIX® Network Programming Volume 1_](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
 
 In Unix-like operating system,  the `file` is actually a principle asbraction of many computer resoruces. Generally, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket\(both `Internet-Domain sockets` and `Unix-Domain socket`\) and some special purpose files\(e.g: the "virtual" files which are intented for kernel status\/configuration\), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
@@ -335,7 +335,7 @@ on background and a completion event which carrying response/error should be not
 The distinction between the two is largely a matter of operating mode \(it is the difference between performing a read operation, for example, and being notified when the data is in the application's buffer, compared to simply being notified when the data is available and asking that it be copied to the application's buffer afterwards\)
 
 > Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API\(see refe
->  rence [\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[](http://www.ibm.com/developerworks/linux/library/l-async/)[1\]](http://www.ibm.com/developerworks/linux/library/l-async/)\), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
+>  rence [\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[](http://www.ibm.com/developerworks/linux/library/l-async/)[1\]](http://www.ibm.com/developerworks/linux/library/l-async/)\), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
 
 [http:\/\/blog.omega-prime.co.uk\/?p=155](http://blog.omega-prime.co.uk/?p=155)
 
@@ -2976,4 +2976,6 @@ various event loop framework and aio impl
 \[74\] [http:\/\/blog.csdn.net\/sbjiesbjie\/article\/details\/50717368](http://blog.csdn.net/sbjiesbjie/article/details/50717368) linux native aio examples
 
 \[75\] [https:\/\/github.com\/nodejs\/node\/blob\/master\/doc\/topics\/the-event-loop-timers-and-nexttick.md explain with details about the phases in eventloop of nodejs\(unerd the hood, it is libuv\), also elaborate the differences for the asyn api, including nextTick, setTimeout and setImmeidate](https://github.com/nodejs/node/blob/master/doc/topics/the-event-loop-timers-and-nexttick.md)
+
+\[76\] http:\/\/coolshell.cn\/articles\/7490.html 一篇综合介绍性能调优的文章
 
