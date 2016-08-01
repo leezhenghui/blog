@@ -150,7 +150,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input\/Output\(short for I\/O\) models under Unix-like operating system as well as the appropriate programming models which well fit in these I\/O models individually.
 
-This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - _[UNIX® Network Programming Volume 1](https://en.wikipedia.org/wiki/UNIX_Network_Programming)_.
+This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [_UNIX® Network Programming Volume 1_](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
 
 In Unix-like operating system,  the `file` is actually a principle asbraction of many computer resoruces. Generally, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket\(both `Internet-Domain sockets` and `Unix-Domain socket`\) and some special purpose files\(e.g: the "virtual" files which are intented for kernel status\/configuration\), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
@@ -2684,7 +2684,11 @@ what is event loop\([https:\/\/seanlin0800.gitbooks.io\/async-performance\/conte
 explain what is tick in event loop programming model
 [http:\/\/stackoverflow.com\/questions\/19822668\/what-exactly-is-a-node-js-event-loop-tick](http://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop-tick)
 
-For event loop, in general, it compsoite with several typical phases, the tick actually means, the the future time, it reach to the current phase again. You might be feel confusing about this per your experiences in nodejs, setImmediate vs. nextTick, seems the nextTick will be executed immediately, but setImmediate actually be executed when next "check" phase coming. why? please refer to \(https:\/\/github.com\/nodejs\/node\/blob\/master\/doc\/topics\/the-event-loop-timers-and-nexttick.md\) for more details
+For event loop, in general, it compsoite with several typical phases, the tick actually means, the the future time, it reach to the current phase again. 
+
+This is just a proof-on-concept explanation on tick, I will elaborate this concept with more details in next section by node.js
+
+You might be feel confusing about this per your experiences in nodejs, setImmediate vs. nextTick, seems the nextTick will be executed immediately, but setImmediate actually be executed when next "check" phase coming. why? please refer to \(https:\/\/github.com\/nodejs\/node\/blob\/master\/doc\/topics\/the-event-loop-timers-and-nexttick.md\) for more details
 
 ## Event-loop based I\/O framework across different programming languages
 
