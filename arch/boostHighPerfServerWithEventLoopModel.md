@@ -150,7 +150,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input\/Output\(short for I\/O\) models under Unix-like operating system as well as the appropriate programming models which well fit in these I\/O models individually.
 
-This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [_UNIX® Network Programming Volume 1_](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
+This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - _[UNIX® Network Programming Volume 1](https://en.wikipedia.org/wiki/UNIX_Network_Programming)_.
 
 In Unix-like operating system,  the `file` is actually a principle asbraction of many computer resoruces. Generally, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket\(both `Internet-Domain sockets` and `Unix-Domain socket`\) and some special purpose files\(e.g: the "virtual" files which are intented for kernel status\/configuration\), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
@@ -2111,9 +2111,7 @@ based on above materilas, make a sequencing diagram about the details of how to 
   > int setrlimit\(RLIMIT\_SIGPENDING, &rlim\); --&gt; create socket file descriptor --&gt; Mask off SIGIO and the signal you want to use \(which will result in the event to be queued\) --&gt;  invoke F\_SETOWN, F\_SETSIG, and set O\_ASYNC, O\_NONBLOCK. --&gt; use poll make sure no missing notification event ---&gt; after handling the data coming during we initial signal configuration via poll, get to normalized execution logic --&gt; use signalwait to detect I\/O event by rt-signal ---&gt; if receive SIGIO type event via signal hander, queue overflow occurs --&gt; flush events in queue --&gt; use poll to handle all of socket data --&gt; normalize execution and get back to rtsig await api
 
 
-1. A solution to avoid signal queue overflow is to all
-  ow only one event per socket file 
-  descriptor in the signal queue.
+1. A solution to avoid signal queue overflow is to allow only one event per socket file descriptor in the signal queue.
   > \/_ 
   > Allow 
   > only 
