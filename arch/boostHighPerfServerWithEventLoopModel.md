@@ -150,7 +150,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input\/Output\(short for I\/O\) models under Unix-like operating system as well as the appropriate programming models which well fit in these I\/O models individually.
 
-This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - _[UNIX® Network Programming Volume 1](https://en.wikipedia.org/wiki/UNIX_Network_Programming)_.
+This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [_UNIX® Network Programming Volume 1_](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
 
 In Unix-like operating system,  the `file` is actually a principle asbraction of many computer resoruces. Generally, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket\(both `Internet-Domain sockets` and `Unix-Domain socket`\) and some special purpose files\(e.g: the "virtual" files which are intented for kernel status\/configuration\), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
@@ -2986,11 +2986,19 @@ various event loop framework and aio impl
 
 \[78\] http:\/\/xiaorui.cc\/2015\/12\/02\/%E4%BD%BF%E7%94%A8socket-so\_reuseport%E6%8F%90%E9%AB%98%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD\/
 
-     A good diagram to leverage to illustrate the advantages for reuseport
+```
+ A good diagram to leverage to illustrate the advantages for reuseport
+```
 
 reuseport to make the enable multiple thread to do the accept on same ip and port
 
 \[79\] http:\/\/blog.qiusuo.im\/blog\/2014\/09\/14\/linux-so-reuseport\/
+
+     但是在 Linux 中，在 `man socket` 中可以看到对 `SO_REUSEADDR` 的解释。 
+
+> Indicates that the rules used in validating addresses supplied in a bind\(2\) call should allow reuse of local addresses. For AF\_INET sockets this means that a socket may bind, except when there is an active listening socket bound to the address. When the listening socket is bound to INADDR\_ANY with a specific port then it is not possible to bind to this port for any local address. Argument is an integer boolean flag.
+
+就是说，跟 unix 对比起来，有一个例外，如果对于监听 socket 来，如果已经 bind 到 0.0.0.0 ，其他监听 socket 就不能 bind 到任何一个本地接口了。
 
 \[80\] http:\/\/man7.org\/linux\/man-pages\/man7\/socket.7.html
 
@@ -3004,5 +3012,5 @@ reuseport to make the enable multiple thread to do the accept on same ip and por
 
 \[83\] http:\/\/stackoverflow.com\/questions\/14388706\/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t\/14388707\#14388707
 
-   \[78\], \[79\], \[81\], \[82\] and \[83\] explain the details why introduce reuseport and what is the difference between reuseport and reuseaddress. How nginx resolve the "惊群" by leveraging reuseport.. The reuseport option provide a good way to enhance \(reduce the complexity of multiple thread on socket accept\), introduce an simplified programming model for  mutliple thread model on server socket accept. Before this, nginx take much additional effort on fork process or multiple thread\(make the server accept by epoll with multiple thread\)
+\[78\], \[79\], \[81\], \[82\] and \[83\] explain the details why introduce reuseport and what is the difference between reuseport and reuseaddress. How nginx resolve the "惊群" by leveraging reuseport.. The reuseport option provide a good way to enhance \(reduce the complexity of multiple thread on socket accept\), introduce an simplified programming model for  mutliple thread model on server socket accept. Before this, nginx take much additional effort on fork process or multiple thread\(make the server accept by epoll with multiple thread\)
 
