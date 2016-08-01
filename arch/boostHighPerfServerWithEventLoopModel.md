@@ -150,7 +150,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input\/Output\(short for I\/O\) models under Unix-like operating system as well as the appropriate programming models which well fit in these I\/O models individually.
 
-This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [_UNIX® Network Programming Volume 1_](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
+This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - _[UNIX® Network Programming Volume 1](https://en.wikipedia.org/wiki/UNIX_Network_Programming)_.
 
 In Unix-like operating system,  the `file` is actually a principle asbraction of many computer resoruces. Generally, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket\(both `Internet-Domain sockets` and `Unix-Domain socket`\) and some special purpose files\(e.g: the "virtual" files which are intented for kernel status\/configuration\), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
@@ -335,7 +335,7 @@ on background and a completion event which carrying response/error should be not
 The distinction between the two is largely a matter of operating mode \(it is the difference between performing a read operation, for example, and being notified when the data is in the application's buffer, compared to simply being notified when the data is available and asking that it be copied to the application's buffer afterwards\)
 
 > Note: Tim Jonh's has written a very good article to explain the usage of POSIX AIO API\(see refe
->  rence [\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[](http://www.ibm.com/developerworks/linux/library/l-async/)[1\]](http://www.ibm.com/developerworks/linux/library/l-async/)\), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
+>  rence [\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[\]\(http:\/\/www.ibm.com\/developerworks\/linux\/library\/l-async\/\)](http://www.ibm.com/developerworks/linux/library/l-async/)[\[](http://www.ibm.com/developerworks/linux/library/l-async/)[1\]](http://www.ibm.com/developerworks/linux/library/l-async/)\), I like that article very much in general, but if the terminology of "asynchronous" can align with POSIX definition, that would be perfect.
 
 [http:\/\/blog.omega-prime.co.uk\/?p=155](http://blog.omega-prime.co.uk/?p=155)
 
@@ -354,8 +354,6 @@ TO-DELETE
 
       E.g: Netty is a async IO framework, from the Netty API, it is a non-blocking ASync IO, but if we look into the implmentation, it actually based on Java NIO, the Java NIO on linux actually is based on epoll, that is a sync-multiplexing technology, it is not a AIO from kernel perspective. anyway, when we talk about IO pattern, we need to know what layer we are talking about, In a reality, some thread-model can convert a non-block sync IO to a non-blocking async IO...
 ```
-
-
 
 http:\/\/www.slideshare.net\/brendangregg\/blazing-performance-with-flame-graphs \(page-27\)
 
@@ -2984,4 +2982,8 @@ various event loop framework and aio impl
 \[76\] http:\/\/coolshell.cn\/articles\/7490.html 一篇综合介绍性能调优的文章
 
 \[77\] http:\/\/www.slideshare.net\/brendangregg\/blazing-performance-with-flame-graphs  \(page-27\)
+
+\[78\] http:\/\/xiaorui.cc\/2015\/12\/02\/%E4%BD%BF%E7%94%A8socket-so\_reuseport%E6%8F%90%E9%AB%98%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD\/ 
+
+   reuseport to make the enable multiple thread to do the accept on same ip and port
 
