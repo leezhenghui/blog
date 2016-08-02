@@ -48,6 +48,12 @@ Contents Table:
 > 
 > 3 Linux kernel support
 > 
+> > > 3.1 Blocking I\/O
+> > >
+> > > > 3.1.1 Connection per process (fork) 
+> > > >
+> > > > 3.1.2 Connection per thread
+> > >
 > > > 3.1 Nonblocking I\/O
 > > > 
 > > > 3.2 Edge-triggered Demultipluxer
