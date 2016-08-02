@@ -150,7 +150,7 @@ TODO, map
 
 Before jumping into the section of "problem" statement, let's step back and take a look at the bigger picture, exploring the basic differences in five common Input\/Output\(short for I\/O\) models under Unix-like operating system as well as the appropriate programming models which well fit in these I\/O models individually.
 
-This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - _[UNIX® Network Programming Volume 1](https://en.wikipedia.org/wiki/UNIX_Network_Programming)_.
+This is not intented as an exhaustive review to these common I\/O models, but just a quick walk through to illustrate the basic differences in the five common I\/O models. If you want to have a thorough elaboration on these topics, please refer to the bible book - [_UNIX® Network Programming Volume 1_](https://en.wikipedia.org/wiki/UNIX_Network_Programming).
 
 In Unix-like operating system,  the `file` is actually a principle asbraction of many computer resoruces. Generally, everything with system operations manner of `read` and `write` can be abstracted and represented as a file, including device, disk file, pipe, socket\(both `Internet-Domain sockets` and `Unix-Domain socket`\) and some special purpose files\(e.g: the "virtual" files which are intented for kernel status\/configuration\), they are all files from operating system perspective. What we are calling `regular file` in this article actually stands for `disk file`.
 
@@ -2706,7 +2706,7 @@ event module: [http:\/\/www.cnblogs.com\/fll369\/archive\/2012\/11\/29\/2794939.
   [http:\/\/www.infoq.com\/cn\/articles\/thread-pools-boost-performance-9x](http://www.infoq.com/cn/articles/thread-pools-boost-performance-9x)
   一些操作系统为读写文件提供了异步接口，NGINX可以使用这样的接口（见AIO指令）。FreeBSD就是个很好的例子。不幸的是，我们不能在Linux上得到相同的福利。虽然Linux为读取文件提供了一种异步接口，但是存在明显的缺点。其中之一是要求文件访问和缓冲要对齐，但NGINX很好地处理了这个问题。但是，另一个缺点更糟糕。异步接口要求文件描述符中要设置O\_DIRECT标记，就是说任何对文件的访问都将绕过内存中的缓存，这增加了磁盘的负载。在很多场景中，这都绝对不是最佳选择。
 
-Nginx High Performance page-2 diagram
+\(ebook\)Nginx High Performance page-2 diagram
   NGINX has its foundation in event-based architecture \(EBA\). In EBA, components
 interact predominantly using event notifications instead of direct method calls. These
 event notifications, occurring from different tasks, are then queued for processing
@@ -2749,8 +2749,6 @@ eventport — event ports, efficient method used on Solaris 10.
 [http:\/\/www.pagefault.info\/?p=76](http://www.pagefault.info/?p=76)
 [https:\/\/cnodejs.org\/topic\/4f16442ccae1f4aa270010a7](https://cnodejs.org/topic/4f16442ccae1f4aa270010a7)
 Nginx support AIO for file access in the recent new releases
-
-
 
 http:\/\/agentzh.org\/misc\/slides\/off-cpu-flame-graphs.pdf \(page-17\)
 
