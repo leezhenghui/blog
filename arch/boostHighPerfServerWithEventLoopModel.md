@@ -2778,7 +2778,7 @@ On linux, the nginx can be simplfied to below pseudo code for proof-on-concept \
 
 Improve listener concurrency via reuseport option \(http:\/\/xiaorui.cc\/2015\/12\/02\/%E4%BD%BF%E7%94%A8socket-so\_reuseport%E6%8F%90%E9%AB%98%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD\/ ; http:\/\/lwn.net\/Articles\/542629\/; http:\/\/lwn.net\/Articles\/542718\/; http:\/\/blog.qiusuo.im\/blog\/2014\/09\/14\/linux-so-reuseport\/\)
 
-ebook\(nginx内部实现\)
+ebook\(深入剖析Nginx\)
 
 master actually acts as signal handling, see the diagram in the book
 
