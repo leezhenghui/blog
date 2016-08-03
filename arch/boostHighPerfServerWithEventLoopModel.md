@@ -186,7 +186,7 @@ The diagram above illustrate what happens in the background, when the process is
 
 Apparently, as a result of the I\/O handling manner in blocking mode, the system calls to I\/O devices are bound\/blocked to a specifc thread\/process during the I\/O staying in either ready or not ready state. Blocking IO is not necessarily evil. If there’s nothing else you wanted your program to do in the meantime, blocking IO will work fine for you. But if you want to handle multiple connections at once, in order to give a timely handling to each connection, we should limit\/avoid the effect of serialized I\/O handling for multiple concurrent connections in I\/O blocking mode, we probably will fall into `thread-per-connection` strategy. By this way, each connection has its own process, a blocking I/O call that waits for one connection won’t make any of the other connections' processes block.`thread-per-connection` can be found in many of early web server implementation, like Apache.
 
-We use UDP for example, the process calls recvfrom and the system call does not return until the datagram arrives and is transferred from kernel buffer into our user space buffer, or an error occurs. We say that our process is blocked the entire time from when it calls recvfrom until it returns. When recvfrom returns successfully, our application continue processing the datagram. Imaging that we need to write a program to handle multiple connections at once, we almost no choice but fall into `thread-per-connection` programming model. We will talk about this programming model later with more details.
+
 
 ```
 TODO, move to strategy section
@@ -196,6 +196,9 @@ TODO, move to strategy section
 ```
 TODELETE
 For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
+
+We use UDP for example, the process calls recvfrom and the system call does not return until the datagram arrives and is transferred from kernel buffer into our user space buffer, or an error occurs. We say that our process is blocked the entire time from when it calls recvfrom until it returns. When recvfrom returns successfully, our application continue processing the datagram. Imaging that we need to write a program to handle multiple connections at once, we almost no choice but fall into `thread-per-connection` programming model. We will talk about this programming model later with more details.
+
 ```
 
 ### Non-blocking I\/O
