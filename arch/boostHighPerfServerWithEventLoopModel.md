@@ -2712,6 +2712,8 @@ Windows seems to support this first class again via “I\/O Completion Ports”.
 [https:\/\/cnodejs.org\/topic\/4f16442ccae1f4aa270010a7](https://cnodejs.org/topic/4f16442ccae1f4aa270010a7)
 provide the proof of multiple threads are involved to simulate a noblocking behavior
 
+---
+
 ## Event Loop Programming Model\(The Bridge of From Reactor Pattern to Proactor pattern\)
 
 Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode
