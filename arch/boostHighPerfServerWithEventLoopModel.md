@@ -188,7 +188,7 @@ Apparently, as a result of the I\/O handling manner in blocking mode, the system
 
 > TIP:
 > 
-> In short later, the section strategy will introduce more about the shortcoming of thread(process)-per-connection programming model
+> In short later, the section strategy will introduce more about the shortcoming of `thread(process)-per-connection` programming model
 
 ```
 TODO, move to strategy section
