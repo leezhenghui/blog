@@ -492,6 +492,8 @@ program then checks periodically whether a signal has occurred and reacts accord
 AIO, normally used as edge-triggered completion notification, 
 AIO
 
+---
+
 ## Linux Kernel Support
 
 每一大项填加一个bullets 说明
