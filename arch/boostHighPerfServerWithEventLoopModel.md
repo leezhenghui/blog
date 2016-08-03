@@ -176,7 +176,7 @@ In Unix-like operating system,  the `file` is actually a principle asbraction of
 
 ### Blocking I\/O
 
-This is a prevalent I\/O model supported by almost all of I\/O devices and popular operating systems. It performs the default I\/O behaviors on the system calls\(i.e: `read` and `write`\) in libc standard library. If we open a file via blocking I\/O\(e.g: either set `O_SYNC` flag explicitly or leave the flag setting empty\), no `read` or `write` will complete until the data is transferred to user-space application buffer from kernel buffer\(in the case of `read`\) or delivered to physical deivce\(in the case of `write`\). The process is blocked until the requested action is completed.
+This is a prevalent I\/O model supported by almost all of I\/O devices and popular operating systems. It performs the default I\/O behaviors on the system calls\(i.e: `read` and `write`\) in libc standard library. If we open a file via blocking I\/O\(e.g: either set `O_SYNC` flag explicitly or leave the flag setting empty\), no `read` or `write` will complete until the data transmission is done, from OS perspective, this means, either the data is transferred to user-space application buffer from kernel buffer\(in the case of `read`\) or the data is delivered to physical deivce\(in the case of `write`\). The process is blocked until the requested action is completed.
 
 ```
 TODO, diagram with a socket read/write
