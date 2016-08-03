@@ -199,7 +199,7 @@ Apparently, as a result of the I\/O handling manner in blocking mode, the system
 
 It is possible that programmers issue a `read` or `write` system request on a file, rather than putting the process to sleep to wait for data avialable, the call will return immediately with an error code if it is unable to process immediately, catch the error and the request can be reissued later on the same file descriptor for further operations. This is called Non-blocking I\/O.
 
-POSIX allows us to turn on the non-blocking mode either using the `O_NONBLOCK` option in the system call `open` on the file(device) or setting non-blocking mode on an already opened file descriptor using the `fcntl` call. Both of these options are documented in the GNU libc documentation. Under non-blocking mode, the application can performs I\/O with multiple files, without ever blocking and missing data available in other file.
+POSIX allows us to turn on the non-blocking mode either using the `O_NONBLOCK` option in the system call `open` on the file(device) or setting non-blocking mode on an already opened file descriptor using the `fcntl` call. Both of these options are documented in the GNU libc documentation. Under non-blocking mode, the application can performs I\/O with multiple files, without ever blocking and missing data available in other files.
 
 
 ```
