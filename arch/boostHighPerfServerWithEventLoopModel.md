@@ -130,7 +130,7 @@ Contents Table:
 TODO, Map
 ```
 
-Today in internet world, a technonical challenge in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop model seems take a key role in this field. Why? What underlying story is? I'd like to jot down this writing which came cross with my earlier investigations and experiences as a future reference for me and any one who come across to this post. Hopefully, this article can walk us throught the milestones\(following the way lighted by [c10k](http://www.kegel.com/c10k.html)\) achieved in the evolution of high scalability network server in Linux.
+Today in internet world, a technonical challenge in network server scalability is how to ensure that the server handles a large number of connections simultaneously with a high performance. Explorer the excellent network server designs and implementations, the event-loop model seems take an important role in this field. Why? What underlying story is? I'd like to jot down this writing which came cross with my earlier investigations and experiences as a future reference for me and any one who come across to this post. Hopefully, this article can walk us throught the milestones\(following the way lighted by [c10k](http://www.kegel.com/c10k.html)\) achieved in the evolution of high scalability network server in Linux.
 
 ```
 TO-DELETE:
