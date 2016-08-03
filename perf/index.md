@@ -5,7 +5,6 @@
 
 ## * Easy profiling for Node.js via V8 Build-in Profiler
 
-
 ## * Node.js And MDB Environment Setup
 
 ## * Node.js Postmortem Debugging via Core Dump Analysis
@@ -24,9 +23,9 @@
 
 ## * Nginx Static Resource Cache
 
+## * Nginx epoll performance analysis via systemtap 
 
+## * Off-CPU framegraphs 
 
-
-
-
+## * CPU framegraphs 
 
