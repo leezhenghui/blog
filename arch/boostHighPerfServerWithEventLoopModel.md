@@ -186,6 +186,10 @@ The diagram above illustrate what happens in the background, when the process is
 
 Apparently, as a result of the I\/O handling manner in blocking mode, the system calls to I\/O devices are bound\/blocked to a specifc thread\/process during the I\/O staying in either ready or not ready state. Blocking IO is not necessarily evil. If there’s nothing else you wanted your program to do in the meantime, blocking IO will work fine for you. But if you want to handle multiple connections at once, in order to give a timely handling to each connection, we should limit\/avoid the effect of serialized I\/O handling for multiple concurrent connections in I\/O blocking mode, we probably will fall into `thread-per-connection` strategy. By this way, each connection has its own process, a blocking I/O call that waits for one connection won’t make any of the other connections' processes block.`thread-per-connection` can be found in many of early web server implementation, like Apache.
 
+> TIP
+> 
+> In short later, the section strategy will introduce more about the shortcoming of thread(process)-per-connection programming model
+
 ```
 TODO, move to strategy section
 
