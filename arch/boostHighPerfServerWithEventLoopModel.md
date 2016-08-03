@@ -238,8 +238,6 @@ http://www.remlab.net/op/nonblock.shtml
 nonblocking does not support regular file
 ```
 
-
-
 ### I\/O multiplexing
 
 What is Multiplex?
