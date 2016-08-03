@@ -2737,6 +2737,8 @@ This is just a proof-on-concept explanation on tick, I will elaborate this conce
 
 You might be feel confusing about this per your experiences in nodejs, setImmediate vs. nextTick, seems the nextTick will be executed immediately, but setImmediate actually be executed when next "check" phase coming. why? please refer to \(https:\/\/github.com\/nodejs\/node\/blob\/master\/doc\/topics\/the-event-loop-timers-and-nexttick.md\) for more details
 
+---
+
 ## Event-loop based I\/O framework across different programming languages
 
 ### C programming language:
