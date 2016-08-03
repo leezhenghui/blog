@@ -2854,11 +2854,15 @@ If you're anything like me, you nod and agree, as if it's all obvious, even thou
 
 With some handy visualisations, and fun hacks, let's get an intuitive understanding of what happens when JavaScript runs. Beginner or veteran, I'm sure you'll learn something!\)
 
+---
+
 ## Weak point in event-loop
 
 For the thread model, e.g: node.js, in the main loop, if cpu-intensive job performance, the server will lost response. To sovle this, the straightforward way is to make the cpu-intensive work running in a separate thread\/process\(different than the main event-loop process\). 
 Nginx realize this problem, in 1.7, it introduce multple thread model in their even model
 Netty's event-loop can add customized strategy ??
+
+---
 
 ## Is event-loop model the ONLY choice?
 
