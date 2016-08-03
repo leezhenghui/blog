@@ -223,7 +223,7 @@ So generally we need operating system provide some sort of interface where we ca
 
 > TIP:
 >
-> Later, in the section of "Linux kernel support", I will explain what kind of file type support non-blocking, and a brief explanations why regular file not support non-blocking in most of operating systems.
+> Right now, just keep in mind the regular file does not support non-blocking I/O mode. Later, in the section of "Linux kernel support", I will explain what kind of file type support non-blocking, as well as a brief explanation why regular file not support non-blocking in most of operating systems.
 
 ``` 
 TODO move to Linux Kernel Support section 
