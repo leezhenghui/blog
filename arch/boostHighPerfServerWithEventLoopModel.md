@@ -259,7 +259,9 @@ In electroincs, One use for multiplexers is cost saving by connecting a multiple
 ![cost-saving connecting](/arch/Telephony_multiplexer_system.gif)
 
 
-The I/O Multiplexer is inspired by this data **selector** design and mainly used to increase the amount of file descriptors handling within a certain amount of time.I\/O Multiplexing
+The I/O Multiplexer is inspired by this data **selector** pattern and mainly used to increase the amount of file descriptors handling within a certain amount of time by the efficient selector mechanisms provided by operating system.
+
+I\/O Multiplexing
 
 ```
 TODO, diagram
