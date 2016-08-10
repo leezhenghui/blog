@@ -256,7 +256,7 @@ nonblocking does not support regular file
 The concept of `Multiplex` comes from electronics. A multiplexer (or mux) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a single line. Conversely, a demultiplexer (or demux) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a data **selector**.
 
 In electroincs, One use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel (by connecting the multiplexer's single output to the demultiplexer's single input)
-![aaa](/arch/Telephony_multiplexer_system.gif)
+![cost-saving connecting](/arch/Telephony_multiplexer_system.gif)
 
 I\/O Multiplexing
 
