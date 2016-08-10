@@ -255,14 +255,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer (or mux) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a single line. Conversely, a demultiplexer (or demux) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a data **selector**.
+The concept of `Multiplex` comes from electronics. A multiplexer (or mux) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a single line. Conversely, a demultiplexer (or demux) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data_** **_selector_**.
 
 In electroincs, One use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel (by connecting the multiplexer's single output to the demultiplexer's single input)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### How does multiplexing work in I/O model 
 
-The I/O Multiplexer is inspired by this data **selector** pattern and mainly used to increase the amount of file descriptors handling within a certain amount of time via the efficient selector mechanisms provided by operating system.
+The I/O Multiplexer is inspired by this **_data selector_** pattern and mainly used to increase the amount of file descriptors handling within a certain amount of time via the efficient selector mechanisms provided by operating system.
 ```
 TODO, diagram
 ```
