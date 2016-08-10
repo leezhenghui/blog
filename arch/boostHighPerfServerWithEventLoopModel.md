@@ -253,7 +253,9 @@ nonblocking does not support regular file
 
 ### I\/O multiplexing
 
-The concept of `Multiplex` comes from electronics.
+The concept of `Multiplex` comes from electronics. A multiplexer (or mux) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a single line. Conversely, a demultiplexer (or demux) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. 
+
+![](/arch/Telephony_multiplexer_system.gif)
 
 I\/O Multiplexing
 
