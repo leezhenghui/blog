@@ -220,7 +220,7 @@ As you may find out in this sample, the difficulty with nonblocking model is tha
 So generally we need operating system provide some sort of interface where we can efficiently wait or being notfified by event for certain operations to enter an particular state, and then, invoking the non-blocking I/O operation will actually make some progress rather than immediately returning, just something like, tell the kernel "wait until one of these sockets is ready to give me some data, and tell me which ones are ready."
 
 > ![Tips](/arch/images/tip.png)
-> Noteworthily, please keep in mind the conslution that `regular file` does **NOT** support non-blocking I\/O mode for now. Later, in the section of "Linux kernel support", I will explain what kind of file type support non-blocking, as well as a brief explanation why `regular file` not support non-blocking in most of operating systems.
+> Noteworthily, please keep in mind that `regular file` does **NOT** support non-blocking I\/O mode for now. Later, in the section of "Linux kernel support", I will explain what kind of file type support non-blocking, as well as a brief explanation why `regular file` not support non-blocking in most of operating systems.
 
     TODO move to Linux Kernel Support section 
 
