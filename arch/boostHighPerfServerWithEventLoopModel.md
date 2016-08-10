@@ -260,7 +260,7 @@ The concept of `Multiplex` comes from electronics. A multiplexer (or mux) is a h
 In electroincs, One use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel (by connecting the multiplexer's single output to the demultiplexer's single input)
 ![cost-saving connecting](/arch/Telephony_multiplexer_system.gif)
 
-The I/O Multiplexer is inspired by this data **selector** pattern and mainly used to increase the amount of file descriptors handling within a certain amount of time by the efficient selector mechanisms provided by operating system.
+The I/O Multiplexer is inspired by this data **selector** pattern and mainly used to increase the amount of file descriptors handling within a certain amount of time via the efficient selector mechanisms provided by operating system.
 
 #### I\/O Multiplexing Model
 
