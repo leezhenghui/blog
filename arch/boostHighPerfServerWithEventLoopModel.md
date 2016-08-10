@@ -263,6 +263,12 @@ In electroincs, one use for multiplexers is cost saving by connecting a multiple
 #### How does multiplexing work in I/O model 
 
 Inspired by this **_data selector_** pattern, the `I/O multpliexing` is mainly used to increase the amount of file descriptors handling within a certain amount of time via the efficient selector mechanisms provided by operating system.
+
+> Tips:
+>
+According to the different underlying implementation, the multiplexer(a.k.a selector) could generate I/O readiness notification in two possible ways, synchronous vs.asynchronous. The multiplexer we talk in this section actually specific to sync-multiplexer. For async-multiplexer, it will be covered in signal driven I/O model.  
+
+
 ```
 TODO, diagram
 ```
