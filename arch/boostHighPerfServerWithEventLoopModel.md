@@ -288,6 +288,9 @@ Available in BSD and POSIX Unix. I\/O is issued asynchronously, and when it is c
 [http:\/\/www.linuxprogrammingblog.com\/all-about-linux-signals?page=show](http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
 It's possible to be notified of I\/O availability by a signal. It's an alternative to functions like select\(2\). It's done by setting the O\_ASYNC flag on the file descriptor. If you do so and if I\/O is available \(as select\(2\) would consider it\) a signal is sent to the process. By default it's SIGIO, but using Real-time signals is more practical and you can set up the file descriptor using fcntl\(2\) so that you get more information in siginfo\_t structure. See the links at the bottom of this article for more information. There is now a better way to do it on Linux: epoll\(7\) and similar mechanisms are available on other systems.
 
+https://notes.shichao.io/unp/ch6/#io-multiplexing-model
+compare with non-blocking model
+
 ### signal
 
 > In above sample, I use a sleep in the signal handler to make the sample easy to simulate the situation of a signal is executing. However, in a real-life application, this is not a suggested way, as we need to make the singal handler perform as minimal as possible.
