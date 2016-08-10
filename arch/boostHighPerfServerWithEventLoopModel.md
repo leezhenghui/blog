@@ -335,8 +335,7 @@ oflags = fcntl\(STDIN\_FILENO, F\_GETFL\);
 fcntl\(STDIN\_FILENO, F\_SETFL, oflags \| FASYNC\);
 
 
-Singal model actually provide a efficent _asynchronous_ approach to select the readiness events among registered file descriptors
-
+Singal model actually provide a efficent _asynchronous_ approach to notify the readiness events for registered file descriptors. But please keep in mind, the asynchronous only means for the readiness event notification method, not means I/O model itself.
 
 ### Asynchronous I\/O
 
