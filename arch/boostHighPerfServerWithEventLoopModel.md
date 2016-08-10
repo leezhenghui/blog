@@ -190,7 +190,7 @@ Apparently, as a result of the I\/O handling manner in blocking mode, the system
 
 > Tips:
 > 
-> Shortly, the section `strategy` will elabrate more about the disavantage of `thread(process)-per-connection` programming model
+> Shortly, the section of `recap c10 problem` will elabrate more about the disavantage of `thread(process)-per-connection` programming model
 
     TODO, move to strategy section
 
