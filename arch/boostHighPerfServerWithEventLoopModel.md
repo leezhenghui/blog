@@ -253,7 +253,7 @@ nonblocking does not support regular file
 
 ### I\/O multiplexing
 
-What is Multiplex?
+The concept of `Multiplex` comes from electronics.
 
 I\/O Multiplexing
 
