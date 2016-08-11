@@ -2732,7 +2732,7 @@ provide the proof of multiple threads are involved to simulate a noblocking beha
 With an ease of use programming model and highly efficient handling, The readiness notification with `epoll` eventually grow up to a popular I\/O multiplexer technology in today's linux high scalablity server. 
 Often, for ease of use, the select loop is implemented as an event loop, perhaps using callback functions; the situation lends itself particularly well to event-driven programming.
 
-From the point of view of pure theory , epoll is not perfect , stand on practical  experiment perspective , epoll is optimal. This also reflects the concise and practical values advocated by linux .
+From the point of view of pure theory , epoll is not perfect , but standing on pragmatism perspective, epoll is optimal. This also reflects the concise and practical values advocated by linux .
 
 
 Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode
