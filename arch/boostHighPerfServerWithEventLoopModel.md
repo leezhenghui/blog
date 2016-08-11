@@ -2732,7 +2732,6 @@ provide the proof of multiple threads are involved to simulate a noblocking beha
 With an ease of use programming model and highly efficient handling, The readiness notification with `epoll` eventually grow up to a popular I\/O multiplexer technology in today's linux high scalablity server. 
 Often, for ease of use, the select loop is implemented as an event loop, perhaps using callback functions; the situation lends itself particularly well to event-driven programming.
 
-从纯理论来上看，epoll并不是最完美的，但从实用解度出发，epoll是最优的。这也正体现了linux的简洁实用的价值标准。
 From the point of view of pure theory , epoll is not perfect , stand on practical  experiment perspective , epoll is optimal. This also reflects the concise and practical values advocated by linux .
 
 
