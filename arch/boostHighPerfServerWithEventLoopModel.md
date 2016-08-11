@@ -253,14 +253,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I/O operations, means `read` or `write` system calls on multiple concurrent connections(corresponding to the several analog or digital inputs in electronincs case) by a single thread/process(corresponding to the _single line_ in electroinics case) via a selector mechanism. This selector can track readiness state change for certain I/O operation(`read` or `write`) in an efficient way provided by underlying operating system.
+Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system.
 
 > ![Tips](/arch/images/tip.png)
 > According to the different underlying implementation, the multiplexer\(a.k.a selector\) facility could proivde two kinds interaction manner for I\/O readiness notification, including: synchronous and asynchronous. The multiplexer we talk in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -437,7 +437,7 @@ Let's explorer the situations from kernel and programming language..
 
 ### Thread-Based Model\(a.k.a thread-per-connection\)
 
-file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html
+file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html
 
 ```
 the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.
@@ -2734,7 +2734,6 @@ Often, for ease of use, the select loop is implemented as an event loop, perhaps
 
 From the point of view of pure theory , epoll is not perfect , but standing on the position of pragmatism, epoll is optimal. This also reflects the concise and practical values advocated by linux .
 
-
 Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode
 
 Alought OS kernel did not provide us a easy to do this, smarter programmer never give up the effort to figure out a way  move to Proactor pattern on Reactor pattern, the answer is yes, we can 封装 a thread-mode to adopt the reactor pattern to proactor pattern, the answer is event-loop mode
@@ -3095,4 +3094,8 @@ reuseport to make the enable multiple thread to do the accept on same ip and por
 \[84\] http:\/\/lwn.net\/Articles\/542718\/
 
 \[78\], \[79\], \[81\], \[82\] and \[83\] explain the details why introduce reuseport and what is the difference between reuseport and reuseaddress. How nginx resolve the "惊群" by leveraging reuseport.. The reuseport option provide a good way to enhance \(reduce the complexity of multiple thread on socket accept\), introduce an simplified programming model for  mutliple thread model on server socket accept. Before this, nginx take much additional effort on fork process or multiple thread\(make the server accept by epoll with multiple thread\)
+
+\[85\] http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html 
+
+Introduce the web-server architectures, from connection-per-process, to connection-per-thread, event-driven, reactor and proactor patterns.....
 
