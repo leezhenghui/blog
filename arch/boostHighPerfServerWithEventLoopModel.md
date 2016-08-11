@@ -456,7 +456,7 @@ This model actually is mapped to the IO pattern -- Blocking Pattern
 Tranditional way in Unix socket programming
 
 #### connection-per-thread
-
+Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.
 
 ### I\/O Strategies
 
