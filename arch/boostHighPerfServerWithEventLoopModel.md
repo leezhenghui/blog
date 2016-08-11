@@ -453,10 +453,10 @@ Diagram of :Apache solution for high perfmance -- request per thread
 This model actually is mapped to the IO pattern -- Blocking Pattern
 ```
 #### connection-per-process
-Tranditional way in Unix socket programming
+Tranditional way in Unix socket programming. prefork to improve the performance
 
 #### connection-per-thread
-Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.
+Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.Provide a thread-pool
 
 ### I\/O Strategies
 
