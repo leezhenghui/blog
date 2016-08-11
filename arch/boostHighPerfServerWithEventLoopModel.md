@@ -461,8 +461,10 @@ Tranditional way in Unix socket programming. prefork to improve the performance
 
 Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.Provide a thread-pool
 
-### Best practice on connection-per-thread
+#### Best practice on connection-per-thread
+> http://berb.github.io/diploma-thesis/community/042_serverarch.html
 
+A single thread for acceptor (dispatcher), a thread-pool for connection handlings
 ### I\/O Strategies
 
 The C10K point out the thread-base\(a.k.a process-per-connect\) disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads\/processes to serve more connection. From programming models perspective, I am list them below:
