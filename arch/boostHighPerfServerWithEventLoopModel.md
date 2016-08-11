@@ -266,7 +266,6 @@ Inspired by this **_data selector_** pattern, the `I/O multpliexing` is mainly u
 >![Tips](/arch/images/tip.png)
 >According to the different underlying implementation, the multiplexer(a.k.a selector) could generate I/O readiness notification in two typical styles, synchronous vs.asynchronous. The multiplexer we talk in this section mainly focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I/O model part.  
 
-
 ```
 TODO, diagram
 ```
