@@ -260,7 +260,7 @@ In electroincs, one use for multiplexers is cost saving by connecting a multiple
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I/O operations(`read` or `write` system calls on multiple files, corresponding to the several analog or digital inputs in electronincs) by a single thread/process(corresponding to the _single line_ in electroinics) via a selector mechanism. The selector can track readiness state change for certain I/O operation(`read` or `write`) in an efficient way provided by underlying operating system.
+Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I/O operations, saying `read` or `write` system calls on multiple files(corresponding to the several analog or digital inputs in electronincs case) by a single thread/process(corresponding to the _single line_ in electroinics case) via a selector mechanism. The selector can track readiness state change for certain I/O operation(`read` or `write`) in an efficient way provided by underlying operating system.
 
 > ![Tips](/arch/images/tip.png)
 > According to the different underlying implementation, the multiplexer\(a.k.a selector\) facility could proivde two kinds interaction manner for I\/O readiness notification, including: synchronous and asynchronous. The multiplexer we talk in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
