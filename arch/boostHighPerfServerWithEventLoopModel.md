@@ -8,6 +8,11 @@ Email: leezhenghui@gmail.com
   @Copyright
 ```
 
+
+> a cover image for high scalabilty server architecture 
+http://berb.github.io/diploma-thesis/original/042_serverarch.html
+
+
 ---
 
 Contents Table:
@@ -253,14 +258,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system.
+Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system.
 
 > ![Tips](/arch/images/tip.png)
 > According to the different underlying implementation, the multiplexer\(a.k.a selector\) facility could proivde two kinds interaction manner for I\/O readiness notification, including: synchronous and asynchronous. The multiplexer we talk in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -3095,7 +3100,7 @@ reuseport to make the enable multiple thread to do the accept on same ip and por
 
 \[78\], \[79\], \[81\], \[82\] and \[83\] explain the details why introduce reuseport and what is the difference between reuseport and reuseaddress. How nginx resolve the "惊群" by leveraging reuseport.. The reuseport option provide a good way to enhance \(reduce the complexity of multiple thread on socket accept\), introduce an simplified programming model for  mutliple thread model on server socket accept. Before this, nginx take much additional effort on fork process or multiple thread\(make the server accept by epoll with multiple thread\)
 
-\[85\] http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html 
+\[85\] http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html
 
 Introduce the web-server architectures, from connection-per-process, to connection-per-thread, event-driven, reactor and proactor patterns.....
 
