@@ -447,7 +447,7 @@ Diagram of :Apache solution for high perfmance -- request per thread
 This model actually is mapped to the IO pattern -- Blocking Pattern
 ```
 
-### Strategy
+### I/O Strategies
 
 The C10K point out the thread-base\(a.k.a process-per-connect\) disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads\/processes to serve more connection. From programming models perspective, I am list them below:
 
