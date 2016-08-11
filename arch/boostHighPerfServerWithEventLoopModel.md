@@ -2869,6 +2869,7 @@ Java1.7 NIO2 \(async\)
 
 Netty:
 
+If we look into the internal architacture of netty implementation, we can see the netty actually is leverage the thread model we introduced in practical thread-per-connection impl and combine it with NIO selector , on linux, the NIO selector actually reply on epoll since java1.5. the thread model, use different eventloop for acceptor and connection handling. To simplify the programming model in netty, since netty 4, it get back to the single thread strategy for a given connection. 
 ```
 Event-Loop(Thread mode) + ChannelPipleline(Extensible event handling framework)
 
