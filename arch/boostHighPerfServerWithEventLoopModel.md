@@ -453,6 +453,8 @@ Diagram of :Apache solution for high perfmance -- request per thread
 This model actually is mapped to the IO pattern -- Blocking Pattern
 ```
 #### connection-per-process
+Tranditional way in Unix socket programming
+
 #### connection-per-thread
 
 
