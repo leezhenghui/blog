@@ -283,6 +283,8 @@ SVR3 Unix provided the poll system call. Arguably better-named than select, for 
 
 ### Signal driven I\/O
 
+Alternative to sync-multiplexer, can we leverage I/O signal to notify the I/O state? the answer is yes.
+
 ```
 TODO, diagram
 ```
