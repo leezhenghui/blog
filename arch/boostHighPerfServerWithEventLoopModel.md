@@ -458,6 +458,9 @@ Essentially, the insightful idea delivered by C10K problem lighted a way of \[1\
 ```
 diagram needed here
 ```
+>![](/arch/images/note.png)
+>it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification. 
+Refer to http://www.kegel.com/c10k.html#nb.sigio
 
 ##### nonblocking in conjunction with level-triggered readiness notification\(readiness selector nofitication,e.g: select, poll\)
 
