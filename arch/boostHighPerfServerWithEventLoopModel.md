@@ -2727,6 +2727,7 @@ provide the proof of multiple threads are involved to simulate a noblocking beha
 ---
 
 ## Event Loop Programming Model\(The Bridge of From Reactor Pattern to Proactor pattern\)
+
 With comparasions for the differents technologies listed above, The readiness notification with `epoll` eventually grow up to a major effient I/O multiplexer technology in today's linux high scalablity server. 
 Often, for ease of use, the select loop is implemented as an event loop, perhaps using callback functions; the situation lends itself particularly well to event-driven programming.
 
