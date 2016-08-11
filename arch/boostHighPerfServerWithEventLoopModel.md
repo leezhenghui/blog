@@ -437,6 +437,8 @@ Let's explorer the situations from kernel and programming language..
 
 ### Thread-Based Model\(a.k.a thread-per-connection\)
 
+file:///home/lizh/materials/studyplan/Nginx/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html
+
 ```
 the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.
 Diagram of :Apache solution for high perfmance -- request per thread
