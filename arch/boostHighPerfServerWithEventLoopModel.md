@@ -1,4 +1,4 @@
-****# Boost high scalability network server using event-loop model
+_\*\*_\# Boost high scalability network server using event-loop model
 
 Author: Zhenghui Lee
 
@@ -187,10 +187,10 @@ TODO, diagram with a socket read/write
 
 The diagram above illustrate what happens in the background, when the process issue a `read` or `write` system call,  the process will be locked, a context switch from usser space to kernel space occurs under the hood indeed, after either the data copied from device to kernel buffer\(in the case of `read`\) or be delivered to device hardware from kernel buffer\(in the case of `write`\), process context will switch back, the process in user space will be unlocked and start to fetch the result from kernel buffer to user-space application buffer. From user space perspective, we see the process is blocked entire time frame from when it calls until it turns.
 
-Apparently, as a result of the I\/O handling manner in blocking mode, the system calls to I\/O devices are bound\/blocked to a specifc thread\/process during the I\/O staying in either readiness or inability state. Blocking I/O is not necessarily evil. If there’s nothing else you wanted your program to do in the meantime, blocking I/O will work fine for you. But if you want to handle multiple connections at once, in order to give a timely handling to each connection, we should limit\/avoid the effect of serialized I\/O handling for multiple concurrent connections in I\/O blocking mode, we probably will fall into `thread-per-connection` strategy. By this way, each connection has its own process, a blocking I\/O call that waits for one connection won’t make any of the other connections' processes block.`thread-per-connection` can be found in many of early web server implementation, like Apache.
+Apparently, as a result of the I\/O handling manner in blocking mode, the system calls to I\/O devices are bound\/blocked to a specifc thread\/process during the I\/O staying in either readiness or inability state. Blocking I\/O is not necessarily evil. If there’s nothing else you wanted your program to do in the meantime, blocking I\/O will work fine for you. But if you want to handle multiple connections at once, in order to give a timely handling to each connection, we should limit\/avoid the effect of serialized I\/O handling for multiple concurrent connections in I\/O blocking mode, we probably will fall into `thread-per-connection` strategy. By this way, each connection has its own process, a blocking I\/O call that waits for one connection won’t make any of the other connections' processes block.`thread-per-connection` can be found in many of early web server implementation, like Apache.
 
 > ![Tips](/arch/images/tip.png)
-> Shortly, the section of `recap c10 problem` will elabrate more about the disavantage of `thread(process)-per-connection` programming model. For now, just keep in mind the 'thread(process)-per-connection' programming model is a normal choice for blocking I/O mode.
+> Shortly, the section of `recap c10 problem` will elabrate more about the disavantage of `thread(process)-per-connection` programming model. For now, just keep in mind the 'thread\(process\)-per-connection' programming model is a normal choice for blocking I\/O mode.
 
     TODO, move to strategy section
 
@@ -200,7 +200,6 @@ Apparently, as a result of the I\/O handling manner in blocking mode, the system
     For example, the recv() function in TCPEchoClient.c (page 44) does not return until at least one message from the echo server is received. Of course, a process with a blocked function is suspended by the operating system. It is synchronous blocking I/O model, one of the most common models for socket I/O programming. In this model, the user-space application performs a system call that results in the application blocking. This means that the application blocks entirely until the system call is complete (e.g: process calls recvfrom, data is transferred from kernel buffer to user space buffer or error reported)
 
     We use UDP for example, the process calls recvfrom and the system call does not return until the datagram arrives and is transferred from kernel buffer into our user space buffer, or an error occurs. We say that our process is blocked the entire time from when it calls recvfrom until it returns. When recvfrom returns successfully, our application continue processing the datagram. Imaging that we need to write a program to handle multiple connections at once, we almost no choice but fall into `thread-per-connection` programming model. We will talk about this programming model later with more details.
-
 
 ### Non-blocking I\/O
 
@@ -216,7 +215,7 @@ As above diagram indicated, when we set a socket to be nonblocking, we are telli
 
 As you may find out in this sample, the difficulty with nonblocking model is that there is no way of knowing when one would succeed, except by continuiosly and periodically iterating all of interested file descriptors and check available input\(or writable buffer for output\) simply by attemping a real `read` or `write` system call \(a process known as “polling”\). This result in the I\/O operation requiring that the application make numerous `read` and `write` system calls to await completion. The code above would work, but the performance will be awful, the way of detecting input\/output readabilty is extremely inefficient, it puts application in busy-wait loop, spin indefinitely\(needlessly use up all CPU cycles by calling `read` and `write`\) until the data is available or attempt to do other work while the command is performed in the kernel. Imaging if we have a large number of connections in this apporach, we need to do a kernel call for each connection. In the mean while, this method could introduce latency in the I\/O because any gap between the data becoming available in the kernel and the user calling `read` to return it can reduce the overall data throughput.
 
-So generally we need operating system provide some sort of interface where we can efficiently wait or being notfified by event for certain operations to enter an particular state, and then, invoking the non-blocking I/O operation will actually make some progress rather than immediately returning, just something like, tell the kernel "wait until one of these sockets is ready to give me some data, and tell me which ones are ready."
+So generally we need operating system provide some sort of interface where we can efficiently wait or being notfified by event for certain operations to enter an particular state, and then, invoking the non-blocking I\/O operation will actually make some progress rather than immediately returning, just something like, tell the kernel "wait until one of these sockets is ready to give me some data, and tell me which ones are ready."
 
 > ![Tips](/arch/images/tip.png)
 > Noteworthily, please keep in mind that `regular file` does **NOT** support non-blocking I\/O mode for now. Later, in the section of "Linux kernel support", I will explain what kind of file types will be supported by non-blocking system calls, as well as a brief explanation why `regular file` not support non-blocking in most of operating systems.
@@ -254,17 +253,17 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer (or mux) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a single line. Conversely, a demultiplexer (or demux) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a single line. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
 
-In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel (by connecting the multiplexer's single output to the demultiplexer's single input)
+In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
-#### Adopt multiplexing to I/O model 
+#### Adopt multiplexing to I\/O model
 
-Inspired by this **_data selector_** pattern, the `I/O multpliexing` is mainly used to increase the amount of file descriptors handling within a certain amount of time via the efficient selector mechanisms provided by operating system.
+Inspired by this _**data selector**_ pattern, the `I/O multpliexing` is mainly used to increase the amount of file descriptors handling within a certain amount of thread/process via the efficient selector mechanisms provided by operating system.
 
->![Tips](/arch/images/tip.png)
->According to the different underlying implementation, the multiplexer(a.k.a selector) facility could proivde two kinds interaction manner for I/O readiness notification, including: synchronous and asynchronous. The multiplexer we talk in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I/O model part.  
+> ![Tips](/arch/images/tip.png)
+> According to the different underlying implementation, the multiplexer\(a.k.a selector\) facility could proivde two kinds interaction manner for I\/O readiness notification, including: synchronous and asynchronous. The multiplexer we talk in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
 
 ```
 TODO, diagram
@@ -291,7 +290,7 @@ Available in BSD and POSIX Unix. I\/O is issued asynchronously, and when it is c
 [http:\/\/www.linuxprogrammingblog.com\/all-about-linux-signals?page=show](http://www.linuxprogrammingblog.com/all-about-linux-signals?page=show)
 It's possible to be notified of I\/O availability by a signal. It's an alternative to functions like select\(2\). It's done by setting the O\_ASYNC flag on the file descriptor. If you do so and if I\/O is available \(as select\(2\) would consider it\) a signal is sent to the process. By default it's SIGIO, but using Real-time signals is more practical and you can set up the file descriptor using fcntl\(2\) so that you get more information in siginfo\_t structure. See the links at the bottom of this article for more information. There is now a better way to do it on Linux: epoll\(7\) and similar mechanisms are available on other systems.
 
-https://notes.shichao.io/unp/ch6/#io-multiplexing-model
+[https:\/\/notes.shichao.io\/unp\/ch6\/\#io-multiplexing-model](https://notes.shichao.io/unp/ch6/#io-multiplexing-model)
 compare with non-blocking model
 
 ### signal
@@ -337,8 +336,7 @@ fcntl\(STDIN\_FILENO, F\_SETOWN, getpid\(  \)\);
 oflags = fcntl\(STDIN\_FILENO, F\_GETFL\);
 fcntl\(STDIN\_FILENO, F\_SETFL, oflags \| FASYNC\);
 
-
-Singal actually provide a efficent _asynchronous_ multiplexer to notify the readiness events for registered file descriptors. But please keep in mind, the asynchronous only means for the readiness event notification method, not means I/O model itself.
+Singal actually provide a efficent _asynchronous_ multiplexer to notify the readiness events for registered file descriptors. But please keep in mind, the asynchronous only means for the readiness event notification method, not means I\/O model itself.
 
 ### Asynchronous I\/O
 
@@ -446,7 +444,7 @@ Diagram of :Apache solution for high perfmance -- request per thread
 This model actually is mapped to the IO pattern -- Blocking Pattern
 ```
 
-### I/O Strategies
+### I\/O Strategies
 
 The C10K point out the thread-base\(a.k.a process-per-connect\) disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads\/processes to serve more connection. From programming models perspective, I am list them below:
 
@@ -457,9 +455,10 @@ Essentially, the insightful idea delivered by C10K problem lighted a way of \[1\
 ```
 diagram needed here
 ```
->![](/arch/images/note.png)
->it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification. 
-Refer to http://www.kegel.com/c10k.html#nb.sigio
+
+> ![](/arch/images/note.png)
+> it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification. 
+> Refer to [http:\/\/www.kegel.com\/c10k.html\#nb.sigio](http://www.kegel.com/c10k.html#nb.sigio)
 
 ##### nonblocking in conjunction with level-triggered readiness notification\(readiness selector nofitication,e.g: select, poll\)
 
@@ -2728,7 +2727,7 @@ provide the proof of multiple threads are involved to simulate a noblocking beha
 
 ## Event Loop Programming Model\(The Bridge of From Reactor Pattern to Proactor pattern\)
 
-With an ease of use programming model and highly efficient handling, The readiness notification with `epoll` eventually grow up to a popular I/O multiplexer technology in today's linux high scalablity server. 
+With an ease of use programming model and highly efficient handling, The readiness notification with `epoll` eventually grow up to a popular I\/O multiplexer technology in today's linux high scalablity server. 
 Often, for ease of use, the select loop is implemented as an event loop, perhaps using callback functions; the situation lends itself particularly well to event-driven programming.
 
 Even we have reactor pattern, it is still hard for programmer to write a good performance server, because this require developer have a deep understand about the thread-safe on the language and lower level OS technology, if not, reactor pattern may have result a regresson server than thread-mode
