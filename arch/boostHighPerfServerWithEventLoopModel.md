@@ -2780,7 +2780,11 @@ You might be feel confusing about this per your experiences in nodejs, setImmedi
 
 ### C programming language:
 
-#### Nginx: event mode\(file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html\)
+#### Nginx: 
+
+If we look into the nginx internal architecture, we will see it actually leverage the process model combin with multiplexing I/O model. each work is a separate process, rather than bind the process to a single connection, the worker actaully contains a event-loop via event driven model(e.g: in linux, it is epoll), so the worker can handle multiple connections.
+
+event mode\(file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html\)
 
 event module: [http:\/\/www.cnblogs.com\/fll369\/archive\/2012\/11\/29\/2794939.html](http://www.cnblogs.com/fll369/archive/2012/11/29/2794939.html)
  [http:\/\/nginx-book.readthedocs.io\/en\/latest\/chapter\_06.html\#event-40](http://nginx-book.readthedocs.io/en/latest/chapter_06.html#event-40)
