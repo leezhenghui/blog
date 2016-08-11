@@ -441,7 +441,8 @@ Let's explorer the situations from kernel and programming language..
 
 
 ### Thread-Based Model\(a.k.a thread-per-connection\)
-http://berb.github.io/diploma-thesis/original/042_serverarch.html
+> refer to http://berb.github.io/diploma-thesis/original/042_serverarch.html
+
 The thread-based approach basically associates each incoming connection with a separate thread (resp. process). In this way, synchronous blocking I/O is the natural way of dealing with I/O. It is a common approach that is well supported by many programming languages. It also leads to a straight forward programming model, because all tasks necessary for request handling can be coded sequentially
 
 file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html
