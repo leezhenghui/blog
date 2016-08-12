@@ -414,15 +414,15 @@ http:\/\/www.slideshare.net\/brendangregg\/blazing-performance-with-flame-graphs
 
 ## Recap C10K problem
 
-http://berb.github.io/diploma-thesis/original/042_serverarch.html
+[http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html](http://berb.github.io/diploma-thesis/original/042_serverarch.html)
 
-The traditional web server are developing with a straigh-forward way, it hide the concurrency handling, and relying on the kernel thread/process scheduler to do this. Using the sync and blocking I/O operation and natural run into thread based model. 
+The traditional web server are developing with a straigh-forward way, it hide the concurrency handling, and relying on the kernel thread\/process scheduler to do this. Using the sync and blocking I\/O operation and natural run into thread based model.
 
 ### Thread-Based Model\(a.k.a thread-per-connection\)
 
 > refer to [http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html](http://berb.github.io/diploma-thesis/original/042_serverarch.html)
 
-The thread-based approach basically associates each incoming connection with a separate thread \(resp. process\). In this way, synchronous blocking I\/O is the natural way of dealing with I\/O. It is a common approach that is well supported by many programming languages. It also leads to a straight forward programming model, because all tasks necessary for request handling can be coded sequentiallyfile:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html```the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.Diagram of :Apache solution for high perfmance -- request per threadThis model actually is mapped to the IO pattern -- Blocking Pattern```
+The thread-based approach basically associates each incoming connection with a separate thread \(resp. process\). In this way, synchronous blocking I\/O is the natural way of dealing with I\/O. It is a common approach that is well supported by many programming languages. It also leads to a straight forward programming model, because all tasks necessary for request handling can be coded sequentiallyfile:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html`the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.Diagram of :Apache solution for high perfmance -- request per threadThis model actually is mapped to the IO pattern -- Blocking Pattern`
 
 #### Connection-per-process
 
@@ -433,12 +433,14 @@ Tranditional way in Unix socket programming. prefork to improve the performance
 Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.Provide a thread-pool
 
 #### Best practice on connection-per-thread
+
 > [http:\/\/berb.github.io\/diploma-thesis\/community\/042\_serverarch.html](http://berb.github.io/diploma-thesis/community/042_serverarch.html)
 
 A single thread for acceptor \(dispatcher\), a thread-pool for connection handlings
 Finally, we get to the problem -- C10K. 15 Years ago, xxx arise C10K problem which was a big chellenge\( This situation is often called the c10k problem. With select\(\) or poll\(\), your network server will hardly perform any useful things but wasting precious CPU cycles under such high load.
 
 ### c10k problem
+
 was raised based on condition\/situation\(both hardware and whole interenet ecosystem\) at that time..Today, C10K problem itself is not a problem anymore, people even trying to resolve the challenge of C10M, but the insights\/solution for C10K as the foundation of so many perfect softwares still enlighten us and point us to a way forward.
 
 [http:\/\/amsekharkernel.blogspot.com\/2013\/05\/what-is-epoll-epoll-vs-select-call-and.html](http://amsekharkernel.blogspot.com/2013/05/what-is-epoll-epoll-vs-select-call-and.html)
@@ -462,8 +464,6 @@ non-blocking async IO
 
 Let's explorer the situations from kernel and programming language..
 ```
-
-
 
 ### I\/O Strategies
 
@@ -2747,7 +2747,7 @@ provide the proof of multiple threads are involved to simulate a noblocking beha
 ---
 
 ## Event Loop Programming Model\(The Bridge of From Reactor Pattern to Proactor pattern\)
-
+We outlined the I/O models and problems, possible solution strategies as well as a closer evaluation on Linux kernel support.  
 With an ease of use programming model and highly efficient handling, The readiness notification with `epoll` eventually grow up to a popular I\/O multiplexer technology in today's linux high scalablity server. 
 Often, for ease of use, the select loop is implemented as an event loop, perhaps using callback functions; the situation lends itself particularly well to event-driven programming.
 
@@ -3148,5 +3148,6 @@ reuseport to make the enable multiple thread to do the accept on same ip and por
 
 Introduce the web-server architectures, from connection-per-process, to connection-per-thread, event-driven, reactor and proactor patterns.....
 
-[86] http://www.thegeekstuff.com/2013/11/nginx-vs-apache/?utm_source=tuicool
+\[86\] [http:\/\/www.thegeekstuff.com\/2013\/11\/nginx-vs-apache\/?utm\_source=tuicool](http://www.thegeekstuff.com/2013/11/nginx-vs-apache/?utm_source=tuicool)
    nginx vs. apache
+
