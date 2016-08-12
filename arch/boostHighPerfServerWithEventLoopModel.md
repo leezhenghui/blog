@@ -2836,7 +2836,7 @@ event, de-queues it, and then moves on to the next event. Thus, the work execute
 a thread is very similar to that of a scheduler, multiplexing multiple connections to a
 single flow of execution. The following diagram shows this:
 
-Nginx Event Models
+##### Nginx Event Models
 
 NGINX supports the following methods of treating the connections, which can be assigned by the use directive:
 
