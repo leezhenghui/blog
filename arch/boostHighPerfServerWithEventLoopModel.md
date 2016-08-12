@@ -2815,7 +2815,7 @@ https://wangyapu0714.github.io/2016/06/12/nginx_accept_mutex/
 ##### Uniify the AIO access on regular file into a a common event model
 eventfs + epoll + aio
 
-event mode\(file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html\)
+##### event mode\(file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html\)
 
 event module: [http:\/\/www.cnblogs.com\/fll369\/archive\/2012\/11\/29\/2794939.html](http://www.cnblogs.com/fll369/archive/2012/11/29/2794939.html)
  [http:\/\/nginx-book.readthedocs.io\/en\/latest\/chapter\_06.html\#event-40](http://nginx-book.readthedocs.io/en/latest/chapter_06.html#event-40)
@@ -2836,7 +2836,7 @@ event, de-queues it, and then moves on to the next event. Thus, the work execute
 a thread is very similar to that of a scheduler, multiplexing multiple connections to a
 single flow of execution. The following diagram shows this:
 
-##### Nginx Event Models
+Nginx Event Models
 
 NGINX supports the following methods of treating the connections, which can be assigned by the use directive:
 
