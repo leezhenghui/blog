@@ -3148,3 +3148,5 @@ reuseport to make the enable multiple thread to do the accept on same ip and por
 
 Introduce the web-server architectures, from connection-per-process, to connection-per-thread, event-driven, reactor and proactor patterns.....
 
+[86] http://www.thegeekstuff.com/2013/11/nginx-vs-apache/?utm_source=tuicool
+   nginx vs. apache
