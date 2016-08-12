@@ -2786,11 +2786,20 @@ You might be feel confusing about this per your experiences in nodejs, setImmedi
 
 #### Nginx:
 
+##### Outlook of nginx architecture
+
 If we look into the nginx internal architecture, we will see it actually leverage the process model combin with multiplexing I\/O model. each work is a separate process, rather than bind the process to a single connection, the worker actaully contains a event-loop via event driven model\(e.g: in linux, it is epoll\), so the worker can handle multiple connections.
 
 
 https://www.nginx.com/blog/thread-pools-boost-performance-9x/
 If take a further closer look at worker implementation, it also have thread pool.
+
+##### Master and workers
+
+master and worker responsibilities and inter-communciation method (unix domain sockets and share memory):http://www.slideshare.net/joshzhu/nginx-internals (page 20)
+
+##### Thundering_herd_problem
+accept_mutex and reuseport
 
 Thundering_herd_problem, and kernel socket sharing to resolve this
 http://nglua.com/articles/3.html
@@ -2801,8 +2810,7 @@ https://segmentfault.com/a/1190000002910129
 http://www.slideshare.net/joshzhu/nginx-internals (page 28)
 https://wangyapu0714.github.io/2016/06/12/nginx_accept_mutex/
 
-master and worker responsibilities:
-http://www.slideshare.net/joshzhu/nginx-internals (page 20)
+
 
 event mode\(file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html\)
 
