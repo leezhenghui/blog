@@ -2934,8 +2934,7 @@ Netty's event-loop can add customized strategy ??
 ---
 
 ## Is event-loop model the ONLY choice?
-
-Of course not, essentially, the event loop model is on the way of using less threads to service more requests\/connections. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
+All aobve we talked focusing on strategyies of using less thread to serve more connections. Is event-based strategy the only choice for us? is thread-based strategy go to the end? Of course not, essentially, the event loop model is on the way of using less threads to service more requests\/connections. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
  [http:\/\/demo.netfoucs.com\/jiao\_fuyou\/article\/details\/36010691](http://demo.netfoucs.com/jiao_fuyou/article/details/36010691)
 
 ---
