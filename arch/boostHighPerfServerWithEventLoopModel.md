@@ -418,7 +418,7 @@ http:\/\/www.slideshare.net\/brendangregg\/blazing-performance-with-flame-graphs
 
 The traditional web server are developing with a straigh-forward way, it hide the concurrency handling, and relying on the kernel thread\/process scheduler to do this. Using the sync and blocking I\/O operation and natural run into thread based model.
 
-### Thread-Based Model\(a.k.a thread-per-connection\)
+### Thread-Based Model
 
 > refer to [http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html](http://berb.github.io/diploma-thesis/original/042_serverarch.html)
 
