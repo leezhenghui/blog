@@ -414,6 +414,22 @@ http:\/\/www.slideshare.net\/brendangregg\/blazing-performance-with-flame-graphs
 
 ## Recap C10K problem
 
+### Thread-Based Model\(a.k.a thread-per-connection\)
+
+> refer to [http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html](http://berb.github.io/diploma-thesis/original/042_serverarch.html)The thread-based approach basically associates each incoming connection with a separate thread \(resp. process\). In this way, synchronous blocking I\/O is the natural way of dealing with I\/O. It is a common approach that is well supported by many programming languages. It also leads to a straight forward programming model, because all tasks necessary for request handling can be coded sequentiallyfile:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html```the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.Diagram of :Apache solution for high perfmance -- request per threadThis model actually is mapped to the IO pattern -- Blocking Pattern```
+
+#### Connection-per-process
+
+Tranditional way in Unix socket programming. prefork to improve the performance
+
+#### Connection-per-thread
+
+Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.Provide a thread-pool
+
+#### Best practice on connection-per-thread
+> [http:\/\/berb.github.io\/diploma-thesis\/community\/042\_serverarch.html](http://berb.github.io/diploma-thesis/community/042_serverarch.html)
+
+A single thread for acceptor \(dispatcher\), a thread-pool for connection handlings
 Finally, we get to the problem -- C10K. 15 Years ago, xxx arise C10K problem which was a big chellenge\( This situation is often called the c10k problem. With select\(\) or poll\(\), your network server will hardly perform any useful things but wasting precious CPU cycles under such high load.
 
 C10K was raised based on condition\/situation\(both hardware and whole interenet ecosystem\) at that time..Today, C10K problem itself is not a problem anymore, people even trying to resolve the challenge of C10M, but the insights\/solution for C10K as the foundation of so many perfect softwares still enlighten us and point us to a way forward.
@@ -440,34 +456,7 @@ non-blocking async IO
 Let's explorer the situations from kernel and programming language..
 ```
 
-### Thread-Based Model\(a.k.a thread-per-connection\)
 
-> refer to [http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html](http://berb.github.io/diploma-thesis/original/042_serverarch.html)
-
-The thread-based approach basically associates each incoming connection with a separate thread \(resp. process\). In this way, synchronous blocking I\/O is the natural way of dealing with I\/O. It is a common approach that is well supported by many programming languages. It also leads to a straight forward programming model, because all tasks necessary for request handling can be coded sequentially
-
-file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html
-
-```
-the Apache, requer per thread hit the big problem, CPU is more and more faster than IO, waste CPU time to wait for IO response is not good, and with the request increasing, the thread/process context switch is more and more expensive. also each thread will take memory... all of these bring us to think about an other direction to resolve the problem.
-Diagram of :Apache solution for high perfmance -- request per thread
-
-This model actually is mapped to the IO pattern -- Blocking Pattern
-```
-
-#### Connection-per-process
-
-Tranditional way in Unix socket programming. prefork to improve the performance
-
-#### Connection-per-thread
-
-Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.Provide a thread-pool
-
-#### Best practice on connection-per-thread
-
-> [http:\/\/berb.github.io\/diploma-thesis\/community\/042\_serverarch.html](http://berb.github.io/diploma-thesis/community/042_serverarch.html)
-
-A single thread for acceptor \(dispatcher\), a thread-pool for connection handlings
 
 ### I\/O Strategies
 
