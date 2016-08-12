@@ -256,17 +256,17 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
-> Relying on the different semantics of I/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
+> Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
 
 ```
 TODO, diagram
@@ -283,7 +283,7 @@ SVR3 Unix provided the poll system call. Arguably better-named than select, for 
 
 ### Signal driven I\/O
 
-Alternative to sync-multiplexer, can we leverage I/O signal to notify the I/O state asyn? the answer is yes.
+Alternative to sync-multiplexer, can we leverage I\/O signal to notify the I\/O state asyn? the answer is yes.
 
 ```
 TODO, diagram
@@ -464,9 +464,11 @@ Tranditional way in Unix socket programming. prefork to improve the performance
 Actually have the same priciple as connection-per-process, but relace the process with lightweight thread.Provide a thread-pool
 
 #### Best practice on connection-per-thread
-> http://berb.github.io/diploma-thesis/community/042_serverarch.html
 
-A single thread for acceptor (dispatcher), a thread-pool for connection handlings
+> [http:\/\/berb.github.io\/diploma-thesis\/community\/042\_serverarch.html](http://berb.github.io/diploma-thesis/community/042_serverarch.html)
+
+A single thread for acceptor \(dispatcher\), a thread-pool for connection handlings
+
 ### I\/O Strategies
 
 The C10K point out the thread-base\(a.k.a process-per-connect\) disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads\/processes to serve more connection. From programming models perspective, I am list them below:
@@ -2782,9 +2784,20 @@ You might be feel confusing about this per your experiences in nodejs, setImmedi
 
 ### C programming language:
 
-#### Nginx: 
+#### Nginx:
 
-If we look into the nginx internal architecture, we will see it actually leverage the process model combin with multiplexing I/O model. each work is a separate process, rather than bind the process to a single connection, the worker actaully contains a event-loop via event driven model(e.g: in linux, it is epoll), so the worker can handle multiple connections.
+If we look into the nginx internal architecture, we will see it actually leverage the process model combin with multiplexing I\/O model. each work is a separate process, rather than bind the process to a single connection, the worker actaully contains a event-loop via event driven model\(e.g: in linux, it is epoll\), so the worker can handle multiple connections.
+
+
+https://www.nginx.com/blog/thread-pools-boost-performance-9x/
+If take a further closer look at worker implementation, it also have thread pool.
+
+Thundering_herd_problem, and kernel socket sharing to resolve this
+http://nglua.com/articles/3.html
+http://huoding.com/2013/08/24/281
+https://en.wikipedia.org/wiki/Thundering_herd_problem
+http://www.lai18.com/content/1362907.html
+https://segmentfault.com/a/1190000002910129
 
 event mode\(file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html\)
 
@@ -2871,7 +2884,8 @@ Java1.7 NIO2 \(async\)
 
 Netty:
 
-If we look into the internal architacture of netty implementation, we can see the netty actually is leverage the thread model we introduced in practical thread-per-connection impl and combine it with NIO selector , on linux, the NIO selector actually reply on epoll since java1.5. the thread model, use different eventloop for acceptor and connection handling. To simplify the programming model in netty, since netty 4, it get back to the single thread strategy for a given connection. 
+If we look into the internal architacture of netty implementation, we can see the netty actually is leverage the thread model we introduced in practical thread-per-connection impl and combine it with NIO selector , on linux, the NIO selector actually reply on epoll since java1.5. the thread model, use different eventloop for acceptor and connection handling. To simplify the programming model in netty, since netty 4, it get back to the single thread strategy for a given connection.
+
 ```
 Event-Loop(Thread mode) + ChannelPipleline(Extensible event handling framework)
 
