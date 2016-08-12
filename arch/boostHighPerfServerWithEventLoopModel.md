@@ -2799,6 +2799,7 @@ https://en.wikipedia.org/wiki/Thundering_herd_problem
 http://www.lai18.com/content/1362907.html
 https://segmentfault.com/a/1190000002910129
 http://www.slideshare.net/joshzhu/nginx-internals (page 28)
+https://wangyapu0714.github.io/2016/06/12/nginx_accept_mutex/
 
 event mode\(file:\/\/\/home\/lizh\/materials\/studyplan\/Nginx\/ReadyState4%20%C2%BB%20Blog%20Archive%20%C2%BB%20Nginx,%20the%20non-blocking%20model,%20and%20why%20Apache%20sucks.html\)
 
