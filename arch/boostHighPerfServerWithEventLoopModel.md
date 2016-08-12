@@ -10,6 +10,8 @@ Email: leezhenghui@gmail.com
 
 > a cover image for high scalabilty server architecture 
 > [http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html](http://berb.github.io/diploma-thesis/original/042_serverarch.html)
+> 
+> Make a picture highleight the bottleneck of web server in the pic
 
 ---
 
@@ -256,14 +258,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
 > Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -2747,7 +2749,9 @@ provide the proof of multiple threads are involved to simulate a noblocking beha
 ---
 
 ## Event Loop Programming Model\(The Bridge of From Reactor Pattern to Proactor pattern\)
-We outlined the I/O models and problems, possible solution strategies as well as a closer evaluation on Linux kernel support.  
+
+We outlined the I\/O models and problems, possible solution strategies as well as a closer evaluation on Linux kernel support.
+
 With an ease of use programming model and highly efficient handling, The readiness notification with `epoll` eventually grow up to a popular I\/O multiplexer technology in today's linux high scalablity server. 
 Often, for ease of use, the select loop is implemented as an event loop, perhaps using callback functions; the situation lends itself particularly well to event-driven programming.
 
@@ -2934,6 +2938,7 @@ Netty's event-loop can add customized strategy ??
 ---
 
 ## Is event-loop model the ONLY choice?
+
 All aobve we talked focusing on strategyies of using less thread to serve more connections. Is event-based strategy the only choice for us? is thread-based strategy go to the end? Of course not, essentially, the event loop model is on the way of using less threads to service more requests\/connections. In an other hand, erlang and golang are resolving the problem by making a lightweight "green-thread" to archive the same goal. and also do this very well in their direction.
  [http:\/\/demo.netfoucs.com\/jiao\_fuyou\/article\/details\/36010691](http://demo.netfoucs.com/jiao_fuyou/article/details/36010691)
 
