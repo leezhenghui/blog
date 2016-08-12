@@ -467,7 +467,7 @@ Let's explorer the situations from kernel and programming language..
 
 ### I\/O Strategies
 
-The C10K point out the thread-base\(a.k.a process-per-connect\) disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads\/processes to serve more connection. From programming models perspective, I am list them below:
+The C10K point out the thread-base\(a.k.a process-per-connect\) strategy disavantage which prevent us to effeciently use the compute hardware resources,  especially the processor cycles. One of most interesting solution directions is pointed out in the research is to have less threads\/processes to serve more connection. From programming models perspective, I am list them below:
 
 Essentially, the insightful idea delivered by C10K problem lighted a way of \[1\] using less threads\/processes to serve more connections, \[2\] Reduce\(avoid\) CPU on busy-wait state for the I\/O readatity probe. how to do this? firstly, we need to unbound I\/O operation from process\/thread
 
