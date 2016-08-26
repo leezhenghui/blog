@@ -12,6 +12,7 @@ Email: leezhenghui@gmail.com
 > [http:\/\/berb.github.io\/diploma-thesis\/original\/042\_serverarch.html](http://berb.github.io/diploma-thesis/original/042_serverarch.html)
 > 
 > Make a picture highleight the bottleneck of web server in the pic
+> XMind diagram to cover the key points which will be mentioned by this article
 
 ---
 
