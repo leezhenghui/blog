@@ -3060,6 +3060,11 @@ Explain about event-loop in netty , channelpipeline in netty with diagram
 
 #### Node.js:
 
+##### Background
+In 20xx, Lyan was working in Joyen, they use erlang, and seek for a easy way to develop high performance server, javascript is natural callback, libev provide a event-loop I/O framework, so it is really suited to work on the high perf server area.
+
+
+##### Phases in node.js event-loop
 Diagram about how nodejs works
  \([http:\/\/www.ruanyifeng.com\/blog\/2014\/10\/event-loop.html](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)\)
 
@@ -3067,6 +3072,8 @@ Diagram about how nodejs works
 
 event-loop phased are actualy defined in libuv, and handler type are also provided by libuv
 
+After move to libuv, each phase queue has a individual "immediate execute" sub-queue.
+we need this because....
 \(alternative begin: [https:\/\/vimeo.com\/96425312](https://vimeo.com/96425312) Us JavaScript programmers like to use words like, "event-loop", "non-blocking", "callback", "asynchronous", "single-threaded" and "concurrency".
 
 We say things like "don't block the event loop", "make sure your code runs at 60 frames-per-second", "well of course, it won't work, that function is an asynchronous callback!"
