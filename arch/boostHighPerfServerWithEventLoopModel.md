@@ -3016,7 +3016,7 @@ First prototype implementation of libuv, new API signatures of libuv
 
 Latest libuv
 
-##### Phases of event-loop
+##### Phases of event-loop tick
 
 > diagram, a cycle hightlighted with different phases.
 including: prepare ---> idle ---> poll --> check 
