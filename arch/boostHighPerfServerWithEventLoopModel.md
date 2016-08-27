@@ -259,14 +259,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
 > Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -2919,114 +2919,64 @@ http:\/\/pod.tst.eu\/http:\/\/cvs.schmorp.de\/libev\/ev.pod\#WATCHER\_PRIORITY\_
 
 http:\/\/c4fun.cn\/blog\/2014\/03\/06\/libev-study\/
 
-| 2
-
-3
-
-4
-
-5
-
-6
-
-7
-
-8
-
-9
-
-10
-
-11
-
-12
-
-13
-
-14
-
-15
-
-16
-
-17
-
-18
-
-19
-
-20
-
-21
-
-22
-
-23
-
-24
-
-25
-
-26
-
-27
-
-28 | int
+\|  \| int
 
 ev\_run \(EV\_P\_ int flags\)
 
 {
 
+...
+
+\/\/一直循环....
+
+do
+
+```
+{
+
   ...
 
-  \/\/一直循环....
+  \/\/如果这个进程是新fork出来的，执行ev\_fork事件的回调
 
-  do
+  ...
 
-    {
+  \/\/执行ev\_prepare回调，也就是每次poll前执行的函数
 
-      ...
+  ...
 
-      \/\/如果这个进程是新fork出来的，执行ev\_fork事件的回调
+  \/\/执行监听有改变的事件
 
-      ...
+  ...
 
-      \/\/执行ev\_prepare回调，也就是每次poll前执行的函数
+  \/\/计算poll应该等待的时间,这个时间和设置以及定时器超时时间有关
 
-      ...
+  ...
 
-      \/\/执行监听有改变的事件
+  \/\/调用后台I\/O复用端口等待事件触发
 
-      ...
+  backend\_poll \(EV\_A\_ waittime\);
 
-      \/\/计算poll应该等待的时间,这个时间和设置以及定时器超时时间有关
+  ...
 
-      ...
+  \/\/将定时器事件放入pending数组中
 
-      \/\/调用后台I\/O复用端口等待事件触发
+  ...
 
-      backend\_poll \(EV\_A\_ waittime\);
+  \/\/将ev\_check事件翻入pending数组中
 
-      ...
+  ...
 
-      \/\/将定时器事件放入pending数组中
+  \/\/执行pending数组中所有的回调
 
-      ...
+  EV\_INVOKE\_PENDING;
 
-      \/\/将ev\_check事件翻入pending数组中
+}
+```
 
-      ...
+while \(条件成立\);
 
-      \/\/执行pending数组中所有的回调
-
-      EV\_INVOKE\_PENDING;
-
-    }
-
-  while \(条件成立\);
-
-} |
-| --- | --- |
+} \|
+\| --- \| --- \|
 
 #### Libuv\([https:\/\/nikhilm.github.io\/uvbook\/basics.html\#event-loops](https://nikhilm.github.io/uvbook/basics.html#event-loops)\)
 
