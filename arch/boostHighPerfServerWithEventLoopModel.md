@@ -259,14 +259,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
 > Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -2912,6 +2912,8 @@ http:\/\/www.cnblogs.com\/Huayuan\/archive\/2013\/05\/03\/3058578.html
 在事件循环中，有事件就绪的watcher会被挑拣出来，保存到ev\_loop中。这些就绪的watcher主要由loop-&gt;pendings和loop-&gt;pendingcnt来维护（如下图所示）。这两个东西都是二维数组，第一维都是优先级。pendings中存的是ANPENDING实例，后者的做要作用就是维护就绪的watcher指针; 而pendingcnt中存的则是对应优先级上的pendings元素的数量。在每个就绪的watcher上也会有一个pending字段记录它在pendings列表中的下标，这样就可以通过watcher很方便的找到它在pendings列表中的位置了，这对删除操作很有帮助。
 
 在一轮事件循环结束后，则会根据优先级，依次触发就绪的watcher。
+
+http:\/\/pod.tst.eu\/http:\/\/cvs.schmorp.de\/libev\/ev.pod\#WATCHER\_PRIORITY\_MODELS
 
 #### Libuv\([https:\/\/nikhilm.github.io\/uvbook\/basics.html\#event-loops](https://nikhilm.github.io/uvbook/basics.html#event-loops)\)
 
