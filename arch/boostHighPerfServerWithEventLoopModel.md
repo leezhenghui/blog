@@ -259,14 +259,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
 > Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -2895,18 +2895,17 @@ libevent中的信号集中处理是什么呢？ 我们知道, 信号总是来的
 ##### Overall Architecture
 
 > TODO 
-Diagram of overall design(abstraction of event driven for epoll, poll, select, kevent, but no IOCP)
+> Diagram of overall design\(abstraction of event driven for epoll, poll, select, kevent, but no IOCP\)
 
 ##### Phases in event loop
 
 > TODO, a diagram to describe the different phases of a event-loop tick
-
-> including, fork ---> prepare ---> poll ---> execute pending queue ---> check
-
+> 
+> including, fork ---&gt; prepare ---&gt; poll ---&gt; execute pending queue ---&gt; check
 
 ##### How it works
 
-Watcher, and watcher lifecycle(init, start(binding a callback handler), stop), Watcher is associated with fd, fdchanges, if there is changed fd status, it will be picked up to pendings, and in the next iternation of the same tick, the events in pendings will be executed sync.
+Watcher, and watcher lifecycle\(init, start\(binding a callback handler\), stop\), Watcher is associated with fd, fdchanges, if there is changed fd status, it will be picked up to pendings, and in the next iternation of the same tick, the events in pendings will be executed sync.
 
 内部实现数据结构
 
@@ -2915,42 +2914,38 @@ http:\/\/www.cnblogs.com\/Huayuan\/archive\/2013\/05\/03\/3058578.html
 http:\/\/www.360doc.com\/content\/12\/0426\/10\/4238731\_206621069.shtml
 
 http:\/\/c4fun.cn\/blog\/2014\/03\/06\/libev-study\/
-http://m.blog.chinaunix.net/uid-8048969-id-5008922.html
-一切准备就绪了就可以开始启动事情驱动器了。就是 ev_run。 其逻辑很清晰。就是
+[http:\/\/m.blog.chinaunix.net\/uid-8048969-id-5008922.html](http://m.blog.chinaunix.net/uid-8048969-id-5008922.html)
+一切准备就绪了就可以开始启动事情驱动器了。就是 ev\_run。 其逻辑很清晰。就是
 
-点击(此处)折叠或打开
+点击\(此处\)折叠或打开
 
 do{
 
- xxxx;
+xxxx;
 
- backend_poll(); 
+backend\_poll\(\);
 
- xxxx
+xxxx
 
-}while(condition_is_ok)
+}while\(condition\_is\_ok\)
 
+循环中开始一段和fork 、 prepare相关这先直接跳过，到分析与之相关的监控事件才去看他。直接到 \/_ calculate blocking time _\/ 这里。熟悉事件模型的话，这里还是比较常规的。就是从定时器堆中取得最近的时间（当然这里分析的时候没有定时器）与loop-&gt;timeout\_blocktime比较得到阻塞时间。这里如果设置了驱动器的io\_blocktime，那么在进入到poll之前会先sleep io\_blocktime时间从而等待IO或者其他要监控的事件准备。这里进入到backend\_poll中的阻塞时间是包括了io\_blocktime的时间。然后进入到backend\_poll中。对于epoll就是进入到epoll\_wait里面。
 
+epoll\(或者select、kqueue等\)返回后，将监控中的文件描述符fd以及其pending（满足监控）的条件通过 fd\_event做一个监控条件是否改变的判断后到fd\_event\_nocheck里面对anfds\[fd\]数组中的fd上的挂的监控器依次做检测，如果pending条件符合，便通过ev\_feed\_event将该监控器加入到pendings数组中pendings\[pri\]上的pendings\[pri\]\[old\_lenght+1\]的位置上。这里要介绍一个新的数据结构，他表示pending中的wather也就是监控条件满足了，但是还没有触发动作的状态。
 
-循环中开始一段和fork 、 prepare相关这先直接跳过，到分析与之相关的监控事件才去看他。直接到 /* calculate blocking time */ 这里。熟悉事件模型的话，这里还是比较常规的。就是从定时器堆中取得最近的时间（当然这里分析的时候没有定时器）与loop->timeout_blocktime比较得到阻塞时间。这里如果设置了驱动器的io_blocktime，那么在进入到poll之前会先sleep io_blocktime时间从而等待IO或者其他要监控的事件准备。这里进入到backend_poll中的阻塞时间是包括了io_blocktime的时间。然后进入到backend_poll中。对于epoll就是进入到epoll_wait里面。
-
-epoll(或者select、kqueue等)返回后，将监控中的文件描述符fd以及其pending（满足监控）的条件通过 fd_event做一个监控条件是否改变的判断后到fd_event_nocheck里面对anfds[fd]数组中的fd上的挂的监控器依次做检测，如果pending条件符合，便通过ev_feed_event将该监控器加入到pendings数组中pendings[pri]上的pendings[pri][old_lenght+1]的位置上。这里要介绍一个新的数据结构，他表示pending中的wather也就是监控条件满足了，但是还没有触发动作的状态。
-
-点击(此处)折叠或打开
+点击\(此处\)折叠或打开
 
 typedef struct
 
 {
 
- W w;
+W w;
 
-int events; /* the pending event set for the given watcher */
+int events; \/_ the pending event set for the given watcher _\/
 
 } ANPENDING
 
-
-
-这里 W w应该知道是之前说的基类指针。pendings就是这个类型的一个二维数组数组。其以watcher的优先级为一级下标。再以该优先级上pengding的监控器数目为二级下标，对应的监控器中的pending值就是该下标加一的结果。其定义为 ANPENDING *pendings [NUMPRI]。同anfds一样，二维数组的第二维 ANPENDING *是一个动态调整大小的数组。这样操作之后。这个一系列的操作可以认为是fd_feed的后续操作，xxx_reify目的最后都是将pending的watcher加入到这个pengdings二维数组中。后续的几个xxx_reify也是一样，等分析到那个类型的监控器类型时在作展开。 这里用个图梳理下结构。
+这里 W w应该知道是之前说的基类指针。pendings就是这个类型的一个二维数组数组。其以watcher的优先级为一级下标。再以该优先级上pengding的监控器数目为二级下标，对应的监控器中的pending值就是该下标加一的结果。其定义为 ANPENDING _pendings __\[__NUMPRI\]__。同anfds一样，二维数组的第二维 ANPENDING _是一个动态调整大小的数组。这样操作之后。这个一系列的操作可以认为是fd\_feed的后续操作，xxx\_reify目的最后都是将pending的watcher加入到这个pengdings二维数组中。后续的几个xxx\_reify也是一样，等分析到那个类型的监控器类型时在作展开。 这里用个图梳理下结构。
 
 http:\/\/www.cnblogs.com\/leng2052\/p\/5374965.html
 
@@ -3055,7 +3050,9 @@ Latest libuv
 ##### Phases of event-loop tick
 
 > diagram, a cycle hightlighted with different phases.
-including: prepare ---> idle ---> poll --> check 
+> including: prepare ---&gt; idle ---&gt; poll --&gt; check
+> the differences between libev and libuv from implemnetaitn perspective is
+libuv, each phase keep the event queue, and the events will be consumed by callback handler in each interaction(phase), however, libev do keep a separate watchers list for each phases, but it will pick up the events into pendings queue, and consume these events by appropriate watcher in the last interation(phase) of tick. 
 
 [http:\/\/docs.libuv.org\/en\/v1.x\/design.html](http://docs.libuv.org/en/v1.x/design.html) \(I\/O Loop Diagram, see more details with Node.js explanations\)
 
@@ -3097,13 +3094,15 @@ Explain about event-loop in netty , channelpipeline in netty with diagram
 #### Node.js:
 
 ##### Background
-In 20xx, Lyan was working in Joyen, they use erlang, and seek for a easy way to develop high performance server, javascript is natural callback, libev provide a event-loop I/O framework, so it is really suited to work on the high perf server area.
+
+In 20xx, Lyan was working in Joyen, they use erlang, and seek for a easy way to develop high performance server, javascript is natural callback, libev provide a event-loop I\/O framework, so it is really suited to work on the high perf server area.
 
 ##### Overall Architecture
 
-> digram JS(v8), Event-loop queue, libuv
- 
+> digram JS\(v8\), Event-loop queue, libuv
+
 ##### Phases in node.js event-loop
+
 Diagram about how nodejs works
  \([http:\/\/www.ruanyifeng.com\/blog\/2014\/10\/event-loop.html](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)\)
 
@@ -3139,7 +3138,7 @@ Node.js inernal implementation design:
 
 https:\/\/www.processon.com\/view\/559518fbe4b038d3435603ea
 
-write a node.js binding\(native code\), which deliver a wrapper\(like tcp\_wrap, timer\_wrap.cc\ , the handlewrap is the bridge between javascript and libuv), in the wrapper call libuv\(e.g: uv\_xxx\_init, uv\_xxx\_start...\)
+write a node.js binding\(native code\), which deliver a wrapper\(like tcp\_wrap, timer\_wrap.cc\ , the handlewrap is the bridge between javascript and libuv\), in the wrapper call libuv\(e.g: uv\_xxx\_init, uv\_xxx\_start...\)
 
 #### Nodewebkit \(merge event loops for node.js and chrome\)
 
