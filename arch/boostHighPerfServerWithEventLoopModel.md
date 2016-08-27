@@ -259,14 +259,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
 > Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -2945,7 +2945,7 @@ int events; \/_ the pending event set for the given watcher _\/
 
 } ANPENDING
 
-这里 W w应该知道是之前说的基类指针。pendings就是这个类型的一个二维数组数组。其以watcher的优先级为一级下标。再以该优先级上pengding的监控器数目为二级下标，对应的监控器中的pending值就是该下标加一的结果。其定义为 ANPENDING _pendings __\[__NUMPRI\]__。同anfds一样，二维数组的第二维 ANPENDING _是一个动态调整大小的数组。这样操作之后。这个一系列的操作可以认为是fd\_feed的后续操作，xxx\_reify目的最后都是将pending的watcher加入到这个pengdings二维数组中。后续的几个xxx\_reify也是一样，等分析到那个类型的监控器类型时在作展开。 这里用个图梳理下结构。
+这里 W w应该知道是之前说的基类指针。pendings就是这个类型的一个二维数组数组。其以watcher的优先级为一级下标。再以该优先级上pengding的监控器数目为二级下标，对应的监控器中的pending值就是该下标加一的结果。其定义为 ANPENDING _pendings _**_\[_**_NUMPRI\]\_\_。同anfds一样，二维数组的第二维 ANPENDING _是一个动态调整大小的数组。这样操作之后。这个一系列的操作可以认为是fd\_feed的后续操作，xxx\_reify目的最后都是将pending的watcher加入到这个pengdings二维数组中。后续的几个xxx\_reify也是一样，等分析到那个类型的监控器类型时在作展开。 这里用个图梳理下结构。
 
 http:\/\/www.cnblogs.com\/leng2052\/p\/5374965.html
 
@@ -3041,10 +3041,19 @@ while \(条件成立\);
 
 node.js firstly built upon libev, but libev does not support windows IOCP, so libuv firstly was implemented as a thing abstraction layer on libev to cover IOCP. But finally, it remove libev with a improved phases of event-loop
 
+libuv nodejs and everything in between
+
+page 30 (node.js v0.0.4)
+
 First prototype implementation of libuv, new API signatures of libuv
 
 > HelloWorld WebServer by Lyan
 
+libuv built upon libev
+page 31 (node.js v0.0.4)
+
+libuv removed all libev
+page 32(node.js v0.1.0)
 Latest libuv
 
 ##### Phases of event-loop tick
@@ -3052,7 +3061,7 @@ Latest libuv
 > diagram, a cycle hightlighted with different phases.
 > including: prepare ---&gt; idle ---&gt; poll --&gt; check
 > the differences between libev and libuv from implemnetaitn perspective is
-libuv, each phase keep the event queue, and the events will be consumed by callback handler in each interaction(phase), however, libev do keep a separate watchers list for each phases, but it will pick up the events into pendings queue, and consume these events by appropriate watcher in the last interation(phase) of tick. 
+> libuv, each phase keep the event queue, and the events will be consumed by callback handler in each interaction\(phase\), however, libev do keep a separate watchers list for each phases, but it will pick up the events into pendings queue, and consume these events by appropriate watcher in the last interation\(phase\) of tick.
 
 [http:\/\/docs.libuv.org\/en\/v1.x\/design.html](http://docs.libuv.org/en/v1.x/design.html) \(I\/O Loop Diagram, see more details with Node.js explanations\)
 
