@@ -3073,7 +3073,7 @@ Diagram about how nodejs works
 event-loop phased are actualy defined in libuv, and handler type are also provided by libuv
 
 After move to libuv, each phase queue has a individual "immediate execute" sub-queue.
-we need this because....
+we need this because nextTick API....
 \(alternative begin: [https:\/\/vimeo.com\/96425312](https://vimeo.com/96425312) Us JavaScript programmers like to use words like, "event-loop", "non-blocking", "callback", "asynchronous", "single-threaded" and "concurrency".
 
 We say things like "don't block the event loop", "make sure your code runs at 60 frames-per-second", "well of course, it won't work, that function is an asynchronous callback!"
