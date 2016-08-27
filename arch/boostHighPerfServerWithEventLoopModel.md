@@ -2916,6 +2916,41 @@ http:\/\/www.360doc.com\/content\/12\/0426\/10\/4238731\_206621069.shtml
 
 http:\/\/c4fun.cn\/blog\/2014\/03\/06\/libev-study\/
 http://m.blog.chinaunix.net/uid-8048969-id-5008922.html
+一切准备就绪了就可以开始启动事情驱动器了。就是 ev_run。 其逻辑很清晰。就是
+
+点击(此处)折叠或打开
+
+do{
+
+ xxxx;
+
+ backend_poll(); 
+
+ xxxx
+
+}while(condition_is_ok)
+
+
+
+循环中开始一段和fork 、 prepare相关这先直接跳过，到分析与之相关的监控事件才去看他。直接到 /* calculate blocking time */ 这里。熟悉事件模型的话，这里还是比较常规的。就是从定时器堆中取得最近的时间（当然这里分析的时候没有定时器）与loop->timeout_blocktime比较得到阻塞时间。这里如果设置了驱动器的io_blocktime，那么在进入到poll之前会先sleep io_blocktime时间从而等待IO或者其他要监控的事件准备。这里进入到backend_poll中的阻塞时间是包括了io_blocktime的时间。然后进入到backend_poll中。对于epoll就是进入到epoll_wait里面。
+
+epoll(或者select、kqueue等)返回后，将监控中的文件描述符fd以及其pending（满足监控）的条件通过 fd_event做一个监控条件是否改变的判断后到fd_event_nocheck里面对anfds[fd]数组中的fd上的挂的监控器依次做检测，如果pending条件符合，便通过ev_feed_event将该监控器加入到pendings数组中pendings[pri]上的pendings[pri][old_lenght+1]的位置上。这里要介绍一个新的数据结构，他表示pending中的wather也就是监控条件满足了，但是还没有触发动作的状态。
+
+点击(此处)折叠或打开
+
+typedef struct
+
+{
+
+ W w;
+
+int events; /* the pending event set for the given watcher */
+
+} ANPENDING
+
+
+
+这里 W w应该知道是之前说的基类指针。pendings就是这个类型的一个二维数组数组。其以watcher的优先级为一级下标。再以该优先级上pengding的监控器数目为二级下标，对应的监控器中的pending值就是该下标加一的结果。其定义为 ANPENDING *pendings [NUMPRI]。同anfds一样，二维数组的第二维 ANPENDING *是一个动态调整大小的数组。这样操作之后。这个一系列的操作可以认为是fd_feed的后续操作，xxx_reify目的最后都是将pending的watcher加入到这个pengdings二维数组中。后续的几个xxx_reify也是一样，等分析到那个类型的监控器类型时在作展开。 这里用个图梳理下结构。
 
 http:\/\/www.cnblogs.com\/leng2052\/p\/5374965.html
 
