@@ -3002,6 +3002,10 @@ while \(条件成立\);
 
 #### Libuv\([https:\/\/nikhilm.github.io\/uvbook\/basics.html\#event-loops](https://nikhilm.github.io/uvbook/basics.html#event-loops)\)
 
+##### Overall Architecture
+
+> diagram
+
 [http:\/\/docs.libuv.org\/en\/v1.x\/design.html](http://docs.libuv.org/en/v1.x/design.html) \(I\/O Loop Diagram, see more details with Node.js explanations\)
 
 File I\/O in Libuv is based on thread-pool, not event loop, --&gt; http:\/\/docs.libuv.org\/en\/v1.x\/design.html
