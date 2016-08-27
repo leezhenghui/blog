@@ -259,14 +259,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
 > Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -2895,6 +2895,17 @@ http:\/\/www.360doc.com\/content\/12\/0426\/10\/4238731\_206621069.shtml
 http:\/\/c4fun.cn\/blog\/2014\/03\/06\/libev-study\/
 
 http:\/\/www.cnblogs.com\/leng2052\/p\/5374965.html
+
+ev\_run函数主要是一个while循环，在这个while循环中不断检测各个事件是否发生，如果发生就调用其回调函数。而这个过程中，主要用到的对象就是struct ev\_loop结构体对象，检测哪些事件，回调哪个函数都存放在该对象中。
+struct ev\_loop结构体中的字段很多，以IO事件为例介绍几个主要的：
+anfds是一个数组，数组元素是结构体ANFD，ANFD有一个成员是监听器列表。数组下标是文件描述符，而列表成员是监听该文件的事件监听器。所以，anfds有点类似散列表，以文件描述符作为键，以监听器作为值，采用开链法解决散列冲突。
+该字段的初始化在ev\_io\_start函数中，主要目的是用户定义的监听器告诉ev\_loop。
+fdchanges是一个int数组，也是在ev\_io\_start中初始化。存放的是监听了的文件描述符。这样ev\_run每次循环的时候，要先从fdchanges中取出已经监听的文件描述符，再以该描述符为下标，从anfds中取出监听器对象。这样就得到文件描述符以及监听
+的事件。
+
+pendings是一个二维数组，第一维是优先级，第二维是监听器。这个数组是用于执行相应的回调函数，根据优先级，遍历所有监听器，调用监听器的回调函数。
+
+
 
 #### Libuv\([https:\/\/nikhilm.github.io\/uvbook\/basics.html\#event-loops](https://nikhilm.github.io/uvbook/basics.html#event-loops)\)
 
