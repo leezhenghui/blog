@@ -3006,6 +3006,21 @@ while \(条件成立\);
 
 > diagram
 
+##### Background of Libuv
+
+node.js firstly built upon libev, but libev does not support windows IOCP, so libuv firstly was implemented as a thing abstraction layer on libev to cover IOCP. But finally, it remove libev with a improved phases of event-loop
+
+First prototype implementation of libuv, new API signatures of libuv
+
+> HelloWorld WebServer by Lyan
+
+Latest libuv
+
+##### Phases of event-loop
+
+> diagram, a cycle hightlighted with different phases.
+including: prepare ---> idle ---> poll --> check 
+
 [http:\/\/docs.libuv.org\/en\/v1.x\/design.html](http://docs.libuv.org/en/v1.x/design.html) \(I\/O Loop Diagram, see more details with Node.js explanations\)
 
 File I\/O in Libuv is based on thread-pool, not event loop, --&gt; http:\/\/docs.libuv.org\/en\/v1.x\/design.html
