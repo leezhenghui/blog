@@ -2904,7 +2904,7 @@ Diagram of overall design
 > including, fork ---> prepare ---> poll ---> execute pending queue ---> check
 
 
-##### Data structure
+##### How it works
 
 Watcher, and watcher lifecycle(init, start(binding a callback handler), stop), Watcher is associated with fd, fdchanges, if there is changed fd status, it will be picked up to pendings, and in the next iternation of the same tick, the events in pendings will be executed sync.
 
