@@ -2895,7 +2895,7 @@ libevent中的信号集中处理是什么呢？ 我们知道, 信号总是来的
 ##### Overall Architecture
 
 > TODO 
-Diagram of overall design
+Diagram of overall design(abstraction of event driven for epoll, poll, select, kevent, but no IOCP)
 
 ##### Phases in event loop
 
