@@ -3063,7 +3063,10 @@ Explain about event-loop in netty , channelpipeline in netty with diagram
 ##### Background
 In 20xx, Lyan was working in Joyen, they use erlang, and seek for a easy way to develop high performance server, javascript is natural callback, libev provide a event-loop I/O framework, so it is really suited to work on the high perf server area.
 
+##### Overall Architecture
 
+> digram JS(v8), Event-loop queue, libuv
+ 
 ##### Phases in node.js event-loop
 Diagram about how nodejs works
  \([http:\/\/www.ruanyifeng.com\/blog\/2014\/10\/event-loop.html](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)\)
