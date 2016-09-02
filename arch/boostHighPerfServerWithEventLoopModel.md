@@ -3161,6 +3161,12 @@ NWjsInAction
 
 ---
 
+#### NodeMCU
+
+Samsung IoT.js: Jerry.js(JS engine) + libtuv
+
+Mongoose-iot: v7(JS engine) + event i/o framework
+
 ## Weak point in event-loop
 
 For the thread model, e.g: node.js, in the main loop, if cpu-intensive job performance, the server will lost response. To sovle this, the straightforward way is to make the cpu-intensive work running in a separate thread\/process\(different than the main event-loop process\). 
