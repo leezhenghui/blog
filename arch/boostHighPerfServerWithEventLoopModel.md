@@ -3151,6 +3151,8 @@ Node.js inernal implementation design:
 
 https:\/\/www.processon.com\/view\/559518fbe4b038d3435603ea
 
+https://cnodejs.org/topic/55a76cf95d5240f223494f31
+
 write a node.js binding\(native code\), which deliver a wrapper\(like tcp\_wrap, timer\_wrap.cc\ , the handlewrap is the bridge between javascript and libuv\), in the wrapper call libuv\(e.g: uv\_xxx\_init, uv\_xxx\_start...\)
 
 #### Nodewebkit \(merge event loops for node.js and chrome\)
