@@ -1,4 +1,4 @@
-_\*\*_\# Boost high scalability network server using event-loop model
+# Boost high scalability network server using event-loop model
 
 Author: Zhenghui Lee
 
