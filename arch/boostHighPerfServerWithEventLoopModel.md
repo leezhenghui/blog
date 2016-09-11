@@ -3165,7 +3165,7 @@ write a node.js binding\(native code\), which deliver a wrapper\(like tcp\_wrap,
 
 NWjsInAction
 
-#### NodeMCU
+#### Node.js thinking on micro-processor
 
 Samsung IoT.js: Jerry.js\(JS engine\) + libtuv
 
