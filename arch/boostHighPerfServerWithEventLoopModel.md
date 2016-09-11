@@ -3170,6 +3170,8 @@ NWjsInAction
 Samsung IoT.js: Jerry.js\(JS engine\) + libtuv
 
 Mongoose-iot\(smart.js\): v7\(JS engine\) + event i\/o framework
+http://slides.com/sergeylyubka/smartjs#/13
+
 
 espruino (js engine)
 http://crufti.com/getting-started-with-espruino-on-esp8266/
