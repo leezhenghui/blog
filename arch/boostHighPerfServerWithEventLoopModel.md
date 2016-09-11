@@ -3200,7 +3200,7 @@ All aobve we talked focusing on strategyies of using less thread to serve more c
 
 ---
 
-## Wrap up
+## Wrapping it up
 
 IO Pattern:         Blocking and Sync ---&gt; non-blocking Sync --&gt; non-blocking async
     OS\(kernel\):                            non-blocking socket           AIO
