@@ -3166,7 +3166,8 @@ write a node.js binding\(native code\), which deliver a wrapper\(like tcp\_wrap,
 NWjsInAction
 
 #### Node.js thinking on micro-processor
-
+Node.js provides an great approach to resolve the IO-intensive server programming, it hide the complicated I/O handling and expose simplest API to end user. If we look at the embedded programming, we actually need a similar thing. In the past long time, embedded device programming still follow the tranditional way, e.g: non-rtos sdk or rtos sdk, they need to flash the firmware to hardward. This require the embedded programmer should be quite familar with the MCU/Board, thinking about node.js, if we can add a thin layer JS intercepter, and wrap the system API, provide a node.js-like things. that will unify the programming on the IoT devices. make the programming more daynamically and easier.
+   
 ##### Is it possible to porting node.js/V8 to MCU
 http://techfindings.one/archives/2284
 I have been playing quite much with Node.js lately, and I have put some effort into trying to build it for typical OpenWRT hardware. It turns out that Node.js/V8 is not, and will never be, suitable for hardware without an FPU and at least **128MB** RAM.
