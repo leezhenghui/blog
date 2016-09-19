@@ -764,6 +764,39 @@ Note the O\_NONBLOCK also causes the open\(\) call itself to be non-blocking for
 [http:\/\/www.kegel.com\/c10k.html\#nb](http://www.kegel.com/c10k.html#nb)
 Note: it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification.
 
+What exactly happen when a send() called fired, does it wait for recev() completed?
+
+http://stackoverflow.com/questions/3578650/c-socket-does-send-wait-for-recv-to-end
+
+Lets assume you are using TCP. When you call send, the data that you are sending is immediately placed on the outgoing queue and send then completes successfully. If however, send is unable to place the data on the outgoing queue, send will return with an error.
+
+Since Tcp is a guaranteed delivery protocol, the data on the outgoing queue can only be removed once acknowledgement has been received by the remote end. This is because the data may need to be resent if no ack has been received in time.
+
+If the remote end is sluggish, the outgoing queue will fill up with data and send will then block until there is space to place the new data on the outgoing queue.
+
+The connection can however fail is such a way that there is no way any further data can be sent. Although once a TCP connection has been closed, any further sends will result in an error, the user has no way of knowing how much data did actually make it to the other side. (I know of no way of retrieving TCP bookkeeping from a socket to the user application). Therefore, if confirmation of receipt of data is required, you should probably implement this on application level.
+
+For UDP, I think it goes without saying that some way of reporting what has or has not been received is a must.
+
+http://stackoverflow.com/questions/5407182/blocking-sockets-when-exactly-does-send-return
+Does this mean that the send() call will always return immediately if there is room in the kernel send buffer?
+Yes. As long as immediately means after the memory you provided it has been copied to the kernel's buffer. Which, in some edge cases, may not be so immediate. For instance if the pointer you pass in triggers a page fault that needs to pull the buffer in from either a memory mapped file or the swap, that would add significant delay to the call returning.
+
+Is the behavior and performance of the send() call identical for TCP and UDP? If not, why not?
+Not quite. Possible performance differences depends on the OS' implementation of the TCP/IP stack. In theory the UDP socket could be slightly cheaper, since the OS needs to do fewer things with it.
+
+EDIT: On the other hand, since you can send much more data per system call with TCP, typically the cost per byte can be a lot lower with TCP. This can be mitigated with sendmmsg() in recent linux kernels.
+
+As for the behavior, it's nearly identical.
+
+For blocking sockets, both TCP and UDP will block until there's space in the kernel buffer. The distinction however is that the UDP socket will wait until your entire buffer can be stored in the kernel buffer, whereas the TCP socket may decide to only copy a single byte into the kernel buffer (typically it's more than one byte though).
+
+If you try to send packets that are larger than 64kiB, a UDP socket will likely consistently fail with EMSGSIZE. This is because UDP, being a datagram socket, guarantees to send your entire buffer as a single IP packet (or train of IP packet fragments) or not send it at all.
+
+Non blocking sockets behave identical to the blocking versions with the single exception that instead of blocking (in case there's not enough space in the kernel buffer), the calls fail with EAGAIN (or EWOULDBLOCK). When this happens, it's time to put the socket back into epoll/kqueue/select (or whatever you're using) to wait for it to become writable again.
+
+As usual when working on POSIX, keep in mind that your call may fail with EINTR (if the call was interrupted by a signal). In this case you most likely want to call send() again.
+
 ### Demultipluxer Technology
 
 [https:\/\/bugzilla.kernel.org\/show\_bug.cgi?id=15272](https://bugzilla.kernel.org/show_bug.cgi?id=15272)
