@@ -769,8 +769,6 @@ Note the O\_NONBLOCK also causes the open\(\) call itself to be non-blocking for
 [http:\/\/www.kegel.com\/c10k.html\#nb](http://www.kegel.com/c10k.html#nb)
 Note: it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification.
 
-
-
 ### Demultipluxer Technology
 
 [https:\/\/bugzilla.kernel.org\/show\_bug.cgi?id=15272](https://bugzilla.kernel.org/show_bug.cgi?id=15272)
