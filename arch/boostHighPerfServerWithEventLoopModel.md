@@ -259,14 +259,14 @@ nonblocking does not support regular file
 
 #### What is multiplex
 
-The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a _**data selector**_.
+The concept of `Multiplex` comes from electronics. A multiplexer \(or mux\) is a hardware device that selects one of several analog or digital input signals and forwards the selected input into a _single line_. Conversely, a demultiplexer \(or demux\) is a hardware device taking a single input signal and selecting one of many data-output-lines, which is connected to the single input. A multiplexer is also called a **_data selector_**.
 
 In electroincs, one use for multiplexers is cost saving by connecting a multiplexer and a demultiplexer together over a single channel \(by connecting the multiplexer's single output to the demultiplexer's single input\)
 ![cost-saving connecting](/arch/images/Telephony_multiplexer_system.gif)
 
 #### Adopt multiplexing to I\/O model
 
-Inspired by the _**data selector**_ idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
+Inspired by the **_data selector_** idea from hardware side, the `I/O multpliexing` is worked out to increase the amount of I\/O operations, means `read` or `write` system calls on multiple concurrent connections\(corresponding to the several analog or digital inputs in electronincs case\) by a single thread\/process\(corresponding to the _single line_ in electroinics case\) via a selector mechanism. This selector can track readiness state change for certain I\/O operation\(`read` or `write`\) in an efficient way provided by underlying operating system. With this model, a thread\/process can serve multiple connections, the work executed in that thread is very similar as scheudler, multiplexing multiple connections to single flow of execution.
 
 > ![Tips](/arch/images/tip.png)
 > Relying on the different semantics of I\/O readiness notification interface, the multiplexer\(a.k.a selector\) facility could be proivded by two kinds interaction manner, i.e: synchronous and asynchronous. The multiplexer we outlined in this section just focus on sync-multiplexer. For async-multiplexer, it will be covered in signal driven I\/O model part.
@@ -540,6 +540,11 @@ As mentioned in above section, the C10K not only raise the problem out, but also
 
 The discusion only covers the linux operating system, as that is my personal intrests and familiar with. :-\)
 
+### BSD Socket concept
+http://slideplayer.com/slide/9383442/
+What exactly happen when a send\(\) called fired, does it wait for recev\(\) completed?
+[http:\/\/stackoverflow.com\/questions\/3578650\/c-socket-does-send-wait-for-recv-to-end](http://stackoverflow.com/questions/3578650/c-socket-does-send-wait-for-recv-to-end)Lets assume you are using TCP. When you call send, the data that you are sending is immediately placed on the outgoing queue and send then completes successfully. If however, send is unable to place the data on the outgoing queue, send will return with an error.Since Tcp is a guaranteed delivery protocol, the data on the outgoing queue can only be removed once acknowledgement has been received by the remote end. This is because the data may need to be resent if no ack has been received in time.If the remote end is sluggish, the outgoing queue will fill up with data and send will then block until there is space to place the new data on the outgoing queue.The connection can however fail is such a way that there is no way any further data can be sent. Although once a TCP connection has been closed, any further sends will result in an error, the user has no way of knowing how much data did actually make it to the other side. \(I know of no way of retrieving TCP bookkeeping from a socket to the user application\). Therefore, if confirmation of receipt of data is required, you should probably implement this on application level.For UDP, I think it goes without saying that some way of reporting what has or has not been received is a must.[http:\/\/stackoverflow.com\/questions\/5407182\/blocking-sockets-when-exactly-does-send-return](http://stackoverflow.com/questions/5407182/blocking-sockets-when-exactly-does-send-return)Does this mean that the send\(\) call will always return immediately if there is room in the kernel send buffer?Yes. As long as immediately means after the memory you provided it has been copied to the kernel's buffer. Which, in some edge cases, may not be so immediate. For instance if the pointer you pass in triggers a page fault that needs to pull the buffer in from either a memory mapped file or the swap, that would add significant delay to the call returning.Is the behavior and performance of the send\(\) call identical for TCP and UDP? If not, why not?Not quite. Possible performance differences depends on the OS' implementation of the TCP\/IP stack. In theory the UDP socket could be slightly cheaper, since the OS needs to do fewer things with it.EDIT: On the other hand, since you can send much more data per system call with TCP, typically the cost per byte can be a lot lower with TCP. This can be mitigated with sendmmsg\(\) in recent linux kernels.As for the behavior, it's nearly identical.For blocking sockets, both TCP and UDP will block until there's space in the kernel buffer. The distinction however is that the UDP socket will wait until your entire buffer can be stored in the kernel buffer, whereas the TCP socket may decide to only copy a single byte into the kernel buffer \(typically it's more than one byte though\).If you try to send packets that are larger than 64kiB, a UDP socket will likely consistently fail with EMSGSIZE. This is because UDP, being a datagram socket, guarantees to send your entire buffer as a single IP packet \(or train of IP packet fragments\) or not send it at all.Non blocking sockets behave identical to the blocking versions with the single exception that instead of blocking \(in case there's not enough space in the kernel buffer\), the calls fail with EAGAIN \(or EWOULDBLOCK\). When this happens, it's time to put the socket back into epoll\/kqueue\/select \(or whatever you're using\) to wait for it to become writable again.As usual when working on POSIX, keep in mind that your call may fail with EINTR \(if the call was interrupted by a signal\). In this case you most likely want to call send\(\) again.
+
 ### blocking socket programming
 
 API signatures:
@@ -764,38 +769,7 @@ Note the O\_NONBLOCK also causes the open\(\) call itself to be non-blocking for
 [http:\/\/www.kegel.com\/c10k.html\#nb](http://www.kegel.com/c10k.html#nb)
 Note: it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification.
 
-What exactly happen when a send() called fired, does it wait for recev() completed?
 
-http://stackoverflow.com/questions/3578650/c-socket-does-send-wait-for-recv-to-end
-
-Lets assume you are using TCP. When you call send, the data that you are sending is immediately placed on the outgoing queue and send then completes successfully. If however, send is unable to place the data on the outgoing queue, send will return with an error.
-
-Since Tcp is a guaranteed delivery protocol, the data on the outgoing queue can only be removed once acknowledgement has been received by the remote end. This is because the data may need to be resent if no ack has been received in time.
-
-If the remote end is sluggish, the outgoing queue will fill up with data and send will then block until there is space to place the new data on the outgoing queue.
-
-The connection can however fail is such a way that there is no way any further data can be sent. Although once a TCP connection has been closed, any further sends will result in an error, the user has no way of knowing how much data did actually make it to the other side. (I know of no way of retrieving TCP bookkeeping from a socket to the user application). Therefore, if confirmation of receipt of data is required, you should probably implement this on application level.
-
-For UDP, I think it goes without saying that some way of reporting what has or has not been received is a must.
-
-http://stackoverflow.com/questions/5407182/blocking-sockets-when-exactly-does-send-return
-Does this mean that the send() call will always return immediately if there is room in the kernel send buffer?
-Yes. As long as immediately means after the memory you provided it has been copied to the kernel's buffer. Which, in some edge cases, may not be so immediate. For instance if the pointer you pass in triggers a page fault that needs to pull the buffer in from either a memory mapped file or the swap, that would add significant delay to the call returning.
-
-Is the behavior and performance of the send() call identical for TCP and UDP? If not, why not?
-Not quite. Possible performance differences depends on the OS' implementation of the TCP/IP stack. In theory the UDP socket could be slightly cheaper, since the OS needs to do fewer things with it.
-
-EDIT: On the other hand, since you can send much more data per system call with TCP, typically the cost per byte can be a lot lower with TCP. This can be mitigated with sendmmsg() in recent linux kernels.
-
-As for the behavior, it's nearly identical.
-
-For blocking sockets, both TCP and UDP will block until there's space in the kernel buffer. The distinction however is that the UDP socket will wait until your entire buffer can be stored in the kernel buffer, whereas the TCP socket may decide to only copy a single byte into the kernel buffer (typically it's more than one byte though).
-
-If you try to send packets that are larger than 64kiB, a UDP socket will likely consistently fail with EMSGSIZE. This is because UDP, being a datagram socket, guarantees to send your entire buffer as a single IP packet (or train of IP packet fragments) or not send it at all.
-
-Non blocking sockets behave identical to the blocking versions with the single exception that instead of blocking (in case there's not enough space in the kernel buffer), the calls fail with EAGAIN (or EWOULDBLOCK). When this happens, it's time to put the socket back into epoll/kqueue/select (or whatever you're using) to wait for it to become writable again.
-
-As usual when working on POSIX, keep in mind that your call may fail with EINTR (if the call was interrupted by a signal). In this case you most likely want to call send() again.
 
 ### Demultipluxer Technology
 
@@ -2978,7 +2952,7 @@ int events; \/_ the pending event set for the given watcher _\/
 
 } ANPENDING
 
-这里 W w应该知道是之前说的基类指针。pendings就是这个类型的一个二维数组数组。其以watcher的优先级为一级下标。再以该优先级上pengding的监控器数目为二级下标，对应的监控器中的pending值就是该下标加一的结果。其定义为 ANPENDING _pendings _******_\[_******_NUMPRI\]\_\_。同anfds一样，二维数组的第二维 ANPENDING \_是一个动态调整大小的数组。这样操作之后。这个一系列的操作可以认为是fd\_feed的后续操作，xxx\_reify目的最后都是将pending的watcher加入到这个pengdings二维数组中。后续的几个xxx\_reify也是一样，等分析到那个类型的监控器类型时在作展开。 这里用个图梳理下结构。
+这里 W w应该知道是之前说的基类指针。pendings就是这个类型的一个二维数组数组。其以watcher的优先级为一级下标。再以该优先级上pengding的监控器数目为二级下标，对应的监控器中的pending值就是该下标加一的结果。其定义为 ANPENDING _pendings _**\*\***_\[_**\*\***_NUMPRI\]\_\_。同anfds一样，二维数组的第二维 ANPENDING \_是一个动态调整大小的数组。这样操作之后。这个一系列的操作可以认为是fd\_feed的后续操作，xxx\_reify目的最后都是将pending的watcher加入到这个pengdings二维数组中。后续的几个xxx\_reify也是一样，等分析到那个类型的监控器类型时在作展开。 这里用个图梳理下结构。
 
 http:\/\/www.cnblogs.com\/leng2052\/p\/5374965.html
 
@@ -3199,22 +3173,23 @@ write a node.js binding\(native code\), which deliver a wrapper\(like tcp\_wrap,
 NWjsInAction
 
 #### Node.js thinking on micro-processor
-Node.js provides an great approach to resolve the IO-intensive server programming, it hide the complicated I/O handling and expose simplest API to end user. If we look at the embedded programming, we actually need a similar thing. In the past long time, embedded device programming still follow the tranditional way, e.g: non-rtos sdk or rtos sdk, they need to flash the firmware to hardward. This require the embedded programmer should be quite familar with the MCU/Board, thinking about node.js, if we can add a thin layer JS intercepter, and wrap the system API, provide a node.js-like things. that will unify the programming on the IoT devices. make the programming more daynamically and easier.
-   
-##### Is it possible to porting node.js/V8 to MCU
-http://techfindings.one/archives/2284
-I have been playing quite much with Node.js lately, and I have put some effort into trying to build it for typical OpenWRT hardware. It turns out that Node.js/V8 is not, and will never be, suitable for hardware without an FPU and at least **128MB** RAM.
 
+Node.js provides an great approach to resolve the IO-intensive server programming, it hide the complicated I\/O handling and expose simplest API to end user. If we look at the embedded programming, we actually need a similar thing. In the past long time, embedded device programming still follow the tranditional way, e.g: non-rtos sdk or rtos sdk, they need to flash the firmware to hardward. This require the embedded programmer should be quite familar with the MCU\/Board, thinking about node.js, if we can add a thin layer JS intercepter, and wrap the system API, provide a node.js-like things. that will unify the programming on the IoT devices. make the programming more daynamically and easier.
+
+##### Is it possible to porting node.js\/V8 to MCU
+
+[http:\/\/techfindings.one\/archives\/2284](http://techfindings.one/archives/2284)
+I have been playing quite much with Node.js lately, and I have put some effort into trying to build it for typical OpenWRT hardware. It turns out that Node.js\/V8 is not, and will never be, suitable for hardware without an FPU and at least **128MB** RAM.
 
 ##### Samsung IoT.js: Jerry.js\(JS engine\) + libtuv
 
 ##### Mongoose-iot\(smart.js\): v7\(JS engine\) + event i\/o framework
-http://slides.com/sergeylyubka/smartjs#/13
 
+[http:\/\/slides.com\/sergeylyubka\/smartjs\#\/13](http://slides.com/sergeylyubka/smartjs#/13)
 
-##### espruino (js engine)
-http://crufti.com/getting-started-with-espruino-on-esp8266/
+##### espruino \(js engine\)
 
+[http:\/\/crufti.com\/getting-started-with-espruino-on-esp8266\/](http://crufti.com/getting-started-with-espruino-on-esp8266/)
 
 ---
 
