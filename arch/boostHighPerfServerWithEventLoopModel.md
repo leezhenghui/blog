@@ -475,7 +475,6 @@ The C10K point out the thread-based\(a.k.a process-per-connect\) strategy disava
 Essentially, the insightful idea delivered by C10K problem lighted a way of \[1\] using less threads\/processes to serve more connections, \[2\] Reduce\(avoid\) CPU on busy-wait state for the I\/O readatity probe. how to do this? firstly, we need to unbound I\/O operation from process\/thread
 
 #### Reactor Pattern
-
 ```
 diagram needed here
 ```
@@ -483,6 +482,8 @@ diagram needed here
 > ![](/arch/images/note.png)
 > it's particularly important to remember that readiness notification from the kernel is only a hint; the file descriptor might not be ready anymore when you try to read from it. That's why it's important to use nonblocking mode when using readiness notification. 
 > Refer to [http:\/\/www.kegel.com\/c10k.html\#nb.sigio](http://www.kegel.com/c10k.html#nb.sigio)
+
+高性能网络编程6–reactor反应堆与定时器管理 – 陶辉笔记
 
 ##### nonblocking in conjunction with level-triggered readiness notification\(readiness selector nofitication,e.g: select, poll\)
 
@@ -1060,6 +1061,10 @@ POSIX says:
 
 File descriptors associated with regular files shall always select true for ready to read, ready to write, and error conditions.
 Also, as cnicutar pointed out in a now-deleted post, in general, you have to initialize the FD\_SET on each iteration. In your code, you are monitoring one fd, and that fd is always ready, so the FD\_SET is not in fact changing. However, if you have 5 decriptors to monitor, and select detects that only one is ready, then on the next iteration, only that one descriptor would be monitored \(unless you reset the FD\_SET\). This makes using select tricky.
+
+#### Epoll vs. Select
+
+http://taohui.pub/2016/01/27/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B5-io%E5%A4%8D%E7%94%A8%E4%B8%8E%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/
 
 #### Poll\(level-triggered\):
 
@@ -2547,6 +2552,7 @@ Native Linux AIO API \(libaio\)
 – io\_cancel
 [http:\/\/xinsuiyuer.github.io\/blog\/2014\/04\/17\/posix-aio-libaio-direct-io\/](http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/)
 
+
 #### Using eventfs to combine aio and epoll
 
 pesuodo code
@@ -2725,6 +2731,9 @@ gcc ./eventfs_aio_epoll.c -laio -o eventfs_aio_epoll
 – lio\_listio
 – aio\_cancel, aio\_suspend, aio\_return\/aio\_error
 
+#### Sample of AIO
+https://gist.github.com/rsms/771059
+
 ```
   http://blog.csdn.net/fz_ywj/article/details/9124897
   异步处理线程同步地处理每一个请求，处理完成后在对应的aiocb中填充结果，然后触发可能的信号通知或回调函数（回调函数是需要创建新线程来调用的）；
@@ -2818,6 +2827,12 @@ Thundering\_herd\_problem, and kernel socket sharing to resolve this
 [https:\/\/segmentfault.com\/a\/1190000002910129](https://segmentfault.com/a/1190000002910129)
 [http:\/\/www.slideshare.net\/joshzhu\/nginx-internals](http://www.slideshare.net/joshzhu/nginx-internals) \(page 28\)
 [https:\/\/wangyapu0714.github.io\/2016\/06\/12\/nginx\_accept\_mutex\/](https://wangyapu0714.github.io/2016/06/12/nginx_accept_mutex/)
+
+##### AIO-EVENT-Module
+https://github.com/perusio/drupal-with-nginx/issues/136
+http://hg.nginx.org/nginx/rev/4dc8e7b62216
+
+--with-file-aio is different than --with-aio_module, --with-aio_module is a event type like epoll, select, poll and kqueue, TO investigation: it seems based on the POSIX aio standard????  --with-file-aio is the option for file read operation only, it is based on linux kernel aio
 
 ##### Uniify the AIO access on regular file into a a common event model
 
