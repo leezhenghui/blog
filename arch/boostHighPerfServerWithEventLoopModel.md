@@ -2541,6 +2541,7 @@ printf("set events %u, infd=%d\n", event.events, infd);
 
 [http:\/\/www.pagefault.info\/?p=76](http://www.pagefault.info/?p=76)
 [https:\/\/cnodejs.org\/topic\/4f16442ccae1f4aa270010a7](https://cnodejs.org/topic/4f16442ccae1f4aa270010a7)
+[https://www.lenky.info/archives/tag/aio](https://www.lenky.info/archives/tag/aio)
 
 #### Kernel AIO
 
@@ -2831,8 +2832,16 @@ Thundering\_herd\_problem, and kernel socket sharing to resolve this
 ##### AIO-EVENT-Module
 https://github.com/perusio/drupal-with-nginx/issues/136
 http://hg.nginx.org/nginx/rev/4dc8e7b62216
+https://www.lenky.info/archives/tag/aio
 
---with-file-aio is different than --with-aio_module, --with-aio_module is a event type like epoll, select, poll and kqueue, TO investigation: it seems based on the POSIX aio standard????  --with-file-aio is the option for file read operation only, it is based on linux kernel aio
+--with-aio_module is not the same thing as --with-file-aio, the --with-aio-module was deleted since 1.9:
+
+http://mailman.nginx.org/pipermail/nginx-devel/2015-April/006844.html
+
+https://www.ruby-forum.com/topic/194043
+as the last comment in above forum, the --with-aio_module is independent to --with-file-aio
+
+--with-file-aio is different than --with-aio_module, --with-aio_module is a event type like epoll, select, poll and kqueue, (深入理解Nginx模块开发与架构解析一书中, page 38, 这个aio module只能与FreeBSD上的kqueue上的事件处理机制结合使用, linux上无法使用)  --with-file-aio is the option for file read operation only, it is based on linux kernel aio and eventfd
 
 ##### Uniify the AIO access on regular file into a a common event model
 
@@ -2869,6 +2878,7 @@ kqueue - the effective method, used on FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 an
 epoll - the effective method, used on Linux 2.6+. In some distrubutions, like SuSE 8.2, there are patches for supporting epoll by kernel version 2.4.
 rtsig - real time signals, the executable used on Linux 2.2.19+. By default no more than 1024 POSIX realtime \(queued\) signals can be outstanding in the entire system. This is insufficient for highly loaded servers; it’s therefore necessary to increase the queue size by using the kernel parameter \/proc\/sys\/kernel\/rtsig-max. However, starting with Linux 2.6.6-mm2, this parameter is no longer available, and for each process there is a separate queue of signals, the size of which is assigned by RLIMIT\_SIGPENDING. When the queue becomes overcrowded, NGINX discards it and begins processing connections using the poll method until the situation normalizes.
 \/dev\/poll - the effective method, used on Solaris 7 11\/99+, HP\/UX 11.22+ \(eventport\), IRIX 6.5.15+ and Tru64 UNIX 5.1A+.
+aio - only works on FreeBSD under kqueue technology, has been removed in 1.9 version
 
 [http:\/\/nginx.org\/en\/docs\/events.html](http://nginx.org/en/docs/events.html)
 
