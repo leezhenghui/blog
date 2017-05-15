@@ -29,3 +29,8 @@
 
 ## * CPU framegraphs 
 
+## * On-CPU profiling for node.js running in containter
+
+## * Nginx On-CPU profiling via stap
+
+## * Nginx Off-CPU profiling via stap
