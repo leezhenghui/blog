@@ -2545,6 +2545,7 @@ printf("set events %u, infd=%d\n", event.events, infd);
 [https:\/\/cnodejs.org\/topic\/4f16442ccae1f4aa270010a7](https://cnodejs.org/topic/4f16442ccae1f4aa270010a7)
 [https://www.lenky.info/archives/tag/aio](https://www.lenky.info/archives/tag/aio)
 
+
 #### Kernel AIO
 
 [http:\/\/ftp.dei.uc.pt\/pub\/linux\/kernel\/people\/suparna\/aio-linux.pdf](http://ftp.dei.uc.pt/pub/linux/kernel/people/suparna/aio-linux.pdf)
@@ -2555,6 +2556,10 @@ Native Linux AIO API \(libaio\)
 – io\_cancel
 [http:\/\/xinsuiyuer.github.io\/blog\/2014\/04\/17\/posix-aio-libaio-direct-io\/](http://xinsuiyuer.github.io/blog/2014/04/17/posix-aio-libaio-direct-io/)
 
+https://github.com/yjhjstz/deep-into-node/blob/master/chapter11/chapter11-4.md
+aio只能使用于常规的文件IO，不能使用于socket，管道等IO，但对于 libuv 的 fs 模块使用需求已经足够了。
+io_getevents在调用之后会阻塞直到有足够的事件发生，因此要实现真正的异步IO，需要借助eventfd和epoll达到目的。
+https://github.com/yjhjstz/libuv/commit/2748728635c4f74d6f27524fd36e680a88e4f04a
 
 #### Using eventfs to combine aio and epoll
 
@@ -3234,6 +3239,11 @@ Ryan's sample of "HelloWorld uv\_webserver"
 Node.js inernal implementation design:
 
 http://blog.libtorrent.org/2012/10/asynchronous-disk-io/
+
+https://github.com/yjhjstz/deep-into-node/blob/master/chapter11/chapter11-4.md
+aio只能使用于常规的文件IO，不能使用于socket，管道等IO，但对于 libuv 的 fs 模块使用需求已经足够了。
+io_getevents在调用之后会阻塞直到有足够的事件发生，因此要实现真正的异步IO，需要借助eventfd和epoll达到目的。
+https://github.com/yjhjstz/libuv/commit/2748728635c4f74d6f27524fd36e680a88e4f04a
 
 ##### How libuv and v8 work together:
 
