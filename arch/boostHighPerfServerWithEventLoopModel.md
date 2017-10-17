@@ -85,6 +85,8 @@ Contents Table:
 > > > > 3.5.1 Linux Kernal AIO
 > > > > 
 > > > > 3.5.2 POXIS AIO
+> > > > 
+> > > > 3.5.3 Libeio 
 > 
 > 4 Event-loop programming model
 > 
@@ -2763,6 +2765,16 @@ Windows seems to support this first class again via “I\/O Completion Ports”.
 [https:\/\/cnodejs.org\/topic\/4f16442ccae1f4aa270010a7](https://cnodejs.org/topic/4f16442ccae1f4aa270010a7)
 provide the proof of multiple threads are involved to simulate a noblocking behavior
 
+#### Libeio
+
+http://www.udpwork.com/item/8610.html
+
+其实linux下的AIO（异步IO）并不是没有解决方案：在用户态，多线程同步来模拟的异步IO，如Glibc 的AIO；以及在内核态实现异步通知，如linux内核2.6.22之后实现的Kernel Native AIO。但两者都存在让使用者望而祛步的问题。
+
+Glibc的AIO bug太多，而且IO发起者并不是最后的IO终结者（callback是在单独的线程执行的）；而kernel Native AIO只支持O_DIRECT方式，无法利用Page cache。
+
+正是由于上述原因，Marc Alexander Lehmann大佬决定自己开发一个AIO库，及libeio。
+
 ---
 
 ## Event Loop Programming Model\(The Bridge of From Reactor Pattern to Proactor pattern\)
@@ -2843,7 +2855,7 @@ as the last comment in above forum, the --with-aio_module is independent to --wi
 
 --with-file-aio is different than --with-aio_module, --with-aio_module is a event type like epoll, select, poll and kqueue, (深入理解Nginx模块开发与架构解析一书中, page 38, 这个aio module只能与FreeBSD上的kqueue上的事件处理机制结合使用, linux上无法使用)  --with-file-aio is the option for file read operation only, it is based on linux kernel aio and eventfd
 
-##### Uniify the AIO access on regular file into a a common event model
+##### Unify the AIO access on regular file into a a common event model
 
 eventfs + epoll + aio
 
@@ -3106,6 +3118,45 @@ Ryan's sample of "HelloWorld uv\_webserver" \(at the baby phase of uv, it is a s
 
 [http:\/\/blog.libtorrent.org\/2012\/10\/asynchronous-disk-io\/](http://blog.libtorrent.org/2012/10/asynchronous-disk-io/)
 
+[https://groups.google.com/forum/#!searchin/libuv/io_submit/libuv/vAJKp_pPrp8/aCbwK03ZjEAJ]
+
+aio(7) and io_submit(2) are two different things. 
+
+aio(7) is a POSIX standard for asynchronous file I/O and quite limited 
+in scope; it supports asynchronous reads, writes and fsync. 
+
+On Linux, it's implemented in glibc using a thread pool, if it's 
+implemented at all.  You can compile glibc without AIO support and in 
+that case the aio_*() functions are stubs that raise ENOSYS. 
+
+To make matters more confusing, there's also a libaio but that library 
+does _not_ implement the POSIX AIO functions.  It's a thin wrapper 
+around the kernel's native io_*() system calls.  libaio's raison 
+d'être is that glibc doesn't export wrappers for them. 
+
+io_submit() and friends have severe limitations.  They require direct 
+I/O (bad for read-heavy workloads) and have been buggy in the past: 
+kernel memory leaks, data races, silently falling back to synchronous 
+I/O, etc. 
+
+I have investigated (several times, actually) the feasibility of using 
+native AIO in libuv but I haven't been able to get to a point where I 
+was confident that I could make it would work reliably under all 
+circumstances. 
+
+If I were to try again, I would probably sniff the kernel version and 
+fall back to traditional thread pool-based AIO if the kernel is e.g. < 
+3.12 (exact version TBD).  However, embedded kernels are quite often 
+nothing like the mainline kernel so that might complicate matters. 
+
+It's going to require a fair amount of code and may involve chicanery 
+like whitelisting/blacklisting file paths based on what statfs() 
+returns.  The kernel's asynchronous I/O infrastructure is, in theory, 
+unified but, in practice, YMMV.  I'd initially restrict it to btrfs, 
+ext[34], XFS and maybe JFS and NFS. 
+
+Hope that answers your question, Andrius
+
 ##### Example of echo Tcp server
 
 [https:\/\/github.com\/saghul\/libuv-chat](https://github.com/saghul/libuv-chat)
@@ -3181,6 +3232,8 @@ How Node.js event loop execution, phased is based on libuv, libuv actually is ba
 Ryan's sample of "HelloWorld uv\_webserver"
 
 Node.js inernal implementation design:
+
+http://blog.libtorrent.org/2012/10/asynchronous-disk-io/
 
 ##### How libuv and v8 work together:
 
@@ -3443,3 +3496,6 @@ Introduce the web-server architectures, from connection-per-process, to connecti
 \[86\] [http:\/\/www.thegeekstuff.com\/2013\/11\/nginx-vs-apache\/?utm\_source=tuicool](http://www.thegeekstuff.com/2013/11/nginx-vs-apache/?utm_source=tuicool)
    nginx vs. apache
 
+\[87\] https://groups.google.com/forum/#!searchin/libuv/io_submit/libuv/vAJKp_pPrp8/aCbwK03ZjEAJ
+
+\[88\] http://www.udpwork.com/item/8610.html
