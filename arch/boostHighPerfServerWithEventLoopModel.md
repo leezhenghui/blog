@@ -3245,6 +3245,15 @@ aio只能使用于常规的文件IO，不能使用于socket，管道等IO，但�
 io_getevents在调用之后会阻塞直到有足够的事件发生，因此要实现真正的异步IO，需要借助eventfd和epoll达到目的。
 https://github.com/yjhjstz/libuv/commit/2748728635c4f74d6f27524fd36e680a88e4f04a
 
+http://tinyclouds.org/iocp-links.html 
+
+Unix non-blocking I/O is not beautiful. A principle abstraction in Unix is the unified treatment of many things as files (or more precisely as file descriptors). write(2), read(2), and close(2) work with TCP sockets just as they do on regular files. Well—kind of. Synchronous operations work similarly on different types of file descriptors but once demands on performance drive you to world of O_NONBLOCK various types of file descriptors can act quite different for even the most basic operations. In particular, regular file system files do not support non-blocking operations. (Disturbingly no man page mentions this rather important fact.) For example, one cannot poll on a regular file FD for readability expecting it to indicate when it is safe to do a non-blocking read. Regular file are always readable and read(2) calls always have the possibility of blocking the calling thread for an unknown amount of time.
+
+Marc Lehmann's libev and libeio. libev is the perfect minimal abstraction of the Unix I/O multiplexers. It includes several helpful tools like ev_async, which is for asynchronous notification, but the main piece is the ev_io, which informs the user about the state of file descriptors. As mentioned before, in general it is not possible to get state changes for regular files—and even if it were the write(2) and read(2) calls do not guarantee that they won't block. Therefore libeio is provided for calling various disk-related syscalls in a managed thread pool. Unfortunately the abstraction layer which libev targets is not appropriate for IOCPs—libev works strictly with file descriptors and does not the concept of a socket. Furthermore users on Unix will be using libeio for file I/O which is not ideal for porting to Windows. On windows libev currently uses select()—which is limited to 64 file descriptors per thread.
+
+Regular file
+In Unix file system files are not able to use non-blocking I/O. There are some operating systems that have asynchronous I/O but it is not standard and at least on Linux is done with pthreads in GNU libc. For this reason applications designed to be portable across different Unixes must manage a thread pool for issuing file I/O syscalls.
+
 ##### How libuv and v8 work together:
 
 https:\/\/www.processon.com\/view\/559518fbe4b038d3435603ea
@@ -3509,3 +3518,4 @@ Introduce the web-server architectures, from connection-per-process, to connecti
 \[87\] https://groups.google.com/forum/#!searchin/libuv/io_submit/libuv/vAJKp_pPrp8/aCbwK03ZjEAJ
 
 \[88\] http://www.udpwork.com/item/8610.html
+[89] http://tinyclouds.org/iocp-links.html 
