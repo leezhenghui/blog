@@ -2780,6 +2780,9 @@ Glibc的AIO bug太多，而且IO发起者并不是最后的IO终结者（callbac
 
 正是由于上述原因，Marc Alexander Lehmann大佬决定自己开发一个AIO库，及libeio。
 
+http://blog.csdn.net/lanyan822/article/details/7644745
+
+
 ---
 
 ## Event Loop Programming Model\(The Bridge of From Reactor Pattern to Proactor pattern\)
@@ -2939,6 +2942,8 @@ libevent中的信号集中处理是什么呢？ 我们知道, 信号总是来的
 ##### Example of Tcp echo server
 
 #### Libev
+
+http://oserror.com/backend/libev-analysis/
 
 ##### Overall Architecture
 
@@ -3519,3 +3524,5 @@ Introduce the web-server architectures, from connection-per-process, to connecti
 
 \[88\] http://www.udpwork.com/item/8610.html
 [89] http://tinyclouds.org/iocp-links.html 
+[90] http://oserror.com/backend/libev-analysis/  libev
+[91] http://blog.csdn.net/lanyan822/article/details/7644745 libeio
