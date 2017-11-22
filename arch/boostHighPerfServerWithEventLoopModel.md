@@ -2561,6 +2561,9 @@ aio只能使用于常规的文件IO，不能使用于socket，管道等IO，但�
 io_getevents在调用之后会阻塞直到有足够的事件发生，因此要实现真正的异步IO，需要借助eventfd和epoll达到目的。
 https://github.com/yjhjstz/libuv/commit/2748728635c4f74d6f27524fd36e680a88e4f04a
 
+http://www.wzxue.com/linux-kernel-aio%E8%BF%99%E4%B8%AA%E5%A5%87%E8%91%A9/
+epoll结合的问题: 如Linux kernel的eventfd这个新的API可以为epoll和AIO提供好的整合，这篇《linux异步IO编程实例分析》阐述了结合的方法。(还有signalfd和timerfd都是类似的场景使用)
+
 #### Using eventfs to combine aio and epoll
 
 pesuodo code
